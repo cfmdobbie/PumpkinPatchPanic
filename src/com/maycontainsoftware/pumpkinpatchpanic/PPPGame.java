@@ -26,7 +26,7 @@ public class PPPGame implements ApplicationListener {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
-		camera = new OrthographicCamera(1, h/w);
+		camera = new OrthographicCamera(w, h);
 		batch = new SpriteBatch();
 
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
@@ -35,7 +35,6 @@ public class PPPGame implements ApplicationListener {
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
 
 		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 	}
