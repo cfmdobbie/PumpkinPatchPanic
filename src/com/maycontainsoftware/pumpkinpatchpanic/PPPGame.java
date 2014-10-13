@@ -91,16 +91,17 @@ public class PPPGame extends Game {
 	@Override
 	public void render() {
 
+		// XXX: Temp test code for ad visibility control on Android platform
 		if(Gdx.input.isTouched()) {
 			adVisible = !adVisible;
 			Gdx.app.log(TAG, "adVisible: " + adVisible);
 			adVisibilityCallback.setAdVisible(adVisible);
 		}
 		
-		// Clear colour buffer to black
-		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Don't scissor this clear operation
 		Gdx.gl.glDisable(GL10.GL_SCISSOR_TEST);
+		// Clear colour buffer to black
+		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		// Update the camera
@@ -113,7 +114,8 @@ public class PPPGame extends Game {
 		Gdx.gl.glScissor((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
 
 		// Reset SpriteBatch color to white
-		batch.setColor(Color.WHITE);
+		// TODO: This appears to be unnecessary - to be confirmed
+		//batch.setColor(Color.WHITE);
 
 		// Render background
 		batch.begin();
