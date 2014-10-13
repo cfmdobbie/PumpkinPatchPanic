@@ -61,18 +61,18 @@ public class MainMenuScreen implements Screen {
 		hillside.setSize(640*2, 215*2);
 		stage.addActor(hillside);
 
-		// tree_left is 360x200
+		// tree_left is 180x360
 		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
-		treeLeft.setSize(400, 720);
-		treeLeft.setPosition(-400, 0);
+		treeLeft.setSize(180*2, 360*2);
+		treeLeft.setPosition(-180*2, 0);
 		treeLeft.addAction(Actions.moveTo(0, 0, 0.5f));
 		stage.addActor(treeLeft);
 
-		// tree_right is 360x200
+		// tree_right is 270x360
 		final Image treeRight = new Image(atlas.findRegion("tree_right"));
-		treeRight.setSize(400, 720);
+		treeRight.setSize(270*2, 360*2);
 		treeRight.setPosition(1280, 0);
-		treeRight.addAction(Actions.moveTo(1280 - 400, 0, 0.5f));
+		treeRight.addAction(Actions.moveTo(1280 - 270*2, 0, 0.5f));
 		stage.addActor(treeRight);
 
 		// Leaf litter
@@ -81,6 +81,7 @@ public class MainMenuScreen implements Screen {
 			final int x = MathUtils.random(100, (1280 - 200));
 			final int y = MathUtils.random(50, 250);
 			leafLitter.setPosition(x, y);
+			leafLitter.setRotation(MathUtils.random(360.0f));
 			// TODO: Z-index is not a Z-index, just an index into the array of Actors in the Group. Need a to manage
 			// z-indexing manually? Or easier to avoid the problem?
 			// leafLitter.setZIndex(y);
