@@ -53,7 +53,7 @@ public class MainMenuScreen implements Screen {
 		moon.setPosition(-50, -50);
 		moon.setOrigin(50 + 1280 / 2, 50);
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
-		moon.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.rotateBy(-360, 10.0f)));
+		moon.addAction(Actions.forever(Actions.rotateBy(-360, 10.0f)));
 		stage.addActor(moon);
 
 		// Hillside is 640x215
