@@ -23,8 +23,6 @@ public class MainMenuScreen implements Screen {
 	/** This Screen's Stage. */
 	private Stage stage;
 
-	TextureAtlas atlas;
-
 	public MainMenuScreen(final PPPGame game) {
 		this.game = game;
 	}
@@ -36,19 +34,14 @@ public class MainMenuScreen implements Screen {
 		}
 
 		// Load the atlas for this screen
-		atlas = game.manager.get("main_menu.atlas", TextureAtlas.class);
+		// XXX: Currently using a single atlas for this screen. Don't know if this will continue to be viable
+		TextureAtlas atlas = game.manager.get("main_menu.atlas", TextureAtlas.class);
 
 		// Create the Stage
 		stage = game.createStage();
 
-		// Table to lay out components
-		// final Table table = new Table();
-		// table.setFillParent(true);
-		// table.defaults().pad(5.0f);
-		// stage.addActor(table);
-
-		// Blue gradient background
-		// table.setBackground(new TextureRegionDrawable(atlas.findRegion("sky")));
+		// Note: Not using a Table on this Stage as we (a) have lots of overlapping widgets and (b) have a fixed-size
+		// screen so performing a manual layout isn't too much trouble.
 
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(1280, 720);
@@ -85,32 +78,30 @@ public class MainMenuScreen implements Screen {
 			final int x = MathUtils.random(100, (1280 - 200));
 			final int y = MathUtils.random(50, 300);
 			leafLitter.setPosition(x, y);
-			//leafLitter.setZIndex(y);
+			// TODO: Z-index is not a Z-index, just an index into the array of Actors in the Group. Need a to manage
+			// z-indexing manually? Or easier to avoid the problem?
+			// leafLitter.setZIndex(y);
 			stage.addActor(leafLitter);
 		}
-		
+
 		final Image help = new Image(atlas.findRegion("help"));
 		help.setSize(150, 150);
 		help.setPosition(1280 / 2 - 300 - 150 / 2, 150);
-		//help.setZIndex(50);
 		stage.addActor(help);
-		
+
 		final Image play = new Image(atlas.findRegion("play"));
 		play.setSize(200, 200);
 		play.setPosition(1280 / 2 - 200 / 2, 100);
-		//play.setZIndex(50);
 		stage.addActor(play);
-		
+
 		final Image settings = new Image(atlas.findRegion("settings"));
 		settings.setSize(150, 150);
 		settings.setPosition(1280 / 2 + 300 - 150 / 2, 150);
-		//settings.setZIndex(50);
 		stage.addActor(settings);
 	}
 
 	@Override
 	public void render(final float delta) {
-
 		// Update and render the Stage
 		stage.act();
 		stage.draw();
