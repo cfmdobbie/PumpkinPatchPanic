@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class MainMenuScreen implements Screen {
@@ -102,6 +101,30 @@ public class MainMenuScreen implements Screen {
 		settings.setSize(150, 150);
 		settings.setPosition(1280 / 2 + 300 - 150 / 2, 150);
 		stage.addActor(settings);
+
+		// XXX: Need to run some frame animations - how best to do this?
+		// atlas.findRegions("help"); // Array<AtlasRegion>
+		// new Animation(frameDuration, keyFrames); // keyFrames is Array<...>
+
+		// XXX: Test pumpkin code
+		final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
+		// Base pumpkin
+		final Image pumpkin = new Image(pumpkins.findRegion("pumpkin"));
+		stage.addActor(pumpkin);
+		// Pumpkin face
+		final Image lou = new Image(pumpkins.findRegion("lou"));
+		// Some effects can be gained by changing batch color
+		// However, better effects by changing levels on each graphic in The Gimp
+		// How many frames would be required is to be decided, might influence decision
+		lou.setColor(1.0f, 0.5f, 0.5f, 0.5f);
+		stage.addActor(lou);
+
+		// These pumpkin graphics are "workable", but don't fit with a pumpkin on the vine nor are easily sized to show
+		// growth. So, either need lots more graphical work, or change idea behind game slightly to accommodate.
+
+		// Face graphics can all be dropped to 168x124 or so, which is a significant saving on texture memory at the
+		// cost of some more involved positioning. Ultimately want to animate pumpkin and face together (shake, rotate),
+		// which may influence decision.
 	}
 
 	@Override
