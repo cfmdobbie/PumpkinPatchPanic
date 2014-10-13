@@ -45,8 +45,8 @@ public class MainMenuScreen implements Screen {
 
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
-		sky.setSize(640*2, 201*2);
-		sky.setY(720-201*2);
+		sky.setSize(640 * 2, 201 * 2);
+		sky.setY(720 - 201 * 2);
 		stage.addActor(sky);
 
 		final Image moon = new Image(atlas.findRegion("moon"));
@@ -58,21 +58,21 @@ public class MainMenuScreen implements Screen {
 
 		// Hillside is 640x215
 		final Image hillside = new Image(atlas.findRegion("hillside"));
-		hillside.setSize(640*2, 215*2);
+		hillside.setSize(640 * 2, 215 * 2);
 		stage.addActor(hillside);
 
 		// tree_left is 180x360
 		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
-		treeLeft.setSize(180*2, 360*2);
-		treeLeft.setPosition(-180*2, 0);
+		treeLeft.setSize(180 * 2, 360 * 2);
+		treeLeft.setPosition(-180 * 2, 0);
 		treeLeft.addAction(Actions.moveTo(0, 0, 0.5f));
 		stage.addActor(treeLeft);
 
 		// tree_right is 270x360
 		final Image treeRight = new Image(atlas.findRegion("tree_right"));
-		treeRight.setSize(270*2, 360*2);
+		treeRight.setSize(270 * 2, 360 * 2);
 		treeRight.setPosition(1280, 0);
-		treeRight.addAction(Actions.moveTo(1280 - 270*2, 0, 0.5f));
+		treeRight.addAction(Actions.moveTo(1280 - 270 * 2, 0, 0.5f));
 		stage.addActor(treeRight);
 
 		// Leaf litter
