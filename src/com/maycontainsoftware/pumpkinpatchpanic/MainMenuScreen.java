@@ -43,8 +43,10 @@ public class MainMenuScreen implements Screen {
 		// Note: Not using a Table on this Stage as we (a) have lots of overlapping widgets and (b) have a fixed-size
 		// screen so performing a manual layout isn't too much trouble.
 
+		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
-		sky.setSize(1280, 720);
+		sky.setSize(640*2, 201*2);
+		sky.setY(720-201*2);
 		stage.addActor(sky);
 
 		final Image moon = new Image(atlas.findRegion("moon"));
