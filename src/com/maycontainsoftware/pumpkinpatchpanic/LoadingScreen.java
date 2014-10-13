@@ -71,12 +71,22 @@ public class LoadingScreen implements Screen {
 		table.add(new LoadingBar(game.manager, loadingAtlas.findRegion("loading_bar_bg"), loadingAtlas.findRegion("loading_bar_fg")));
 
 		// Load assets in AssetManager
+		
 		// Texture atlases
-		//game.manager.load("simple.atlas", TextureAtlas.class);
+		game.manager.load("main_menu.atlas", TextureAtlas.class);
+		// TODO: Atlases
+		
 		// Fonts
+		// TODO: Fonts
 		//game.manager.load("arcena32.fnt", BitmapFont.class);
+		
 		// Sound effects
+		// TODO: Sound effects
 		//game.manager.load("lose.mp3", Sound.class);
+		
+		// Music
+		// TODO: Music
+		
 		// UI skin
 		//game.manager.load("uiskin.json", Skin.class);
 	}
@@ -99,8 +109,8 @@ public class LoadingScreen implements Screen {
 			// game.skin = game.manager.get("uiskin.json", Skin.class);
 			// game.uiAtlas = game.manager.get("ui.atlas");
 			
-			// XXX: Next screen?
-			game.setScreen(null);
+			// Open main menu
+			game.setScreen(new MainMenuScreen(game));
 			this.dispose();
 		}
 	}

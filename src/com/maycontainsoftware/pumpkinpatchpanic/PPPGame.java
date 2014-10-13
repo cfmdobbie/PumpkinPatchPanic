@@ -118,17 +118,15 @@ public class PPPGame extends Game {
 		//batch.setColor(Color.WHITE);
 
 		// Render background
-		batch.begin();
-		batch.draw(atlas.findRegion("bg"), 0, 0, 1280, 720);
-		batch.draw(atlas.findRegion("tree_left"), 0, 0, 160 * 720.0f / 300, 720); // 160x300
-		batch.draw(atlas.findRegion("tree_right"), 1280 - 210 * 720.0f / 300, 0, 210 * 720.0f / 300, 720); // 210x300
-		
-		batch.draw(atlas.findRegion("pumpkin"), 200, 100, 200, 160);
-		batch.draw(atlas.findRegion("pumpkin"), 500, 200, 200, 160);
-		batch.draw(atlas.findRegion("pumpkin_evil"), 800, 100, 200, 160);
-		batch.draw(atlas.findRegion("moon"), 1280 / 2 - 100 / 2, 600);
-		
-		batch.end();
+//		batch.begin();
+//		batch.draw(atlas.findRegion("bg"), 0, 0, 1280, 720);
+//		batch.draw(atlas.findRegion("tree_left"), 0, 0, 160 * 720.0f / 300, 720); // 160x300
+//		batch.draw(atlas.findRegion("tree_right"), 1280 - 210 * 720.0f / 300, 0, 210 * 720.0f / 300, 720); // 210x300
+//		batch.draw(atlas.findRegion("pumpkin"), 200, 100, 200, 160);
+//		batch.draw(atlas.findRegion("pumpkin"), 500, 200, 200, 160);
+//		batch.draw(atlas.findRegion("pumpkin_evil"), 800, 100, 200, 160);
+//		batch.draw(atlas.findRegion("moon"), 1280 / 2 - 100 / 2, 600);
+//		batch.end();
 
 		// Pass render() call to active Screen
 		super.render();
