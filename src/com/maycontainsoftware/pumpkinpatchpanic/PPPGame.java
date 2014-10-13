@@ -10,10 +10,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class PPPGame extends Game {
-	
+
 	/** Whether debug output should be logged. */
 	private static final boolean DEBUG = false;
 
@@ -45,14 +46,12 @@ public class PPPGame extends Game {
 
 	/** The asset manager used by the loading screen to load all assets not directly required by the loading screen. */
 	AssetManager manager;
-	
+
 	/** The Scene2D UI skin instance. */
 	Skin skin;
 
-	
 	private final IAdVisibilityCallback adVisibilityCallback;
 	private TextureAtlas atlas;
-	
 
 	// Preferences
 
@@ -61,16 +60,15 @@ public class PPPGame extends Game {
 
 	/** Preferences file. */
 	Preferences mPrefs;
-	
+
 	public PPPGame(IAdVisibilityCallback adVisibilityCallback) {
 		this.adVisibilityCallback = adVisibilityCallback;
 	}
 
 	@Override
 	public void create() {
-		
+
 		atlas = new TextureAtlas(Gdx.files.internal("atlas.atlas"));
-		
 
 		// Set up SpriteBatch
 		batch = new SpriteBatch();
@@ -85,7 +83,6 @@ public class PPPGame extends Game {
 		// Get reference to preferences file
 		mPrefs = Gdx.app.getPreferences(PREFERENCES_NAME);
 
-
 		//texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		//texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -94,6 +91,8 @@ public class PPPGame extends Game {
 		//sprite = new Sprite(region);
 		//sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		//sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+
+		this.setScreen(new LoadingScreen(this));
 	}
 
 	private boolean adVisible = true;
@@ -175,7 +174,15 @@ public class PPPGame extends Game {
 	public void dispose() {
 		batch.dispose();
 		atlas.dispose();
-		
+
 		super.dispose();
+	}
+
+	public final void updateViewport(final Stage stage) {
+		stage.setViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, viewport.x, viewport.y, viewport.width, viewport.height);
+	}
+
+	public final Stage createStage() {
+		return new Stage(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, batch);
 	}
 }
