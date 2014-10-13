@@ -54,8 +54,9 @@ public class MainMenuScreen implements Screen {
 		moon.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.rotateBy(-360, 10.0f)));
 		stage.addActor(moon);
 
+		// Hillside is 640x215
 		final Image hillside = new Image(atlas.findRegion("hillside"));
-		hillside.setSize(1280, 720);
+		hillside.setSize(640*2, 215*2);
 		stage.addActor(hillside);
 
 		// tree_left is 360x200
@@ -76,7 +77,7 @@ public class MainMenuScreen implements Screen {
 		for (int i = 0; i < 100; i++) {
 			final Image leafLitter = new Image(atlas.findRegion("leaf_litter"));
 			final int x = MathUtils.random(100, (1280 - 200));
-			final int y = MathUtils.random(50, 300);
+			final int y = MathUtils.random(50, 250);
 			leafLitter.setPosition(x, y);
 			// TODO: Z-index is not a Z-index, just an index into the array of Actors in the Group. Need a to manage
 			// z-indexing manually? Or easier to avoid the problem?
