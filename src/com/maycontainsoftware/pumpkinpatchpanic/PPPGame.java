@@ -1,6 +1,5 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -102,6 +101,12 @@ public class PPPGame extends Game {
 	@Override
 	public void render() {
 
+		if(Gdx.input.isTouched()) {
+			adVisible = !adVisible;
+			Gdx.app.log(TAG, "adVisible: " + adVisible);
+			adVisibilityCallback.setAdVisible(adVisible);
+		}
+		
 		// Clear colour buffer to black
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Don't scissor this clear operation
@@ -125,21 +130,20 @@ public class PPPGame extends Game {
 		batch.draw(atlas.findRegion("bg"), 0, 0, 1280, 720);
 		batch.draw(atlas.findRegion("tree_left"), 0, 0, 160 * 720.0f / 300, 720); // 160x300
 		batch.draw(atlas.findRegion("tree_right"), 1280 - 210 * 720.0f / 300, 0, 210 * 720.0f / 300, 720); // 210x300
+		
+		batch.draw(atlas.findRegion("pumpkin"), 200, 100, 200, 160);
+		batch.draw(atlas.findRegion("pumpkin"), 500, 200, 200, 160);
+		batch.draw(atlas.findRegion("pumpkin_evil"), 800, 100, 200, 160);
+		batch.draw(atlas.findRegion("moon"), 1280 / 2 - 100 / 2, 600);
+		
 		batch.end();
 
 		// Pass render() call to active Screen
 		super.render();
-
-		/*
-		if(Gdx.input.isTouched()) {
-			adVisible = !adVisible;
-			adVisibilityCallback.setAdVisible(adVisible);
-		}
-		*/
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(final int width, final int height) {
 
 		if (DEBUG) {
 			Gdx.app.log(TAG, "resize(" + width + ", " + height + ")");
