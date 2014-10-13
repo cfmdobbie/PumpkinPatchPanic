@@ -83,15 +83,6 @@ public class PPPGame extends Game {
 		// Get reference to preferences file
 		mPrefs = Gdx.app.getPreferences(PREFERENCES_NAME);
 
-		//texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		//texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
-		//TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-
-		//sprite = new Sprite(region);
-		//sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		//sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-
 		this.setScreen(new LoadingScreen(this));
 	}
 
