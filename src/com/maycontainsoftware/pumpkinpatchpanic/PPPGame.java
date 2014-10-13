@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -92,12 +91,12 @@ public class PPPGame extends Game {
 	public void render() {
 
 		// XXX: Temp test code for ad visibility control on Android platform
-		if(Gdx.input.isTouched()) {
+		if (Gdx.input.isTouched()) {
 			adVisible = !adVisible;
 			Gdx.app.log(TAG, "adVisible: " + adVisible);
 			adVisibilityCallback.setAdVisible(adVisible);
 		}
-		
+
 		// Don't scissor this clear operation
 		Gdx.gl.glDisable(GL10.GL_SCISSOR_TEST);
 		// Clear colour buffer to black
@@ -115,18 +114,7 @@ public class PPPGame extends Game {
 
 		// Reset SpriteBatch color to white
 		// TODO: This appears to be unnecessary - to be confirmed
-		//batch.setColor(Color.WHITE);
-
-		// Render background
-//		batch.begin();
-//		batch.draw(atlas.findRegion("bg"), 0, 0, 1280, 720);
-//		batch.draw(atlas.findRegion("tree_left"), 0, 0, 160 * 720.0f / 300, 720); // 160x300
-//		batch.draw(atlas.findRegion("tree_right"), 1280 - 210 * 720.0f / 300, 0, 210 * 720.0f / 300, 720); // 210x300
-//		batch.draw(atlas.findRegion("pumpkin"), 200, 100, 200, 160);
-//		batch.draw(atlas.findRegion("pumpkin"), 500, 200, 200, 160);
-//		batch.draw(atlas.findRegion("pumpkin_evil"), 800, 100, 200, 160);
-//		batch.draw(atlas.findRegion("moon"), 1280 / 2 - 100 / 2, 600);
-//		batch.end();
+		// batch.setColor(Color.WHITE);
 
 		// Pass render() call to active Screen
 		super.render();
