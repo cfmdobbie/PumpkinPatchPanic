@@ -52,27 +52,13 @@ public class MainMenuScreen implements Screen {
 		moon.setPosition(-50, -50);
 		moon.setOrigin(50 + 1280 / 2, 50);
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
-		moon.addAction(Actions.forever(Actions.rotateBy(-360, 10.0f)));
+		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
 
-		// Hillside is 640x215
+		// Hillside is 640x257
 		final Image hillside = new Image(atlas.findRegion("hillside"));
-		hillside.setSize(640 * 2, 215 * 2);
+		hillside.setSize(640 * 2, 257 * 2);
 		stage.addActor(hillside);
-
-		// tree_left is 180x360
-		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
-		treeLeft.setSize(180 * 2, 360 * 2);
-		treeLeft.setPosition(-180 * 2, 0);
-		treeLeft.addAction(Actions.moveTo(0, 0, 0.5f));
-		stage.addActor(treeLeft);
-
-		// tree_right is 270x360
-		final Image treeRight = new Image(atlas.findRegion("tree_right"));
-		treeRight.setSize(270 * 2, 360 * 2);
-		treeRight.setPosition(1280, 0);
-		treeRight.addAction(Actions.moveTo(1280 - 270 * 2, 0, 0.5f));
-		stage.addActor(treeRight);
 
 		// Leaf litter
 		for (int i = 0; i < 100; i++) {
@@ -102,22 +88,37 @@ public class MainMenuScreen implements Screen {
 		settings.setPosition(1280 / 2 + 300 - 150 / 2, 150);
 		stage.addActor(settings);
 
+		// tree_left is 249x360
+		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
+		treeLeft.setSize(249 * 2, 360 * 2);
+		treeLeft.setPosition(-249 * 2, 0);
+		treeLeft.addAction(Actions.moveTo(0, 0, 0.5f));
+		stage.addActor(treeLeft);
+
+		// tree_right is 249x360
+		final Image treeRight = new Image(atlas.findRegion("tree_right"));
+		treeRight.setSize(249 * 2, 360 * 2);
+		treeRight.setPosition(1280, 0);
+		treeRight.addAction(Actions.moveTo(1280 - 249 * 2, 0, 0.5f));
+		stage.addActor(treeRight);
+
 		// XXX: Need to run some frame animations - how best to do this?
 		// atlas.findRegions("help"); // Array<AtlasRegion>
 		// new Animation(frameDuration, keyFrames); // keyFrames is Array<...>
 
+		
 		// XXX: Test pumpkin code
-		final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
+//		final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
 		// Base pumpkin
-		final Image pumpkin = new Image(pumpkins.findRegion("pumpkin"));
-		stage.addActor(pumpkin);
+//		final Image pumpkin = new Image(pumpkins.findRegion("pumpkin"));
+//		stage.addActor(pumpkin);
 		// Pumpkin face
-		final Image lou = new Image(pumpkins.findRegion("lou"));
+//		final Image lou = new Image(pumpkins.findRegion("lou"));
 		// Some effects can be gained by changing batch color
 		// However, better effects by changing levels on each graphic in The Gimp
 		// How many frames would be required is to be decided, might influence decision
-		lou.setColor(1.0f, 0.5f, 0.5f, 0.5f);
-		stage.addActor(lou);
+//		lou.setColor(1.0f, 0.5f, 0.5f, 0.5f);
+//		stage.addActor(lou);
 
 		// These pumpkin graphics are "workable", but don't fit with a pumpkin on the vine nor are easily sized to show
 		// growth. So, either need lots more graphical work, or change idea behind game slightly to accommodate.
