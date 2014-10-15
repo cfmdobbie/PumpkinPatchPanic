@@ -55,9 +55,9 @@ public class MainMenuScreen implements Screen {
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
 
-		// Hillside is 640x257
+		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
-		hillside.setSize(640 * 2, 257 * 2);
+		hillside.setSize(640 * 2, 225 * 2);
 		stage.addActor(hillside);
 
 		// Leaf litter
