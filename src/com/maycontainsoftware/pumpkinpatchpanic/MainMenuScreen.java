@@ -88,18 +88,18 @@ public class MainMenuScreen implements Screen {
 		settings.setPosition(1280 / 2 + 300 - 150 / 2, 150);
 		stage.addActor(settings);
 
-		// tree_left is 249x360
+		// tree_left is 238x360
 		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
-		treeLeft.setSize(249 * 2, 360 * 2);
-		treeLeft.setPosition(-249 * 2, 0);
+		treeLeft.setSize(238 * 2, 360 * 2);
+		treeLeft.setPosition(-238 * 2, 0);
 		treeLeft.addAction(Actions.moveTo(0, 0, 0.5f));
 		stage.addActor(treeLeft);
 
-		// tree_right is 249x360
+		// tree_right is 203x360
 		final Image treeRight = new Image(atlas.findRegion("tree_right"));
-		treeRight.setSize(249 * 2, 360 * 2);
+		treeRight.setSize(203 * 2, 360 * 2);
 		treeRight.setPosition(1280, 0);
-		treeRight.addAction(Actions.moveTo(1280 - 249 * 2, 0, 0.5f));
+		treeRight.addAction(Actions.moveTo(1280 - 203 * 2, 0, 0.5f));
 		stage.addActor(treeRight);
 
 		// XXX: Need to run some frame animations - how best to do this?
