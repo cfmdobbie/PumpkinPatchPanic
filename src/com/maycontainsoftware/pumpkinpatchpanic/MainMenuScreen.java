@@ -60,19 +60,6 @@ public class MainMenuScreen implements Screen {
 		hillside.setSize(640 * 2, 225 * 2);
 		stage.addActor(hillside);
 
-		// Leaf litter
-		for (int i = 0; i < 100; i++) {
-			final Image leafLitter = new Image(atlas.findRegion("leaf_litter"));
-			final int x = MathUtils.random(100, (1280 - 200));
-			final int y = MathUtils.random(50, 250);
-			leafLitter.setPosition(x, y);
-			leafLitter.setRotation(MathUtils.random(360.0f));
-			// TODO: Z-index is not a Z-index, just an index into the array of Actors in the Group. Need a to manage
-			// z-indexing manually? Or easier to avoid the problem?
-			// leafLitter.setZIndex(y);
-			stage.addActor(leafLitter);
-		}
-
 		// Help button is 230x150
 		final Image help = new Image(atlas.findRegion("btn_help"));
 		help.setSize(230, 150);
