@@ -125,10 +125,6 @@ public class MainMenuScreen implements Screen {
 		owl.addAction(Actions.moveTo(944, 504, 0.5f));
 		stage.addActor(owl);
 
-		// XXX: Need to run some frame animations - how best to do this?
-		// atlas.findRegions("help"); // Array<AtlasRegion>
-		// new Animation(frameDuration, keyFrames); // keyFrames is Array<...>
-
 		// XXX: Test pumpkin code
 		// final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
 		// Base pumpkin
