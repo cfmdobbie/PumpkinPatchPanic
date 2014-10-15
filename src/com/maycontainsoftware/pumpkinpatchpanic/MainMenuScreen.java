@@ -96,9 +96,9 @@ public class MainMenuScreen implements Screen {
 
 		// owl is 60x100
 		final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
-		final Animation owlAnimation = new Animation(0.5f, owlFrames);
+		final Animation owlAnimation = new Animation(2.0f, owlFrames, Animation.LOOP);
 		// TODO: Animation code
-		final Image owl = new Image(atlas.findRegion("owl"));
+		final AnimatedActor owl = new AnimatedActor(owlAnimation);
 		owl.setPosition(944 + 203 * 2, 504);
 		owl.addAction(Actions.moveTo(944, 504, 0.5f));
 		stage.addActor(owl);
