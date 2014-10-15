@@ -2,12 +2,13 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 
 public class MainMenuScreen implements Screen {
 
@@ -94,6 +95,9 @@ public class MainMenuScreen implements Screen {
 		stage.addActor(treeRight);
 		
 		// owl is 60x100
+		final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
+		final Animation owlAnimation = new Animation(0.5f, owlFrames);
+		// TODO: Animation code
 		final Image owl = new Image(atlas.findRegion("owl"));
 		owl.setPosition(944, 504);
 		owl.setColor(1.0f, 1.0f, 1.0f, 0.0f);
