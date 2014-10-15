@@ -3,6 +3,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -50,6 +51,7 @@ public class LoadingScreen implements Screen {
 		game.manager.load("loading.atlas", TextureAtlas.class);
 		game.manager.finishLoading();
 		TextureAtlas loadingAtlas = game.manager.get("loading.atlas", TextureAtlas.class);
+		
 
 		// Create the Stage
 		stage = game.createStage();
@@ -76,6 +78,12 @@ public class LoadingScreen implements Screen {
 		game.manager.load("main_menu.atlas", TextureAtlas.class);
 		game.manager.load("pumpkins.atlas", TextureAtlas.class);
 		// TODO: Atlases
+		
+		// Textures
+		game.manager.load("help_panel_1.png", Texture.class);
+		game.manager.load("help_panel_2.png", Texture.class);
+		game.manager.load("help_panel_3.png", Texture.class);
+		game.manager.load("help_panel_4.png", Texture.class);
 		
 		// Fonts
 		// TODO: Fonts
