@@ -2,3 +2,60 @@ Pumpkin Patch Panic, a LibGDX game by Charlie Dobbie for maycontainsoftware.com
 
 Graphic asset and sound/music attribution to be confirmed.
 
+Concept
+=======
+
+A whack-a-mole style game with a Hallowe'en theme.  Night-time in a small patch
+of pumpkins, the pumpkins are being possessed by evil spirits.  The player has
+to tap the pumpkins only when they are possessed - tapping too early will
+destroy the pumpkin and tapping too late will allow the spirit to escape.  The
+player has three lives, and loses a life whenever a pumpkin is destroyed or a
+spirit escapes.  A new life is granted every five(?) levels, to a maximum of
+five.  Surviving a round just leads to the next round, where difficulty
+increases in the form of faster possession and less time before the spirit
+escapes.
+
+Screen Layout
+=============
+
+Graphically, most of the scene is static with notable exceptions of the moon
+(drifts left-to-right as the round progresses) an owl (occasionally ruffles
+feathers, fidgets or blinks) and clouds (drift slowly right-to-left).  Pumpkins
+shake slightly when being possessed and violently when the spirit is trying to
+escape.
+
+Some status information exists: most screens include the current best score (in
+the form of levels/rounds completed) in the top-middle of the screen, the game
+screen additionally includes a lives display in the top-left and the time left
+in this round in the top-right.
+
+Screens
+=======
+
+There are four different screens, namely:
+
+* Main menu - provides access to the settings and help screens, also for
+  starting the game.
+* Help - a small number (4?) of help screens the player can flip through that
+  describe how to play the game.
+* Settings - a number of game options, including sound on/off, music on/off and
+  resetting the top score.
+* Game - the running game.
+
+Data Model
+==========
+
+To reduce duplication, a structure should exist to render the common elements of
+each screen - the sky, hillside, trees, owl, clouds and moon, although the moon
+must be controllable from the screen as it has special significance in the game
+screen.
+
+Advertising
+===========
+
+The game is designed to be monetised via Google AdMob.  A single advert banner
+should exist overlaid on the OpenGL canvas at bottom-middle of the screen.
+Advertising will only appear on the main menu (not during game or on any other
+menus.)
+
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
