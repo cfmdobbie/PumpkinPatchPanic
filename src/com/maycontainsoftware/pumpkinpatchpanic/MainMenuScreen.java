@@ -2,6 +2,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -91,6 +92,13 @@ public class MainMenuScreen implements Screen {
 		treeRight.setPosition(1280, 0);
 		treeRight.addAction(Actions.moveTo(1280 - 203 * 2, 0, 0.5f));
 		stage.addActor(treeRight);
+		
+		// owl is 60x100
+		final Image owl = new Image(atlas.findRegion("owl"));
+		owl.setPosition(944, 504);
+		owl.setColor(1.0f, 1.0f, 1.0f, 0.0f);
+		owl.addAction(Actions.sequence(Actions.delay(0.5f), Actions.fadeIn(0.25f)));
+		stage.addActor(owl);
 
 		// XXX: Need to run some frame animations - how best to do this?
 		// atlas.findRegions("help"); // Array<AtlasRegion>
