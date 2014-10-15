@@ -38,7 +38,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(helpPlant);
 		
 		// Help button is 230x150
-		final Button help = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")), new TextureRegionDrawable(atlas.findRegion("btn_settings")));
+		final Button help = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")));
 		help.setPosition(1280 / 2 - 300 - 230 / 2, 150);
 		help.addListener(new ChangeListener() {
 			@Override
