@@ -49,8 +49,8 @@ public class MainMenuScreen implements Screen {
 		stage.addActor(sky);
 
 		final Image moon = new Image(atlas.findRegion("moon"));
-		moon.setPosition(-50, -50);
-		moon.setOrigin(50 + 1280 / 2, 50);
+		moon.setPosition(-110 / 2, -110 / 2);
+		moon.setOrigin(110 / 2 + 1280 / 2, 110 / 2);
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
