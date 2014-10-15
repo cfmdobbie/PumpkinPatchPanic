@@ -63,20 +63,32 @@ public class MainMenuScreen implements Screen {
 		stage.addActor(hillside);
 
 		// Help button is 230x150
+		final Image helpPlant = new Image(atlas.findRegion("plant"));
+		helpPlant.setPosition(1280 / 2 - 300 - 230 / 2 - 33, 150 - 43);
+		stage.addActor(helpPlant);
+		
+		// Help button is 230x150
 		final Image help = new Image(atlas.findRegion("btn_help"));
-		help.setSize(230, 150);
 		help.setPosition(1280 / 2 - 300 - 230 / 2, 150);
 		stage.addActor(help);
 
+		// Help button is 230x150
+		final Image playPlant = new Image(atlas.findRegion("plant"));
+		playPlant.setPosition(1280 / 2 - 230 / 2 - 33, 150 - 43);
+		stage.addActor(playPlant);
+		
 		// Play button is 230x150
 		final Image play = new Image(atlas.findRegion("btn_play"));
-		play.setSize(230, 150);
 		play.setPosition(1280 / 2 - 230 / 2, 150);
 		stage.addActor(play);
 
+		// Help button is 230x150
+		final Image settingsPlant = new Image(atlas.findRegion("plant"));
+		settingsPlant.setPosition(1280 / 2 + 300 - 230 / 2 - 33, 150 - 43);
+		stage.addActor(settingsPlant);
+		
 		// Settings button is 230x150
 		final Image settings = new Image(atlas.findRegion("btn_settings"));
-		settings.setSize(230, 150);
 		settings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
 		stage.addActor(settings);
 
