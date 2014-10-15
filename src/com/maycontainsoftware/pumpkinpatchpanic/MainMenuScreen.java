@@ -56,7 +56,17 @@ public class MainMenuScreen implements Screen {
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
-
+		
+		// CloudA is 360x108
+		final Image cloudA = new Image(atlas.findRegion("cloud_a"));
+		cloudA.setPosition(250, 500);
+		stage.addActor(cloudA);
+		
+		// CloudB is 360x120
+		final Image cloudB = new Image(atlas.findRegion("cloud_b"));
+		cloudB.setPosition(900, 560);
+		stage.addActor(cloudB);
+		
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
 		hillside.setSize(640 * 2, 225 * 2);
