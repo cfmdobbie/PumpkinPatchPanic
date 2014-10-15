@@ -41,7 +41,7 @@ public class PumpkinScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		// Load the atlas
-		final TextureAtlas atlas = game.manager.get("main_menu.atlas", TextureAtlas.class);
+		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 		
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));

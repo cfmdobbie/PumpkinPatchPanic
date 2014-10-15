@@ -29,7 +29,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		super.show();
 
 		// Load the atlas
-		final TextureAtlas atlas = game.manager.get("main_menu.atlas", TextureAtlas.class);
+		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
 		// Buttons
 		

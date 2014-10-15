@@ -75,7 +75,7 @@ public class LoadingScreen implements Screen {
 		// Load assets in AssetManager
 		
 		// Texture atlases
-		game.manager.load("main_menu.atlas", TextureAtlas.class);
+		game.manager.load("atlas.atlas", TextureAtlas.class);
 		game.manager.load("pumpkins.atlas", TextureAtlas.class);
 		// TODO: Atlases
 		

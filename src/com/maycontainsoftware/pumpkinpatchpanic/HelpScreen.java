@@ -36,7 +36,7 @@ public class HelpScreen extends PumpkinScreen {
 		super.show();
 
 		// Load the atlas
-		final TextureAtlas atlas = game.manager.get("main_menu.atlas", TextureAtlas.class);
+		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 		
 		// Get reference to all extra textures required outside of the atlas
 		helpPanels = new Drawable[] {
