@@ -99,9 +99,8 @@ public class MainMenuScreen implements Screen {
 		final Animation owlAnimation = new Animation(0.5f, owlFrames);
 		// TODO: Animation code
 		final Image owl = new Image(atlas.findRegion("owl"));
-		owl.setPosition(944, 504);
-		owl.setColor(1.0f, 1.0f, 1.0f, 0.0f);
-		owl.addAction(Actions.sequence(Actions.delay(0.5f), Actions.fadeIn(0.25f)));
+		owl.setPosition(944 + 203 * 2, 504);
+		owl.addAction(Actions.moveTo(944, 504, 0.5f));
 		stage.addActor(owl);
 
 		// XXX: Need to run some frame animations - how best to do this?
