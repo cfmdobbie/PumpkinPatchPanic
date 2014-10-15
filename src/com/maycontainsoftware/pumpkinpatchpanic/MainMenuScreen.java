@@ -73,19 +73,22 @@ public class MainMenuScreen implements Screen {
 			stage.addActor(leafLitter);
 		}
 
-		final Image help = new Image(atlas.findRegion("help"));
-		help.setSize(150, 150);
-		help.setPosition(1280 / 2 - 300 - 150 / 2, 150);
+		// Help button is 230x150
+		final Image help = new Image(atlas.findRegion("btn_help"));
+		help.setSize(230, 150);
+		help.setPosition(1280 / 2 - 300 - 230 / 2, 150);
 		stage.addActor(help);
 
-		final Image play = new Image(atlas.findRegion("play"));
-		play.setSize(200, 200);
-		play.setPosition(1280 / 2 - 200 / 2, 100);
+		// Play button is 230x150
+		final Image play = new Image(atlas.findRegion("btn_play"));
+		play.setSize(230, 150);
+		play.setPosition(1280 / 2 - 230 / 2, 150);
 		stage.addActor(play);
 
-		final Image settings = new Image(atlas.findRegion("settings"));
-		settings.setSize(150, 150);
-		settings.setPosition(1280 / 2 + 300 - 150 / 2, 150);
+		// Settings button is 230x150
+		final Image settings = new Image(atlas.findRegion("btn_settings"));
+		settings.setSize(230, 150);
+		settings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
 		stage.addActor(settings);
 
 		// tree_left is 238x360
