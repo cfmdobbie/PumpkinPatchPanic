@@ -83,8 +83,8 @@ public class PumpkinScreen implements Screen {
 		 */
 
 		final Image moon = new Image(atlas.findRegion("moon"));
-		moon.setPosition(-110 / 2, -110 / 2);
-		moon.setOrigin(110 / 2 + 1280 / 2, 110 / 2);
+		moon.setPosition(640 - 110 / 2, 720 - 110 / 2);
+		moon.setOrigin(110 / 2, 110 / 2 - 720 - 132);
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
