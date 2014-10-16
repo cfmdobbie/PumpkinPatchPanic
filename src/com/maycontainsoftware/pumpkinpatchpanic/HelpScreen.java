@@ -67,14 +67,14 @@ public class HelpScreen extends PumpkinScreen {
 
 		// The help panel
 		helpPanel = new Image(helpPanels[helpIndex]);
-		helpPanel.setPosition(1280 / 2 - 512 / 2, 160);
+		helpPanel.setPosition(1280 / 2 - 512 / 2, 100);
 		stage.addActor(helpPanel);
 
 		// Previous button
 		
 		// The "Previous" pumpkin-button
 		final Button previousBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_prev")));
-		previousBtn.setPosition(1280 / 2 - 300 - 230 / 2, 100);
+		previousBtn.setPosition(1280 / 2 - 280 - 230 / 2, 25);
 		previousBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -91,7 +91,7 @@ public class HelpScreen extends PumpkinScreen {
 		
 		// The "Menu" pumpkin-button
 		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
-		menuBtn.setPosition(1280 / 2 - 230 / 2, 100);
+		menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
 		menuBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -107,7 +107,7 @@ public class HelpScreen extends PumpkinScreen {
 
 		// The "Next" pumpkin-button
 		final Button nextBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_next")));
-		nextBtn.setPosition(1280 / 2 + 300 - 230 / 2, 100);
+		nextBtn.setPosition(1280 / 2 + 280 - 230 / 2, 25);
 		nextBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
