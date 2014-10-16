@@ -85,6 +85,17 @@ public class PumpkinScreen implements Screen {
 		final Image moon = new Image(atlas.findRegion("moon"));
 		moon.setPosition(640 - 110 / 2, 720 - 110 / 2);
 		moon.setOrigin(110 / 2, 110 / 2 - 720 - 132);
+
+		/*
+		 * Want the moon to start its journey just off the left edge of the screen, so need to know initial rotation
+		 * required.  Calculate by trig based on starting location and centre of circle, given previously-calculated distance between them.
+		 * 
+		 * sin A = o / h = (640 + 55) / (720 + 131.83) = 695 / 851.83 = 0.816
+		 * A = sin-1 0.816 = 54.68 degrees
+		 */
+		
+		moon.rotate(54.68f);
+
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
