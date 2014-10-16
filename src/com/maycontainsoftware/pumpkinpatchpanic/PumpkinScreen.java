@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
@@ -201,5 +202,12 @@ public class PumpkinScreen implements Screen {
 		}
 
 		stage.dispose();
+	}
+	
+	
+	final Image getPlantForPumpkinButton(final Button button) {
+		final Image plant = new Image(atlas.findRegion("plant"));
+		plant.setPosition(button.getX() - 33, button.getY() - 43);
+		return plant;
 	}
 }

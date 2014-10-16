@@ -47,7 +47,7 @@ public class SettingsScreen extends PumpkinScreen {
 				SettingsScreen.this.dispose();
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(menuBtn));
+		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
 		
 		// The "Reset High Score" pumpkin-button
@@ -58,7 +58,7 @@ public class SettingsScreen extends PumpkinScreen {
 			public void changed(final ChangeEvent event, final Actor actor) {
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(resetScoreBtn));
+		stage.addActor(getPlantForPumpkinButton(resetScoreBtn));
 		stage.addActor(resetScoreBtn);
 
 		// The "Sound On/Off" pumpkin-button
@@ -69,7 +69,7 @@ public class SettingsScreen extends PumpkinScreen {
 			public void changed(final ChangeEvent event, final Actor actor) {
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(soundBtn));
+		stage.addActor(getPlantForPumpkinButton(soundBtn));
 		stage.addActor(soundBtn);
 		
 		// The "Music On/Off" pumpkin-button
@@ -80,7 +80,7 @@ public class SettingsScreen extends PumpkinScreen {
 			public void changed(final ChangeEvent event, final Actor actor) {
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(musicBtn));
+		stage.addActor(getPlantForPumpkinButton(musicBtn));
 		stage.addActor(musicBtn);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.SETTINGS);

@@ -80,7 +80,7 @@ public class HelpScreen extends PumpkinScreen {
 				}
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(previousBtn));
+		stage.addActor(getPlantForPumpkinButton(previousBtn));
 		stage.addActor(previousBtn);
 
 		// Menu button
@@ -95,7 +95,7 @@ public class HelpScreen extends PumpkinScreen {
 				HelpScreen.this.dispose();
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(menuBtn));
+		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
 		
 		
@@ -113,7 +113,7 @@ public class HelpScreen extends PumpkinScreen {
 				}
 			}
 		});
-		stage.addActor(game.getPlantForPumpkinButton(nextBtn));
+		stage.addActor(getPlantForPumpkinButton(nextBtn));
 		stage.addActor(nextBtn);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.HELP);

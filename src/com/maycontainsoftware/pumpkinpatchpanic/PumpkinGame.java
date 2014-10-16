@@ -7,11 +7,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * The Game instance.
@@ -188,11 +185,5 @@ public class PumpkinGame extends Game {
 	 */
 	public final Stage createStage() {
 		return new Stage(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, batch);
-	}
-	
-	final Image getPlantForPumpkinButton(final Button button) {
-		final Image plant = new Image(manager.get("atlas.atlas", TextureAtlas.class).findRegion("plant"));
-		plant.setPosition(button.getX() - 33, button.getY() - 43);
-		return plant;
 	}
 }
