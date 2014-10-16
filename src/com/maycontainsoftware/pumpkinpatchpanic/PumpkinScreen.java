@@ -88,12 +88,14 @@ public class PumpkinScreen implements Screen {
 
 		/*
 		 * Want the moon to start its journey just off the left edge of the screen, so need to know initial rotation
-		 * required.  Calculate by trig based on starting location and centre of circle, given previously-calculated distance between them.
+		 * required. Calculate by trig based on starting location and centre of circle, given previously-calculated
+		 * distance between them.
 		 * 
 		 * sin A = o / h = (640 + 55) / (720 + 131.83) = 695 / 851.83 = 0.816
+		 * 
 		 * A = sin-1 0.816 = 54.68 degrees
 		 */
-		
+
 		moon.rotate(54.68f);
 
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
