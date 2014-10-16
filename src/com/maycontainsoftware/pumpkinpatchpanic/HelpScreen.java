@@ -38,9 +38,9 @@ public class HelpScreen extends PumpkinScreen {
 	 * Construct a new HelpScreen.
 	 * 
 	 * @param game
-	 *            The PPPGame instance.
+	 *            The Game instance.
 	 */
-	public HelpScreen(final PPPGame game) {
+	public HelpScreen(final PumpkinGame game) {
 		super(game);
 	}
 

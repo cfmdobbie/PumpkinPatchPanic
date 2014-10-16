@@ -15,13 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  * @author Charlie
  */
-public class PPPGame extends Game {
+public class PumpkinGame extends Game {
 
 	/** Whether debug output should be logged. */
 	private static final boolean DEBUG = false;
 
 	/** A tag for logging purposes. */
-	private static final String TAG = PPPGame.class.getSimpleName();
+	private static final String TAG = PumpkinGame.class.getSimpleName();
 
 	// Virtual screen metrics
 
@@ -68,7 +68,7 @@ public class PPPGame extends Game {
 	 * 
 	 * @param adVisibilityCallback
 	 */
-	public PPPGame(final ICurrentScreenCallback currentScreenCallback) {
+	public PumpkinGame(final ICurrentScreenCallback currentScreenCallback) {
 		this.currentScreenCallback = currentScreenCallback;
 	}
 

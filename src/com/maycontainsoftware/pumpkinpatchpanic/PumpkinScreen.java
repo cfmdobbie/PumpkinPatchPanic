@@ -25,7 +25,7 @@ public class PumpkinScreen implements Screen {
 	private static final String TAG = PumpkinScreen.class.getSimpleName();
 
 	/** Reference to the Game instance. */
-	protected final PPPGame game;
+	protected final PumpkinGame game;
 
 	/** This Screen's Stage. */
 	protected Stage stage;
@@ -38,7 +38,7 @@ public class PumpkinScreen implements Screen {
 	 * @param game
 	 *            The game instance.
 	 */
-	public PumpkinScreen(final PPPGame game) {
+	public PumpkinScreen(final PumpkinGame game) {
 		this.game = game;
 	}
 

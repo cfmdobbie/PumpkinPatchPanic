@@ -25,9 +25,9 @@ public class MainMenuScreen extends PumpkinScreen {
 	 * Construct a new MainMenuScreen object.
 	 * 
 	 * @param game
-	 *            The PPPGame instance.
+	 *            The Game instance.
 	 */
-	public MainMenuScreen(final PPPGame game) {
+	public MainMenuScreen(final PumpkinGame game) {
 		super(game);
 	}
 

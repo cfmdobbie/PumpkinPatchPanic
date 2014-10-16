@@ -27,7 +27,7 @@ public class LoadingScreen implements Screen {
 	private static final String TAG = LoadingScreen.class.getSimpleName();
 
 	/** Reference to the Game instance. */
-	private final PPPGame game;
+	private final PumpkinGame game;
 
 	/** This Screen's Stage. */
 	private Stage stage;
@@ -37,7 +37,7 @@ public class LoadingScreen implements Screen {
 	 * 
 	 * @param game
 	 */
-	public LoadingScreen(final PPPGame game) {
+	public LoadingScreen(final PumpkinGame game) {
 		this.game = game;
 	}
 
