@@ -10,6 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * The base class for most screens in the game. The PumpkinScreen contains a Stage and renders the graphical elements
+ * common to all screens
+ * 
+ * @author Charlie
+ */
 public class PumpkinScreen implements Screen {
 
 	/** Whether debug output should be logged. */
@@ -24,6 +30,14 @@ public class PumpkinScreen implements Screen {
 	/** This Screen's Stage. */
 	protected Stage stage;
 
+	// TODO: Subclasses may need access to Moon position
+
+	/**
+	 * Construct a new PumpkinScreen object.
+	 * 
+	 * @param game
+	 *            The game instance.
+	 */
 	public PumpkinScreen(final PPPGame game) {
 		this.game = game;
 	}
@@ -33,16 +47,17 @@ public class PumpkinScreen implements Screen {
 		if (DEBUG) {
 			Gdx.app.log(TAG, "show()");
 		}
-		
+
 		// Create the Stage
 		stage = game.createStage();
-		
+
 		// Redirect events to the stage
 		Gdx.input.setInputProcessor(stage);
+		// TODO: Once Screen transitions are implemented, InputProcessor must be set in a different way
 
 		// Load the atlas
 		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
-		
+
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(640 * 2, 201 * 2);
@@ -55,17 +70,21 @@ public class PumpkinScreen implements Screen {
 		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
 		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
 		stage.addActor(moon);
-		
+		// TODO: Better moon animation
+		// TODO: Need to be able to disable automatic moon animation for control by GameScreen
+
 		// CloudA is 360x108
 		final Image cloudA = new Image(atlas.findRegion("cloud_a"));
 		cloudA.setPosition(250, 500);
 		stage.addActor(cloudA);
-		
+		// TODO: Cloud animation
+
 		// CloudB is 360x120
 		final Image cloudB = new Image(atlas.findRegion("cloud_b"));
 		cloudB.setPosition(900, 560);
 		stage.addActor(cloudB);
-		
+		// TODO: Cloud animation
+
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
 		hillside.setSize(640 * 2, 225 * 2);
@@ -86,10 +105,10 @@ public class PumpkinScreen implements Screen {
 		// owl is 60x100
 		final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
 		final Animation owlAnimation = new Animation(2.0f, owlFrames, Animation.LOOP);
-		// TODO: Animation code
 		final AnimatedActor owl = new AnimatedActor(owlAnimation);
 		owl.setPosition(944, 504);
 		stage.addActor(owl);
+		// TODO: Better owl animation - need irregular frame durations, or preferably programmatic control
 	}
 
 	@Override

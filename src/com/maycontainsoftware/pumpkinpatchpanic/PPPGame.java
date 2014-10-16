@@ -7,11 +7,14 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+/**
+ * The Game instance.
+ * 
+ * @author Charlie
+ */
 public class PPPGame extends Game {
 
 	/** Whether debug output should be logged. */
@@ -47,10 +50,10 @@ public class PPPGame extends Game {
 	AssetManager manager;
 
 	/** The Scene2D UI skin instance. */
-	Skin skin;
+	//Skin skin;
 
-	private final IAdVisibilityCallback adVisibilityCallback;
-	private TextureAtlas atlas;
+	/** The callback used to notify host application code of the current state of the game. */
+	final ICurrentScreenCallback currentScreenCallback;
 
 	// Preferences
 
@@ -60,14 +63,17 @@ public class PPPGame extends Game {
 	/** Preferences file. */
 	Preferences mPrefs;
 
-	public PPPGame(IAdVisibilityCallback adVisibilityCallback) {
-		this.adVisibilityCallback = adVisibilityCallback;
+	/**
+	 * Construct a new PPPGame.
+	 * 
+	 * @param adVisibilityCallback
+	 */
+	public PPPGame(final ICurrentScreenCallback currentScreenCallback) {
+		this.currentScreenCallback = currentScreenCallback;
 	}
 
 	@Override
 	public void create() {
-
-		atlas = new TextureAtlas(Gdx.files.internal("atlas.atlas"));
 
 		// Set up SpriteBatch
 		batch = new SpriteBatch();
@@ -77,15 +83,15 @@ public class PPPGame extends Game {
 		// Move (0,0) point to bottom left of virtual area
 		camera.position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0);
 
+		// Create the AssetManager
 		manager = new AssetManager();
 
 		// Get reference to preferences file
 		mPrefs = Gdx.app.getPreferences(PREFERENCES_NAME);
 
+		// Start on the loading screen, which will load all assets then go to the main menu
 		this.setScreen(new LoadingScreen(this));
 	}
-
-	private boolean adVisible = true;
 
 	@Override
 	public void render() {
@@ -111,10 +117,6 @@ public class PPPGame extends Game {
 		// Scissor buffer operations to the viewport
 		Gdx.gl.glEnable(GL10.GL_SCISSOR_TEST);
 		Gdx.gl.glScissor((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
-
-		// Reset SpriteBatch color to white
-		// TODO: This appears to be unnecessary - to be confirmed
-		// batch.setColor(Color.WHITE);
 
 		// Pass render() call to active Screen
 		super.render();
@@ -151,16 +153,36 @@ public class PPPGame extends Game {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		atlas.dispose();
 
+		// Allow superclass to dispose as required
 		super.dispose();
+
+		// Dispose of SpriteBatch if it's valid
+		if (batch != null) {
+			batch.dispose();
+		}
+
+		// Dispose of AssetManager if it's valid
+		if (manager != null) {
+			manager.dispose();
+		}
 	}
 
+	/**
+	 * Called when the display has resized and the stage needs to have its viewport calculations updated.
+	 * 
+	 * @param stage
+	 *            The Stage to be updated
+	 */
 	public final void updateViewport(final Stage stage) {
 		stage.setViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, viewport.x, viewport.y, viewport.width, viewport.height);
 	}
 
+	/**
+	 * Utility method to allow the Game create a Stage on behalf of a Screen.
+	 * 
+	 * @return The new Stage
+	 */
 	public final Stage createStage() {
 		return new Stage(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, batch);
 	}

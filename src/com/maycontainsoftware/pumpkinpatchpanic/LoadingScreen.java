@@ -51,7 +51,6 @@ public class LoadingScreen implements Screen {
 		game.manager.load("loading.atlas", TextureAtlas.class);
 		game.manager.finishLoading();
 		TextureAtlas loadingAtlas = game.manager.get("loading.atlas", TextureAtlas.class);
-		
 
 		// Create the Stage
 		stage = game.createStage();
@@ -70,34 +69,37 @@ public class LoadingScreen implements Screen {
 
 		// Loading progress bar
 		table.row();
-		table.add(new LoadingBar(game.manager, loadingAtlas.findRegion("loading_bar_bg"), loadingAtlas.findRegion("loading_bar_fg")));
+		table.add(new LoadingBar(game.manager, loadingAtlas.findRegion("loading_bar_bg"), loadingAtlas
+				.findRegion("loading_bar_fg")));
 
 		// Load assets in AssetManager
-		
+
 		// Texture atlases
 		game.manager.load("atlas.atlas", TextureAtlas.class);
 		game.manager.load("pumpkins.atlas", TextureAtlas.class);
-		// TODO: Atlases
-		
+
 		// Textures
 		game.manager.load("help_panel_1.png", Texture.class);
 		game.manager.load("help_panel_2.png", Texture.class);
 		game.manager.load("help_panel_3.png", Texture.class);
 		game.manager.load("help_panel_4.png", Texture.class);
-		
+
 		// Fonts
 		// TODO: Fonts
-		//game.manager.load("arcena32.fnt", BitmapFont.class);
-		
+		// game.manager.load("arcena32.fnt", BitmapFont.class);
+
 		// Sound effects
 		// TODO: Sound effects
-		//game.manager.load("lose.mp3", Sound.class);
-		
+		// game.manager.load("lose.mp3", Sound.class);
+
 		// Music
 		// TODO: Music
-		
+
 		// UI skin
-		//game.manager.load("uiskin.json", Skin.class);
+		// TODO: UI skin
+		// game.manager.load("uiskin.json", Skin.class);
+
+		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.LOADING);
 	}
 
 	@Override
@@ -113,11 +115,7 @@ public class LoadingScreen implements Screen {
 			if (DEBUG) {
 				Gdx.app.log(TAG, "game.manager.update() = true");
 			}
-			
-			// XXX: Post-load tasks?
-			// game.skin = game.manager.get("uiskin.json", Skin.class);
-			// game.uiAtlas = game.manager.get("ui.atlas");
-			
+
 			// Open main menu
 			game.setScreen(new MainMenuScreen(game));
 			this.dispose();
@@ -168,12 +166,12 @@ public class LoadingScreen implements Screen {
 			super(background);
 
 			this.manager = manager;
-			
+
 			// Copy the TextureRegion as we're going to mess with its U2 coord
 			this.foreground = new TextureRegion(foreground);
 			minU = foreground.getU();
 			widthU = foreground.getU2() - minU;
-			
+
 			// Calculate offset of foreground wrt background
 			offsetX = (background.getRegionWidth() - foreground.getRegionWidth()) / 2.0f;
 			offsetY = (background.getRegionHeight() - foreground.getRegionHeight()) / 2.0f;
@@ -184,10 +182,10 @@ public class LoadingScreen implements Screen {
 
 			// Draw the background
 			super.draw(batch, parentAlpha);
-			
+
 			// Update the portion of the foreground bar to display
 			foreground.setU2(minU + widthU * manager.getProgress());
-			
+
 			// Draw the foreground bar
 			batch.draw(foreground, getX() + offsetX, getY() + offsetY);
 		}

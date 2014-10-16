@@ -8,6 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+/**
+ * The main menu screen of the game.
+ * 
+ * @author Charlie
+ */
 public class MainMenuScreen extends PumpkinScreen {
 
 	/** Whether debug output should be logged. */
@@ -16,6 +21,12 @@ public class MainMenuScreen extends PumpkinScreen {
 	/** Tag, for logging purposes. */
 	private static final String TAG = MainMenuScreen.class.getSimpleName();
 
+	/**
+	 * Construct a new MainMenuScreen object.
+	 * 
+	 * @param game
+	 *            The PPPGame instance.
+	 */
 	public MainMenuScreen(final PPPGame game) {
 		super(game);
 	}
@@ -25,19 +36,24 @@ public class MainMenuScreen extends PumpkinScreen {
 		if (DEBUG) {
 			Gdx.app.log(TAG, "show()");
 		}
-		
+
+		// Call superclass to create the Stage
 		super.show();
 
-		// Load the atlas
+		// Get a reference to the atlas
 		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
-		// Buttons
-		
+		// The only custom parts of the main menu are the three buttons for Help, Play and Settings
+		// Note that all pumpkin-buttons are 230x150px
+
+		// Help button
+
+		// The plant attached to this pumpkin-button
 		final Image helpPlant = new Image(atlas.findRegion("plant"));
 		helpPlant.setPosition(1280 / 2 - 300 - 230 / 2 - 33, 150 - 43);
 		stage.addActor(helpPlant);
-		
-		// Help button is 230x150
+
+		// The "Help" pumpkin-button
 		final Button help = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")));
 		help.setPosition(1280 / 2 - 300 - 230 / 2, 150);
 		help.addListener(new ChangeListener() {
@@ -48,28 +64,30 @@ public class MainMenuScreen extends PumpkinScreen {
 			}
 		});
 		stage.addActor(help);
-		
-		
 
+		// Play button
+
+		// The plant attached to this pumpkin-button
 		final Image playPlant = new Image(atlas.findRegion("plant"));
 		playPlant.setPosition(1280 / 2 - 230 / 2 - 33, 150 - 43);
 		stage.addActor(playPlant);
-		
-		// Play button is 230x150
+
+		// The "Play" pumpkin-button
 		final Image play = new Image(atlas.findRegion("btn_play"));
 		play.setPosition(1280 / 2 - 230 / 2, 150);
 		stage.addActor(play);
 
+		// Settings button
+
+		// The plant attached to this pumpkin-button
 		final Image settingsPlant = new Image(atlas.findRegion("plant"));
 		settingsPlant.setPosition(1280 / 2 + 300 - 230 / 2 - 33, 150 - 43);
 		stage.addActor(settingsPlant);
-		
-		// Settings button is 230x150
+
+		// The "Settings" pumpkin-button
 		final Image settings = new Image(atlas.findRegion("btn_settings"));
 		settings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
 		stage.addActor(settings);
-
-		
 
 		// XXX: Test pumpkin code
 		// final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
@@ -90,5 +108,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		// Face graphics can all be dropped to 168x124 or so, which is a significant saving on texture memory at the
 		// cost of some more involved positioning. Ultimately want to animate pumpkin and face together (shake, rotate),
 		// which may influence decision.
+
+		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.MAIN_MENU);
 	}
 }
