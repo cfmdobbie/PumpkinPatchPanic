@@ -64,6 +64,24 @@ public class PumpkinScreen implements Screen {
 		sky.setY(720 - 201 * 2);
 		stage.addActor(sky);
 
+		/*
+		 * Theory of moon movement calculations:-
+		 * 
+		 * Want moon to rise to exactly half off the top of the screen. Want origin and destination points to be just
+		 * off the sides of the screen, at 50% of the height of the screen. Can calculate coordinates of starting and
+		 * highest positions. Can calculate slope of line between these. Can calculate midpoint of that line, and
+		 * negative reciprocal of the slope. This gives a line with known slope and one known coordinate passing through
+		 * the centre of the circle that joins the three moon positions.
+		 * 
+		 * Zenith: (640, 720) ~ Left position: (-55, 360) ~ Midpoint: (292, 540)
+		 * 
+		 * Slope: y2-y1/x2-x1 = 0.518 ~ Perpendicular slope: -1.9305
+		 * 
+		 * Line: y = m * x + c, 540 = -1.9305 * 292 + c, c = 1103.72
+		 * 
+		 * Centre of circle: y = m * x + c, y = -1.9305 * 640 + 1103.72, y = -131.83
+		 */
+
 		final Image moon = new Image(atlas.findRegion("moon"));
 		moon.setPosition(-110 / 2, -110 / 2);
 		moon.setOrigin(110 / 2 + 1280 / 2, 110 / 2);
