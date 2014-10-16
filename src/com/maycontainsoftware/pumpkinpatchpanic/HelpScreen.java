@@ -85,7 +85,7 @@ public class HelpScreen extends PumpkinScreen {
 			public void changed(final ChangeEvent event, final Actor actor) {
 				if (helpIndex > 0) {
 					helpIndex--;
-					updatePanel();
+					updateHelpPanel();
 				}
 			}
 		});
@@ -126,7 +126,7 @@ public class HelpScreen extends PumpkinScreen {
 			public void changed(final ChangeEvent event, final Actor actor) {
 				if (helpIndex < helpPanels.length - 1) {
 					helpIndex++;
-					updatePanel();
+					updateHelpPanel();
 				}
 			}
 		});
@@ -136,7 +136,7 @@ public class HelpScreen extends PumpkinScreen {
 	}
 
 	/** Update the currently-displayed help panel as per the current help-panel index. */
-	private final void updatePanel() {
+	private final void updateHelpPanel() {
 		helpPanel.setDrawable(helpPanels[helpIndex]);
 	}
 }
