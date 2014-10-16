@@ -103,15 +103,15 @@ public class PumpkinScreen implements Screen {
 		moon.rotate(54.68f);
 
 		/*
-		 * Rotation speed. Want the moon to traverse from left to right over 30 seconds. Now know the total angle
+		 * Rotation speed. Want the moon to traverse from left to right over 60 seconds. Now know the total angle
 		 * covered, so need to calculate rotation time for a full 360-degree rotation.
 		 * 
-		 * 30-second arc: 54.68 * 2 = 109.35 degrees
+		 * 60-second arc: 54.68 * 2 = 109.35 degrees
 		 * 
-		 * 109.35 / 30 = 360 / t, t = 360 * 30 / 109.35 = 98.77 seconds
+		 * 109.35 / 60 = 360 / t, t = 360 * 60 / 109.35 = 197.53 seconds
 		 */
 
-		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 98.77f)));
+		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 197.53f)));
 		
 		stage.addActor(moon);
 		// TODO: Better moon animation
