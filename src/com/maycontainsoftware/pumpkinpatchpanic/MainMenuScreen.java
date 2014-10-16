@@ -42,43 +42,24 @@ public class MainMenuScreen extends PumpkinScreen {
 		// The only custom parts of the main menu are the three buttons for Help, Play and Settings
 		// Note that all pumpkin-buttons are 230x150px
 
-		// Help button
-
-		// The plant attached to this pumpkin-button
-		final Image helpPlant = new Image(atlas.findRegion("plant"));
-		helpPlant.setPosition(1280 / 2 - 300 - 230 / 2 - 33, 150 - 43);
-		stage.addActor(helpPlant);
-
 		// The "Help" pumpkin-button
-		final Button help = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")));
-		help.setPosition(1280 / 2 - 300 - 230 / 2, 150);
-		help.addListener(new ChangeListener() {
+		final Button btnHelp = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")));
+		btnHelp.setPosition(1280 / 2 - 300 - 230 / 2, 150);
+		btnHelp.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
 				game.setScreen(new HelpScreen(game));
 				MainMenuScreen.this.dispose();
 			}
 		});
-		stage.addActor(help);
-
-		// Play button
-
-		// The plant attached to this pumpkin-button
-		final Image playPlant = new Image(atlas.findRegion("plant"));
-		playPlant.setPosition(1280 / 2 - 230 / 2 - 33, 150 - 43);
-		stage.addActor(playPlant);
+		stage.addActor(getPlantForPumpkinButton(btnHelp));
+		stage.addActor(btnHelp);
 
 		// The "Play" pumpkin-button
-		final Image play = new Image(atlas.findRegion("btn_play"));
-		play.setPosition(1280 / 2 - 230 / 2, 150);
-		stage.addActor(play);
-
-		// Settings button
-
-		// The plant attached to this pumpkin-button
-		final Image settingsPlant = new Image(atlas.findRegion("plant"));
-		settingsPlant.setPosition(1280 / 2 + 300 - 230 / 2 - 33, 150 - 43);
-		stage.addActor(settingsPlant);
+		final Image btnPlay = new Image(atlas.findRegion("btn_play"));
+		btnPlay.setPosition(1280 / 2 - 230 / 2, 150);
+		stage.addActor(getPlantForPumpkinButton(btnPlay));
+		stage.addActor(btnPlay);
 
 		// The "Settings" pumpkin-button
 		final Button btnSettings = new Button(new TextureRegionDrawable(atlas.findRegion("btn_settings")));
@@ -90,6 +71,7 @@ public class MainMenuScreen extends PumpkinScreen {
 				MainMenuScreen.this.dispose();
 			}
 		});
+		stage.addActor(getPlantForPumpkinButton(btnSettings));
 		stage.addActor(btnSettings);
 
 		// XXX: Test pumpkin code
