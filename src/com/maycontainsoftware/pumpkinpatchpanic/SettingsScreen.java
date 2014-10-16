@@ -1,7 +1,6 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -38,9 +37,6 @@ public class SettingsScreen extends PumpkinScreen {
 
 		super.show();
 
-		// Load the atlas
-		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
-		
 		// The "Menu" pumpkin-button
 		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
 		menuBtn.setPosition(1280 / 2 - 290 - 230 / 2, 190);

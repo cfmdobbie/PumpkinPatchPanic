@@ -1,7 +1,6 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -39,9 +38,6 @@ public class MainMenuScreen extends PumpkinScreen {
 
 		// Call superclass to create the Stage
 		super.show();
-
-		// Get a reference to the atlas
-		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
 		// The only custom parts of the main menu are the three buttons for Help, Play and Settings
 		// Note that all pumpkin-buttons are 230x150px

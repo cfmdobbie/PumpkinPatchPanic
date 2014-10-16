@@ -29,6 +29,9 @@ public class PumpkinScreen implements Screen {
 
 	/** This Screen's Stage. */
 	protected Stage stage;
+	
+	/** The TextureAtlas containing all the graphics. */
+	protected TextureAtlas atlas;
 
 	// TODO: Subclasses may need access to Moon position
 
@@ -56,7 +59,7 @@ public class PumpkinScreen implements Screen {
 		// TODO: Once Screen transitions are implemented, InputProcessor must be set in a different way
 
 		// Load the atlas
-		final TextureAtlas atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
+		atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
