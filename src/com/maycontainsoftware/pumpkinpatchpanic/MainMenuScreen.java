@@ -57,7 +57,7 @@ public class MainMenuScreen extends PumpkinScreen {
 
 		// The "Play" pumpkin-button
 		final Image btnPlay = new Image(atlas.findRegion("btn_play"));
-		btnPlay.setPosition(1280 / 2 - 230 / 2, 150);
+		btnPlay.setPosition(1280 / 2 - 230 / 2, 95);
 		stage.addActor(getPlantForPumpkinButton(btnPlay));
 		stage.addActor(btnPlay);
 
