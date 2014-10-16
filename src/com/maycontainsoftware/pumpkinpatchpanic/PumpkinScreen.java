@@ -76,12 +76,14 @@ public class PumpkinScreen implements Screen {
 		// CloudA is 360x108
 		final Image cloudA = new Image(atlas.findRegion("cloud_a"));
 		cloudA.setPosition(250, 500);
+		cloudA.setColor(1.0f, 1.0f, 1.0f, 0.9f);
 		stage.addActor(cloudA);
 		// TODO: Cloud animation
 
 		// CloudB is 360x120
 		final Image cloudB = new Image(atlas.findRegion("cloud_b"));
 		cloudB.setPosition(900, 560);
+		cloudB.setColor(1.0f, 1.0f, 1.0f, 0.9f);
 		stage.addActor(cloudB);
 		// TODO: Cloud animation
 
