@@ -98,8 +98,17 @@ public class PumpkinScreen implements Screen {
 
 		moon.rotate(54.68f);
 
-		// TODO: Would be better if moon orientation were fixed - use move actions instead with Sine interpolation?
-		moon.addAction(Actions.forever(Actions.rotateBy(-360, 120.0f)));
+		/*
+		 * Rotation speed. Want the moon to traverse from left to right over 30 seconds. Now know the total angle
+		 * covered, so need to calculate rotation time for a full 360-degree rotation.
+		 * 
+		 * 30-second arc: 54.68 * 2 = 109.35 degrees
+		 * 
+		 * 109.35 / 30 = 360 / t, t = 360 * 30 / 109.35 = 98.77 seconds
+		 */
+
+		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 98.77f)));
+		
 		stage.addActor(moon);
 		// TODO: Better moon animation
 		// TODO: Need to be able to disable automatic moon animation for control by GameScreen
