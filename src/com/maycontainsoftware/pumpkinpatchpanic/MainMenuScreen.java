@@ -85,9 +85,16 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(settingsPlant);
 
 		// The "Settings" pumpkin-button
-		final Image settings = new Image(atlas.findRegion("btn_settings"));
-		settings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
-		stage.addActor(settings);
+		final Button btnSettings = new Button(new TextureRegionDrawable(atlas.findRegion("btn_settings")));
+		btnSettings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
+		btnSettings.addListener(new ChangeListener() {
+			@Override
+			public void changed(final ChangeEvent event, final Actor actor) {
+				game.setScreen(new SettingsScreen(game));
+				MainMenuScreen.this.dispose();
+			}
+		});
+		stage.addActor(btnSettings);
 
 		// XXX: Test pumpkin code
 		// final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
