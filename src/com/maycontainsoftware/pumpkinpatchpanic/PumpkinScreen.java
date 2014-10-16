@@ -30,7 +30,7 @@ public class PumpkinScreen implements Screen {
 
 	/** This Screen's Stage. */
 	protected Stage stage;
-	
+
 	/** The TextureAtlas containing all the graphics. */
 	protected TextureAtlas atlas;
 
@@ -66,6 +66,8 @@ public class PumpkinScreen implements Screen {
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(640 * 2, 201 * 2);
 		sky.setY(720 - 201 * 2);
+		// TODO: Sky rotation - would be nice if the sky rotated very, very slowly. Would need much larger asset.
+		// sky.addAction(Actions.forever(Actions.rotateBy(-360.0f, 10000.0f)));
 		stage.addActor(sky);
 
 		/*
@@ -112,7 +114,7 @@ public class PumpkinScreen implements Screen {
 		 */
 
 		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 197.53f)));
-		
+
 		stage.addActor(moon);
 		// TODO: Better moon animation
 		// TODO: Need to be able to disable automatic moon animation for control by GameScreen
@@ -203,8 +205,7 @@ public class PumpkinScreen implements Screen {
 
 		stage.dispose();
 	}
-	
-	
+
 	final Image getPlantForPumpkinButton(final Actor button) {
 		final Image plant = new Image(atlas.findRegion("plant"));
 		plant.setPosition(button.getX() - 33, button.getY() - 43);
