@@ -215,12 +215,18 @@ public class PumpkinScreen implements Screen {
 		stage.addActor(treeRight);
 
 		// owl is 60x100
-		final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
-		final Animation owlAnimation = new Animation(2.0f, owlFrames, Animation.LOOP);
-		final AnimatedActor owl = new AnimatedActor(owlAnimation);
-		owl.setPosition(944, 504);
-		stage.addActor(owl);
-		// TODO: Better owl animation - need irregular frame durations, or preferably programmatic control
+		stage.addActor(new Owl(944, 504, atlas.findRegions("owl")));
+		stage.addActor(new Owl(285, 528, atlas.findRegions("owl")));
+	}
+
+	static class Owl extends Image {
+		public Owl(final float x, final float y, final Array<AtlasRegion> frames) {
+			super(frames.get(0));
+			//final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
+			//final Animation owlAnimation = new Animation(2.0f, owlFrames, Animation.LOOP);
+			//final AnimatedActor owl = new AnimatedActor(owlAnimation);
+			setPosition(x, y);
+		}
 	}
 
 	/** Actor that represents a cloud. */
