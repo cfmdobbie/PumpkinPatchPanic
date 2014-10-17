@@ -5,6 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -190,19 +193,9 @@ public class PumpkinScreen implements Screen {
 		// TODO: Better moon animation
 		// TODO: Need to be able to disable automatic moon animation for control by GameScreen
 
-		// CloudA is 360x108
-		final Image cloudA = new Image(atlas.findRegion("cloud_a"));
-		cloudA.setPosition(250, 500);
-		cloudA.setColor(1.0f, 1.0f, 1.0f, 0.9f);
-		stage.addActor(cloudA);
-		// TODO: Cloud animation
-
-		// CloudB is 360x120
-		final Image cloudB = new Image(atlas.findRegion("cloud_b"));
-		cloudB.setPosition(900, 560);
-		cloudB.setColor(1.0f, 1.0f, 1.0f, 0.9f);
-		stage.addActor(cloudB);
-		// TODO: Cloud animation
+		// Clouds
+		stage.addActor(new Cloud(atlas.findRegion("cloud_a"), 560));
+		stage.addActor(new Cloud(atlas.findRegion("cloud_b"), 500));
 
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
@@ -228,5 +221,69 @@ public class PumpkinScreen implements Screen {
 		owl.setPosition(944, 504);
 		stage.addActor(owl);
 		// TODO: Better owl animation - need irregular frame durations, or preferably programmatic control
+	}
+
+	/** Actor that represents a cloud. */
+	static class Cloud extends Image {
+
+		/** The width of the TextureRegion. */
+		private final int width;
+
+		/** The cloud's y-coordinate (fixed in constructor.) */
+		private final float y;
+
+		/** The cloud's x-coordinate (updated in CloudAction.) */
+		private float x;
+
+		/** The cloud's current velocity, in the form of x-coordinate change in pixels/second. */
+		private float dx;
+
+		/** Minimum cloud speed. */
+		private static final float MIN_SPEED = 10;
+
+		/** Maximum cloud speed. */
+		private static final float MAX_SPEED = 40;
+
+		/** Constructor. */
+		public Cloud(final TextureRegion region, float y) {
+			super(region);
+
+			// Clouds are semi-transparent
+			setColor(1.0f, 1.0f, 1.0f, 0.9f);
+
+			// Determine cloud dimensions
+			width = region.getRegionWidth();
+
+			// Remember y coordinate
+			this.y = y;
+
+			// Initial speed
+			dx = -MathUtils.random(MIN_SPEED, MAX_SPEED);
+
+			// Initial position
+			this.x = MathUtils.random(-width, 1280.0f + -dx * 10);
+
+			// Movement action
+			addAction(new CloudAction());
+		}
+
+		/** Action to update cloud position and recalculate speed and position after it leaves the screen. */
+		class CloudAction extends Action {
+			@Override
+			public boolean act(float delta) {
+				if(x < -width) {
+					// Cloud is off-screen, recalculate speed, then reposition
+					dx = -MathUtils.random(MIN_SPEED, MAX_SPEED);
+					// Move cloud beyond right edge, with 1-10 seconds before it reappears
+					x = 1280.0f + MathUtils.random(-dx, -dx * 10);
+				}
+
+				// Move cloud
+				x += dx * delta;
+				Cloud.this.setPosition(x, y);
+
+				return false;
+			}
+		}
 	}
 }
