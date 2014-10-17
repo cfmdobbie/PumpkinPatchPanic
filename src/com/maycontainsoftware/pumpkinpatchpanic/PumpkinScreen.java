@@ -28,7 +28,9 @@ public class PumpkinScreen implements Screen {
 	/** Reference to the Game instance. */
 	protected final PumpkinGame game;
 
-	/** This Screen's Stage. */
+	/** The static Stage containing the scenery. */
+	private static Stage sceneryStage;
+	
 	protected Stage stage;
 
 	/** The TextureAtlas containing all the graphics. */
@@ -51,17 +53,86 @@ public class PumpkinScreen implements Screen {
 		if (DEBUG) {
 			Gdx.app.log(TAG, "show()");
 		}
-
-		// Create the Stage
-		stage = game.createStage();
-
-		// Redirect events to the stage
-		Gdx.input.setInputProcessor(stage);
-		// TODO: Once Screen transitions are implemented, InputProcessor must be set in a different way
-
+		
 		// Load the atlas
 		atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
+		if(sceneryStage == null) {
+			// Create the Stage
+			sceneryStage = game.createStage();
+			generateScenery(sceneryStage);
+		}
+		
+		stage = game.createStage();
+		// Redirect events to the stage
+		Gdx.input.setInputProcessor(stage);
+		// TODO: Once Screen transitions are implemented, InputProcessor must be set in a different way
+	}
+
+	@Override
+	public void render(float delta) {
+		if(sceneryStage != null) {
+			// Update and render the Stage
+			sceneryStage.act();
+			sceneryStage.draw();
+		}
+		
+		stage.act();
+		stage.draw();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		if (DEBUG) {
+			Gdx.app.log(TAG, "resize(" + width + ", " + height + ")");
+		}
+
+		if(sceneryStage != null) {
+			// Update Stage's viewport calculations
+			game.updateViewport(sceneryStage);
+		}
+	}
+
+	@Override
+	public void hide() {
+		if (DEBUG) {
+			Gdx.app.log(TAG, "hide()");
+		}
+	}
+
+	@Override
+	public void pause() {
+		if (DEBUG) {
+			Gdx.app.log(TAG, "pause()");
+		}
+	}
+
+	@Override
+	public void resume() {
+		if (DEBUG) {
+			Gdx.app.log(TAG, "resume()");
+		}
+	}
+
+	@Override
+	public void dispose() {
+		if (DEBUG) {
+			Gdx.app.log(TAG, "dispose()");
+		}
+
+		// Don't dispose scenery stage - it is static and shared between all PumpkinScreens
+		
+		// Dispose of this screen's stage
+		stage.dispose();
+	}
+
+	protected final Image getPlantForPumpkinButton(final Actor button) {
+		final Image plant = new Image(atlas.findRegion("plant"));
+		plant.setPosition(button.getX() - 33, button.getY() - 43);
+		return plant;
+	}
+	
+	private final void generateScenery(final Stage stage) {
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(640 * 2, 201 * 2);
@@ -157,58 +228,5 @@ public class PumpkinScreen implements Screen {
 		owl.setPosition(944, 504);
 		stage.addActor(owl);
 		// TODO: Better owl animation - need irregular frame durations, or preferably programmatic control
-	}
-
-	@Override
-	public void render(float delta) {
-		// Update and render the Stage
-		stage.act();
-		stage.draw();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		if (DEBUG) {
-			Gdx.app.log(TAG, "resize(" + width + ", " + height + ")");
-		}
-
-		// Update Stage's viewport calculations
-		game.updateViewport(stage);
-	}
-
-	@Override
-	public void hide() {
-		if (DEBUG) {
-			Gdx.app.log(TAG, "hide()");
-		}
-	}
-
-	@Override
-	public void pause() {
-		if (DEBUG) {
-			Gdx.app.log(TAG, "pause()");
-		}
-	}
-
-	@Override
-	public void resume() {
-		if (DEBUG) {
-			Gdx.app.log(TAG, "resume()");
-		}
-	}
-
-	@Override
-	public void dispose() {
-		if (DEBUG) {
-			Gdx.app.log(TAG, "dispose()");
-		}
-
-		stage.dispose();
-	}
-
-	final Image getPlantForPumpkinButton(final Actor button) {
-		final Image plant = new Image(atlas.findRegion("plant"));
-		plant.setPosition(button.getX() - 33, button.getY() - 43);
-		return plant;
 	}
 }
