@@ -33,7 +33,7 @@ public class PumpkinScreen implements Screen {
 
 	/** The static Stage containing the scenery. */
 	private static Stage sceneryStage;
-	
+
 	protected Stage stage;
 
 	/** The TextureAtlas containing all the graphics. */
@@ -56,16 +56,16 @@ public class PumpkinScreen implements Screen {
 		if (DEBUG) {
 			Gdx.app.log(TAG, "show()");
 		}
-		
+
 		// Load the atlas
 		atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
-		if(sceneryStage == null) {
+		if (sceneryStage == null) {
 			// Create the Stage
 			sceneryStage = game.createStage();
 			generateScenery(sceneryStage);
 		}
-		
+
 		stage = game.createStage();
 		// Redirect events to the stage
 		Gdx.input.setInputProcessor(stage);
@@ -74,12 +74,12 @@ public class PumpkinScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if(sceneryStage != null) {
+		if (sceneryStage != null) {
 			// Update and render the Stage
 			sceneryStage.act();
 			sceneryStage.draw();
 		}
-		
+
 		stage.act();
 		stage.draw();
 	}
@@ -90,7 +90,7 @@ public class PumpkinScreen implements Screen {
 			Gdx.app.log(TAG, "resize(" + width + ", " + height + ")");
 		}
 
-		if(sceneryStage != null) {
+		if (sceneryStage != null) {
 			// Update Stage's viewport calculations
 			game.updateViewport(sceneryStage);
 		}
@@ -124,7 +124,7 @@ public class PumpkinScreen implements Screen {
 		}
 
 		// Don't dispose scenery stage - it is static and shared between all PumpkinScreens
-		
+
 		// Dispose of this screen's stage
 		stage.dispose();
 	}
@@ -134,7 +134,7 @@ public class PumpkinScreen implements Screen {
 		plant.setPosition(button.getX() - 33, button.getY() - 43);
 		return plant;
 	}
-	
+
 	private final void generateScenery(final Stage stage) {
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
@@ -271,7 +271,7 @@ public class PumpkinScreen implements Screen {
 		class CloudAction extends Action {
 			@Override
 			public boolean act(float delta) {
-				if(x < -width) {
+				if (x < -width) {
 					// Cloud is off-screen, recalculate speed, then reposition
 					dx = -MathUtils.random(MIN_SPEED, MAX_SPEED);
 					// Move cloud beyond right edge, with 1-10 seconds before it reappears
