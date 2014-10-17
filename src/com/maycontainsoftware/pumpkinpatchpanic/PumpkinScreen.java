@@ -176,7 +176,8 @@ public class PumpkinScreen implements Screen {
 		 * A = sin-1 0.816 = 54.68 degrees
 		 */
 
-		moon.rotate(54.68f);
+		// XXX: Correction - currently starting moon due West.  Preferred behaviour to be decided.
+		moon.rotate(90.0f);
 
 		/*
 		 * Rotation speed. Want the moon to traverse from left to right over 60 seconds. Now know the total angle
