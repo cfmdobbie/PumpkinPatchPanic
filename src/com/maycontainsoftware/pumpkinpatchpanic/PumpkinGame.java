@@ -50,7 +50,7 @@ public class PumpkinGame extends Game {
 	AssetManager manager;
 
 	/** The Scene2D UI skin instance. */
-	//Skin skin;
+	// Skin skin;
 
 	/** The callback used to notify host application code of the current state of the game. */
 	final ICurrentScreenCallback currentScreenCallback;

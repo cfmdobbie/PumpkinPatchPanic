@@ -67,7 +67,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(helpPanel);
 
 		// Previous button
-		
+
 		// The "Previous" pumpkin-button
 		final Button previousBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_prev")));
 		previousBtn.setPosition(1280 / 2 - 280 - 230 / 2, 25);
@@ -84,7 +84,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(previousBtn);
 
 		// Menu button
-		
+
 		// The "Menu" pumpkin-button
 		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
 		menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
@@ -97,8 +97,7 @@ public class HelpScreen extends PumpkinScreen {
 		});
 		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
-		
-		
+
 		// Next button
 
 		// The "Next" pumpkin-button

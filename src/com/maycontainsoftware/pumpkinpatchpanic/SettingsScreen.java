@@ -49,7 +49,7 @@ public class SettingsScreen extends PumpkinScreen {
 		});
 		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
-		
+
 		// The "Reset High Score" pumpkin-button
 		final Button resetScoreBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_reset_score")));
 		resetScoreBtn.setPosition(1280 / 2 + 95 - 230 / 2, 190);
@@ -62,7 +62,8 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(resetScoreBtn);
 
 		// The "Sound On/Off" pumpkin-button
-		final Button soundBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_sound_off")), null, new TextureRegionDrawable(atlas.findRegion("btn_sound_on")));
+		final Button soundBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_sound_off")), null,
+				new TextureRegionDrawable(atlas.findRegion("btn_sound_on")));
 		soundBtn.setPosition(1280 / 2 - 95 - 230 / 2, 60);
 		soundBtn.addListener(new ChangeListener() {
 			@Override
@@ -71,9 +72,10 @@ public class SettingsScreen extends PumpkinScreen {
 		});
 		stage.addActor(getPlantForPumpkinButton(soundBtn));
 		stage.addActor(soundBtn);
-		
+
 		// The "Music On/Off" pumpkin-button
-		final Button musicBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_music_off")), null, new TextureRegionDrawable(atlas.findRegion("btn_music_on")));
+		final Button musicBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_music_off")), null,
+				new TextureRegionDrawable(atlas.findRegion("btn_music_on")));
 		musicBtn.setPosition(1280 / 2 + 290 - 230 / 2, 60);
 		musicBtn.addListener(new ChangeListener() {
 			@Override
