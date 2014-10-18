@@ -93,18 +93,36 @@ public class GameScreen extends PumpkinScreen {
 	protected final Image getFaceForPumpkinButton(final Widget pumpkin) {
 		final Image face = new Image(atlas.findRegion("face_normal"));
 		face.setPosition(pumpkin.getX(), pumpkin.getY());
+		face.setColor(1.0f, 1.0f, 1.0f, 0.0f);
 		return face;
 	}
 
+	/**
+	 * Inner class that represents the head-up display.
+	 * 
+	 * @author Charlie
+	 */
 	class Hud extends Table {
 
+		/** Label containing the current highest level reached. */
 		private final Label highLevelLabel;
+
+		/** Label containing the current level reached. */
 		private final Label currentLevelLabel;
+
+		/** Label containing the current time remaining. */
 		private final Label timeRemainingLabel;
+
+		/** Array of tokens to represent lives on the HUD - used by the updateLives() method. */
 		final Image[] lifeTokens;
-		private int livesLeft;
+
+		/** Container for the life tokens. */
 		private final HorizontalGroup lifeContainer;
 
+		/** Current lives remaining. */
+		private int livesLeft;
+
+		/** Construct the HUD. */
 		public Hud() {
 
 			// Fill screen, 40px border
@@ -121,6 +139,8 @@ public class GameScreen extends PumpkinScreen {
 			// Label styles
 			Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
 			Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+
+			// Create widgets
 
 			row();
 			add(new Label("High Level", style32));
@@ -151,6 +171,7 @@ public class GameScreen extends PumpkinScreen {
 			add(timeRemainingLabel = new Label("0:43", style64)).expandY().top();
 			add();
 
+			// XXX: Temporary listener to test HUD display
 			timeRemainingLabel.addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -171,10 +192,13 @@ public class GameScreen extends PumpkinScreen {
 			updateLives();
 		}
 
+		/** Update the lives display. */
 		private final void updateLives() {
+			// Remove all life tokens
 			for (final Image token : lifeTokens) {
 				lifeContainer.removeActor(token);
 			}
+			// Add back as many as we have lives, to a maximum of the total available
 			for (int i = 0; i < lifeTokens.length; i++) {
 				if (livesLeft > i) {
 					lifeContainer.addActor(lifeTokens[i]);
