@@ -123,6 +123,9 @@ public class GameScreen extends PumpkinScreen {
 			lives.addActor(new Image(atlas.findRegion("life")));
 			lives.addActor(new Image(atlas.findRegion("life")));
 			lives.addActor(new Image(atlas.findRegion("life")));
+			lives.addActor(new Image(atlas.findRegion("life")));
+			lives.addActor(new Image(atlas.findRegion("life")));
+			lives.addActor(new Image(atlas.findRegion("life_plus")));
 			add(lives).top();
 			add(new Label("3", style64)).right();
 
