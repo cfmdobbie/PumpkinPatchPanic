@@ -1,8 +1,10 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 
 /**
@@ -69,6 +71,12 @@ public class GameScreen extends PumpkinScreen {
 		stage.addActor(getPlantForPumpkinButton(frontRight));
 		stage.addActor(frontRight);
 		stage.addActor(getFaceForPumpkinButton(frontRight));
+		
+		BitmapFont font = game.manager.get("sans_64.fnt", BitmapFont.class);
+		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+		Label label = new Label("0:43", style);
+		label.setPosition(100, 100);
+		stage.addActor(label);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
 	}
