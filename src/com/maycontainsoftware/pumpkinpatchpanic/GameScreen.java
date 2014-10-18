@@ -74,47 +74,8 @@ public class GameScreen extends PumpkinScreen {
 		stage.addActor(frontRight);
 		stage.addActor(getFaceForPumpkinButton(frontRight));
 
-		// HUD
-
-		// Load fonts
-		final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
-		final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
-
-		// Label styles
-		Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
-		Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
-
-		// Table to lay out the elements
-		final Table table = new Table();
-		table.setFillParent(true);
-		table.pad(40.0f);
-		// table.defaults().pad(40.0f);
-		stage.addActor(table);
-		// table.debug();
-
-		table.row();
-		table.add(new Label("High Level:", style32));
-		table.add(new Label("Lives Left:", style32)).expandX();
-		table.add(new Label("Current Level:", style32));
-
-		table.row();
-		table.add(new Label("7", style64)).left();
-		final HorizontalGroup lives = new HorizontalGroup();
-		lives.addActor(new Image(atlas.findRegion("life")));
-		lives.addActor(new Image(atlas.findRegion("life")));
-		lives.addActor(new Image(atlas.findRegion("life")));
-		table.add(lives).top();
-		table.add(new Label("3", style64)).right();
-
-		table.row();
-		table.add();
-		table.add(new Label("Time Remaining:", style32));
-		table.add();
-
-		table.row();
-		table.add();
-		table.add(new Label("0:43", style64)).expandY().top();
-		table.add();
+		// Head Up Display
+		stage.addActor(new Hud());
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
 	}
@@ -130,5 +91,50 @@ public class GameScreen extends PumpkinScreen {
 		final Image face = new Image(atlas.findRegion("face_normal"));
 		face.setPosition(pumpkin.getX(), pumpkin.getY());
 		return face;
+	}
+
+	class Hud extends Table {
+
+		public Hud() {
+
+			// Fill screen, 40px border
+			setFillParent(true);
+			pad(40.0f, 60.0f, 40.0f, 60.0f);
+
+			// Debug rendering
+			// debug();
+
+			// Load fonts
+			final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
+			final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
+
+			// Label styles
+			Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
+			Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+
+			row();
+			add(new Label("High Level:", style32));
+			add(new Label("Lives Left:", style32)).expandX();
+			add(new Label("Current Level:", style32));
+
+			row();
+			add(new Label("7", style64)).left();
+			final HorizontalGroup lives = new HorizontalGroup();
+			lives.addActor(new Image(atlas.findRegion("life")));
+			lives.addActor(new Image(atlas.findRegion("life")));
+			lives.addActor(new Image(atlas.findRegion("life")));
+			add(lives).top();
+			add(new Label("3", style64)).right();
+
+			row();
+			add();
+			add(new Label("Time Remaining:", style32));
+			add();
+
+			row();
+			add();
+			add(new Label("0:43", style64)).expandY().top();
+			add();
+		}
 	}
 }
