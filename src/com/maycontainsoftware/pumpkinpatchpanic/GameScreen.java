@@ -25,6 +25,16 @@ public class GameScreen extends PumpkinScreen {
 	/** Tag, for logging purposes. */
 	private static final String TAG = GameScreen.class.getSimpleName();
 
+	// Game data
+
+	private int livesLeft;
+
+	private float timeLeft;
+
+	private int highLevel;
+
+	private int currentLevel;
+
 	/**
 	 * Construct a new GameScreen.
 	 * 
@@ -33,6 +43,18 @@ public class GameScreen extends PumpkinScreen {
 	 */
 	public GameScreen(final PumpkinGame game) {
 		super(game);
+
+		// Set up game data
+
+		livesLeft = 3;
+
+		timeLeft = 60.0f;
+
+		// TODO: Load highLevel from prefs
+		highLevel = 10;
+
+		currentLevel = 1;
+
 	}
 
 	@Override
@@ -110,17 +132,14 @@ public class GameScreen extends PumpkinScreen {
 		/** Label containing the current level reached. */
 		private final Label currentLevelLabel;
 
-		/** Label containing the current time remaining. */
-		private final Label timeRemainingLabel;
+		/** Label containing the current time left. */
+		private final Label timeLeftLabel;
 
 		/** Array of tokens to represent lives on the HUD - used by the updateLives() method. */
 		final Image[] lifeTokens;
 
 		/** Container for the life tokens. */
 		private final HorizontalGroup lifeContainer;
-
-		/** Current lives remaining. */
-		private int livesLeft;
 
 		/** Construct the HUD. */
 		public Hud() {
@@ -148,7 +167,7 @@ public class GameScreen extends PumpkinScreen {
 			add(new Label("Current Level", style32));
 
 			row();
-			add(highLevelLabel = new Label("7", style64)).left();
+			add(highLevelLabel = new Label(String.valueOf(highLevel), style64)).left();
 
 			// Life tokens are five lives and one "overflow" indication
 			lifeTokens = new Image[] { new Image(atlas.findRegion("life")), new Image(atlas.findRegion("life")),
@@ -158,8 +177,10 @@ public class GameScreen extends PumpkinScreen {
 			// Life container
 			lifeContainer = new HorizontalGroup();
 			add(lifeContainer).top();
+			// Update initial life token state
+			updateLives();
 
-			add(currentLevelLabel = new Label("3", style64)).right();
+			add(currentLevelLabel = new Label(String.valueOf(currentLevel), style64)).right();
 
 			row();
 			add();
@@ -168,28 +189,30 @@ public class GameScreen extends PumpkinScreen {
 
 			row();
 			add();
-			add(timeRemainingLabel = new Label("0:43", style64)).expandY().top();
+			add(timeLeftLabel = new Label(getTimeLeftAsString(), style64)).expandY().top();
 			add();
 
 			// XXX: Temporary listener to test HUD display
-			timeRemainingLabel.addListener(new InputListener() {
+			timeLeftLabel.addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					highLevelLabel.setText("" + MathUtils.random(0, 20));
 					currentLevelLabel.setText("" + MathUtils.random(0, 20));
-					timeRemainingLabel.setText("" + MathUtils.random(0, 1) + ":" + MathUtils.random(0, 5)
+					timeLeftLabel.setText("" + MathUtils.random(0, 1) + ":" + MathUtils.random(0, 5)
 							+ MathUtils.random(0, 9));
 					livesLeft = MathUtils.random(0, 6);
 					updateLives();
 					return super.touchDown(event, x, y, pointer, button);
 				}
 			});
+		}
 
-			// Initial state
-
-			// Start with 3 lives
-			livesLeft = 3;
-			updateLives();
+		/** Return the time left as a String. */
+		private String getTimeLeftAsString() {
+			int time = (int) timeLeft;
+			int mins = time / 60;
+			int secs = time % 60;
+			return mins + ":" + (secs < 10 ? "0" + secs : secs);
 		}
 
 		/** Update the lives display. */
