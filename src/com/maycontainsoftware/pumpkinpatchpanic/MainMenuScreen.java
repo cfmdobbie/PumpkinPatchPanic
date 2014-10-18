@@ -3,7 +3,6 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -56,8 +55,15 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(btnHelp);
 
 		// The "Play" pumpkin-button
-		final Image btnPlay = new Image(atlas.findRegion("btn_play"));
+		final Button btnPlay = new Button(new TextureRegionDrawable(atlas.findRegion("btn_play")));
 		btnPlay.setPosition(1280 / 2 - 230 / 2, 95);
+		btnPlay.addListener(new ChangeListener() {
+			@Override
+			public void changed(final ChangeEvent event, final Actor actor) {
+				game.setScreen(new GameScreen(game));
+				MainMenuScreen.this.dispose();
+			}
+		});
 		stage.addActor(getPlantForPumpkinButton(btnPlay));
 		stage.addActor(btnPlay);
 
