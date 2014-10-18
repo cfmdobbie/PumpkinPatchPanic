@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -176,7 +177,7 @@ public class PumpkinScreen implements Screen {
 		 * A = sin-1 0.816 = 54.68 degrees
 		 */
 
-		// XXX: Correction - currently starting moon due West.  Preferred behaviour to be decided.
+		// XXX: Correction - currently starting moon due West. Preferred behaviour to be decided.
 		moon.rotate(90.0f);
 
 		/*
@@ -216,17 +217,97 @@ public class PumpkinScreen implements Screen {
 		stage.addActor(treeRight);
 
 		// owl is 60x100
-		stage.addActor(new Owl(944, 504, atlas.findRegions("owl")));
-		stage.addActor(new Owl(285, 528, atlas.findRegions("owl")));
+		stage.addActor(new Owl(944, 504, atlas));
+		stage.addActor(new Owl(285, 528, atlas));
 	}
 
+	/** Actor to represent the owl. */
 	static class Owl extends Image {
-		public Owl(final float x, final float y, final Array<AtlasRegion> frames) {
-			super(frames.get(0));
-			//final Array<AtlasRegion> owlFrames = atlas.findRegions("owl");
-			//final Animation owlAnimation = new Animation(2.0f, owlFrames, Animation.LOOP);
-			//final AnimatedActor owl = new AnimatedActor(owlAnimation);
+
+		// Drawables for the different owl graphics
+		private final TextureRegionDrawable eyesDown;
+		private final TextureRegionDrawable eyesLeft;
+		private final TextureRegionDrawable eyesRight;
+		private final TextureRegionDrawable blink;
+
+		private float timeSinceEyeChange = 0.0f;
+		private float timeToEyeChange;
+		private TextureRegionDrawable currentEyes;
+
+		private float timeSinceBlinkChange = 0.0f;
+		private float timeToBlinkChange;
+		private boolean eyesOpen = true;
+
+		public Owl(final float x, final float y, final TextureAtlas atlas) {
+			// Call super with a graphic - mainly just to set up size for us
+			super(atlas.findRegion("owl_down"));
+
+			// Load owl frames
+			eyesDown = new TextureRegionDrawable(atlas.findRegion("owl_down"));
+			eyesLeft = new TextureRegionDrawable(atlas.findRegion("owl_left"));
+			eyesRight = new TextureRegionDrawable(atlas.findRegion("owl_right"));
+			blink = new TextureRegionDrawable(atlas.findRegion("owl_blink"));
+
+			// Start off looking down
+			currentEyes = eyesDown;
+			timeToEyeChange = MathUtils.random(0.5f, 4.0f);
+
+			// And not blinking
+			timeToBlinkChange = MathUtils.random(3.0f, 6.0f);
+
 			setPosition(x, y);
+
+			addAction(new OwlAction());
+		}
+
+		/** Actor to represent an owl. */
+		class OwlAction extends Action {
+			@Override
+			public boolean act(float delta) {
+
+				// Eye change code
+
+				timeSinceEyeChange += delta;
+
+				if (timeSinceEyeChange > timeToEyeChange) {
+					// Need to change eyes
+					if (currentEyes == eyesDown) {
+						currentEyes = MathUtils.randomBoolean() ? eyesLeft : eyesRight;
+					} else if (currentEyes == eyesLeft) {
+						currentEyes = MathUtils.randomBoolean() ? eyesDown : eyesRight;
+					} else {
+						currentEyes = MathUtils.randomBoolean() ? eyesLeft : eyesDown;
+					}
+
+					timeSinceEyeChange = 0.0f;
+					timeToEyeChange = MathUtils.random(0.5f, 4.0f);
+
+					if (eyesOpen) {
+						setDrawable(currentEyes);
+					}
+				}
+
+				// Blink code
+
+				timeSinceBlinkChange += delta;
+
+				if (timeSinceBlinkChange >= timeToBlinkChange) {
+					if (eyesOpen) {
+						// Need to blink
+						setDrawable(blink);
+						timeToBlinkChange = MathUtils.random(0.25f);
+						timeSinceBlinkChange = 0.0f;
+					} else {
+						// Need to stop blinking
+						setDrawable(currentEyes);
+						timeToBlinkChange = MathUtils.random(3.0f, 6.0f);
+						timeSinceBlinkChange = 0.0f;
+					}
+					eyesOpen = !eyesOpen;
+				}
+
+				return false;
+			}
 		}
 	}
 
