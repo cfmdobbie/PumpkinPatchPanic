@@ -95,10 +95,6 @@ public class LoadingScreen implements Screen {
 		// Music
 		// TODO: Music
 
-		// UI skin
-		// TODO: UI skin
-		// game.manager.load("uiskin.json", Skin.class);
-
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.LOADING);
 	}
 
