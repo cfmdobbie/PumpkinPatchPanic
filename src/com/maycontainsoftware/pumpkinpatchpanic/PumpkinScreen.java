@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -255,6 +257,20 @@ public class PumpkinScreen implements Screen {
 			setPosition(x, y);
 
 			addAction(new OwlAction());
+
+			// Want owl to respond to touch - owl should blink when poked
+			// However, as we have two stages and a single InputProcessor, this does not work
+			// TODO: Fix owl's touch input
+			addListener(new InputListener() {
+				@Override
+				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					// Owls blink when touched
+					setDrawable(blink);
+					timeToBlinkChange = MathUtils.random(0.5f, 0.75f);
+					timeSinceBlinkChange = 0.0f;
+					return true;
+				}
+			});
 		}
 
 		/** Action to animate an owl. */
