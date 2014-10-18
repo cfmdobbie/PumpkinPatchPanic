@@ -3,8 +3,10 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 
 /**
@@ -71,14 +73,57 @@ public class GameScreen extends PumpkinScreen {
 		stage.addActor(getPlantForPumpkinButton(frontRight));
 		stage.addActor(frontRight);
 		stage.addActor(getFaceForPumpkinButton(frontRight));
-		
-		BitmapFont font = game.manager.get("sans_64.fnt", BitmapFont.class);
-		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-		Label label = new Label("0:43", style);
-		label.setPosition(100, 100);
-		stage.addActor(label);
+
+		// HUD
+
+		// Load fonts
+		final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
+		final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
+
+		// Label styles
+		Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
+		Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+
+		// Table to lay out the elements
+		final Table table = new Table();
+		table.setFillParent(true);
+		table.pad(40.0f);
+		// table.defaults().pad(40.0f);
+		stage.addActor(table);
+		// table.debug();
+
+		table.row();
+		table.add(new Label("High Level:", style32));
+		table.add(new Label("Lives Left:", style32)).expandX();
+		table.add(new Label("Current Level:", style32));
+
+		table.row();
+		table.add(new Label("7", style64)).left();
+		final HorizontalGroup lives = new HorizontalGroup();
+		lives.addActor(new Image(atlas.findRegion("life")));
+		lives.addActor(new Image(atlas.findRegion("life")));
+		lives.addActor(new Image(atlas.findRegion("life")));
+		table.add(lives).top();
+		table.add(new Label("3", style64)).right();
+
+		table.row();
+		table.add();
+		table.add(new Label("Time Remaining:", style32));
+		table.add();
+
+		table.row();
+		table.add();
+		table.add(new Label("0:43", style64)).expandY().top();
+		table.add();
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
+	}
+
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+
+		// Table.drawDebug(stage);
 	}
 
 	protected final Image getFaceForPumpkinButton(final Widget pumpkin) {
