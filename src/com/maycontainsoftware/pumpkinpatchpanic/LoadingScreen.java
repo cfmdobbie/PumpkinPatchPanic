@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -85,8 +86,8 @@ public class LoadingScreen implements Screen {
 		game.manager.load("help_panel_4.png", Texture.class);
 
 		// Fonts
-		// TODO: Fonts
-		// game.manager.load("arcena32.fnt", BitmapFont.class);
+		game.manager.load("sans_32.fnt", BitmapFont.class);
+		game.manager.load("sans_64.fnt", BitmapFont.class);
 
 		// Sound effects
 		// TODO: Sound effects
