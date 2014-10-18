@@ -86,8 +86,8 @@ public class LoadingScreen implements Screen {
 		game.manager.load("help_panel_4.png", Texture.class);
 
 		// Fonts
-		game.manager.load("sans_32.fnt", BitmapFont.class);
-		game.manager.load("sans_64.fnt", BitmapFont.class);
+		game.manager.load("arialb_32.fnt", BitmapFont.class);
+		game.manager.load("arialb_64.fnt", BitmapFont.class);
 
 		// Sound effects
 		// TODO: Sound effects
