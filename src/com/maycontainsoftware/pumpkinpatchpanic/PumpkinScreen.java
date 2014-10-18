@@ -2,9 +2,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -13,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 
 /**
  * The base class for most screens in the game. The PumpkinScreen contains a Stage and renders the graphical elements
@@ -260,7 +257,7 @@ public class PumpkinScreen implements Screen {
 			addAction(new OwlAction());
 		}
 
-		/** Actor to represent an owl. */
+		/** Action to animate an owl. */
 		class OwlAction extends Action {
 			@Override
 			public boolean act(float delta) {
