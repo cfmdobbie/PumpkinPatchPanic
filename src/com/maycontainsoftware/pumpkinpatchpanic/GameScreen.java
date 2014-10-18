@@ -113,9 +113,9 @@ public class GameScreen extends PumpkinScreen {
 			Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
 
 			row();
-			add(new Label("High Level:", style32));
-			add(new Label("Lives Left:", style32)).expandX();
-			add(new Label("Current Level:", style32));
+			add(new Label("High Level", style32));
+			add(new Label("Lives Left", style32)).expandX();
+			add(new Label("Current Level", style32));
 
 			row();
 			add(new Label("7", style64)).left();
@@ -128,7 +128,7 @@ public class GameScreen extends PumpkinScreen {
 
 			row();
 			add();
-			add(new Label("Time Remaining:", style32));
+			add(new Label("Time Remaining", style32));
 			add();
 
 			row();
