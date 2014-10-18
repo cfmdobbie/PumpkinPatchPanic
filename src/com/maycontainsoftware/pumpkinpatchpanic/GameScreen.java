@@ -3,6 +3,9 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -95,6 +98,13 @@ public class GameScreen extends PumpkinScreen {
 
 	class Hud extends Table {
 
+		private final Label highLevelLabel;
+		private final Label currentLevelLabel;
+		private final Label timeRemainingLabel;
+		final Image[] lifeTokens;
+		private int livesLeft;
+		private final HorizontalGroup lifeContainer;
+
 		public Hud() {
 
 			// Fill screen, 40px border
@@ -118,16 +128,18 @@ public class GameScreen extends PumpkinScreen {
 			add(new Label("Current Level", style32));
 
 			row();
-			add(new Label("7", style64)).left();
-			final HorizontalGroup lives = new HorizontalGroup();
-			lives.addActor(new Image(atlas.findRegion("life")));
-			lives.addActor(new Image(atlas.findRegion("life")));
-			lives.addActor(new Image(atlas.findRegion("life")));
-			lives.addActor(new Image(atlas.findRegion("life")));
-			lives.addActor(new Image(atlas.findRegion("life")));
-			lives.addActor(new Image(atlas.findRegion("life_plus")));
-			add(lives).top();
-			add(new Label("3", style64)).right();
+			add(highLevelLabel = new Label("7", style64)).left();
+
+			// Life tokens are five lives and one "overflow" indication
+			lifeTokens = new Image[] { new Image(atlas.findRegion("life")), new Image(atlas.findRegion("life")),
+					new Image(atlas.findRegion("life")), new Image(atlas.findRegion("life")),
+					new Image(atlas.findRegion("life")), new Image(atlas.findRegion("life_plus")) };
+
+			// Life container
+			lifeContainer = new HorizontalGroup();
+			add(lifeContainer).top();
+
+			add(currentLevelLabel = new Label("3", style64)).right();
 
 			row();
 			add();
@@ -136,8 +148,38 @@ public class GameScreen extends PumpkinScreen {
 
 			row();
 			add();
-			add(new Label("0:43", style64)).expandY().top();
+			add(timeRemainingLabel = new Label("0:43", style64)).expandY().top();
 			add();
+
+			timeRemainingLabel.addListener(new InputListener() {
+				@Override
+				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					highLevelLabel.setText("" + MathUtils.random(0, 20));
+					currentLevelLabel.setText("" + MathUtils.random(0, 20));
+					timeRemainingLabel.setText("" + MathUtils.random(0, 1) + ":" + MathUtils.random(0, 5)
+							+ MathUtils.random(0, 9));
+					livesLeft = MathUtils.random(0, 6);
+					updateLives();
+					return super.touchDown(event, x, y, pointer, button);
+				}
+			});
+
+			// Initial state
+
+			// Start with 3 lives
+			livesLeft = 3;
+			updateLives();
+		}
+
+		private final void updateLives() {
+			for (final Image token : lifeTokens) {
+				lifeContainer.removeActor(token);
+			}
+			for (int i = 0; i < lifeTokens.length; i++) {
+				if (livesLeft > i) {
+					lifeContainer.addActor(lifeTokens[i]);
+				}
+			}
 		}
 	}
 }
