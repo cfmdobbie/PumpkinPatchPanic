@@ -5,18 +5,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Game screen.
@@ -135,9 +132,24 @@ public class GameScreen extends PumpkinScreen {
 
 					// Check for end of round
 					if (timeLeft <= 0.0f) {
+
+						// Set left left in round to exactly zero
 						timeLeft = 0.0f;
+
+						// Note that game is not currently running
 						gameRunning = false;
-						hud.timeLeftLabel.setColor(Color.RED);
+
+						// Update the highest level beaten, if required
+						if (currentLevel > highLevel) {
+							// Update local value
+							highLevel = currentLevel;
+							// Save to preferences
+							game.setHighLevel(highLevel);
+							// Update HUD, apply an interesting value-change effect
+							hud.highLevelLabel.setText(String.valueOf(highLevel));
+							hud.highLevelLabel.setColor(Color.RED);
+							hud.highLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
+						}
 
 						dialog = createRoundOverDialog();
 						stage.addActor(dialog);
@@ -215,11 +227,12 @@ public class GameScreen extends PumpkinScreen {
 		dialog.add(roundCompleteLabel);
 
 		dialog.row();
-		// dialog.add(new Label("Start round " + (currentLevel + 1) + "?", style32));
 		dialog.add(new Label("Next round starts in:", style32));
 
 		dialog.row();
-		dialog.add(new Label("0:05", style64));
+		Label countdown = new Label("0:05", style64);
+		countdown.setColor(Color.RED);
+		dialog.add(countdown);
 
 		return dialog;
 	}

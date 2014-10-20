@@ -195,4 +195,15 @@ public class PumpkinGame extends Game {
 	public int getHighLevel() {
 		return mPrefs.getInteger("high_level", 0);
 	}
+
+	/**
+	 * Set the highest level beaten.
+	 * 
+	 * @param level
+	 *            The new highest level.
+	 */
+	public void setHighLevel(int level) {
+		mPrefs.putInteger("high_level", level);
+		mPrefs.flush();
+	}
 }
