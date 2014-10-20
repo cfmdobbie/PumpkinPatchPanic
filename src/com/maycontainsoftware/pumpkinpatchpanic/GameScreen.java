@@ -255,7 +255,25 @@ public class GameScreen extends PumpkinScreen {
 							countdownLabel.addAction(Actions.color(Color.WHITE, 0.75f));
 						}
 
-						return countdown <= 0.0f;
+						if (countdown <= 0.0f) {
+							// Coundown is complete!
+
+							// Dispose of this dialog
+							dialog.remove();
+							dialog = null;
+
+							// Reset the game
+							// TODO: reset the game
+							timeLeft = 6.0f;
+							gameRunning = true;
+							currentLevel++;
+
+							// Consume the Action
+							return true;
+						} else {
+							// Countdown still running, continue
+							return false;
+						}
 					}
 				});
 			}
