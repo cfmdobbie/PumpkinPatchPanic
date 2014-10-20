@@ -186,4 +186,13 @@ public class PumpkinGame extends Game {
 	public final Stage createStage() {
 		return new Stage(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, false, batch);
 	}
+
+	/**
+	 * Get the current highest level beaten from preferences.
+	 * 
+	 * @return The current highest level that has been beaten.
+	 */
+	public int getHighLevel() {
+		return mPrefs.getInteger("high_level", 0);
+	}
 }

@@ -69,8 +69,7 @@ public class GameScreen extends PumpkinScreen {
 		timeLeft = 6.0f;
 
 		// Highest level reached
-		// TODO: Load highLevel from prefs
-		highLevel = 10;
+		highLevel = game.getHighLevel();
 
 		// Start on level one
 		currentLevel = 1;
