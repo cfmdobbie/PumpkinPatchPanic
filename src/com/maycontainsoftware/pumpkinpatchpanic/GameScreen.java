@@ -47,6 +47,8 @@ public class GameScreen extends PumpkinScreen {
 
 	private Table dialog;
 
+	private Hud hud;
+
 	/**
 	 * Construct a new GameScreen.
 	 * 
@@ -118,7 +120,7 @@ public class GameScreen extends PumpkinScreen {
 		stage.addActor(getFaceForPumpkinButton(frontRight));
 
 		// Head Up Display
-		final Hud hud = new Hud();
+		hud = new Hud();
 		stage.addActor(hud);
 
 		// Stage action
@@ -263,10 +265,7 @@ public class GameScreen extends PumpkinScreen {
 							dialog = null;
 
 							// Reset the game
-							// TODO: reset the game
-							timeLeft = 6.0f;
-							gameRunning = true;
-							currentLevel++;
+							nextRound();
 
 							// Consume the Action
 							return true;
@@ -291,12 +290,26 @@ public class GameScreen extends PumpkinScreen {
 		return new RoundOverDialog();
 	}
 
+	private void nextRound() {
+
+		// One minute on the clock
+		// TODO: Set to 6 seconds for testing purposes
+		timeLeft = 6.0f;
+
+		// Start on level one
+		currentLevel++;
+		hud.updateCurrentLevel();
+
+		// Game is running again
+		gameRunning = true;
+	}
+
 	/**
 	 * Inner class that represents the head-up display.
 	 * 
 	 * @author Charlie
 	 */
-	class Hud extends Table {
+	private class Hud extends Table {
 
 		/** Label containing the current highest level reached. */
 		private final Label highLevelLabel;
@@ -382,6 +395,11 @@ public class GameScreen extends PumpkinScreen {
 		/** Update the time left label using the value held at Screen level. */
 		private void updateTimeLeft() {
 			timeLeftLabel.setText(getTimeLeftAsString());
+		}
+
+		/** Update the current level label using the value held at Screen level. */
+		private void updateCurrentLevel() {
+			currentLevelLabel.setText(String.valueOf(currentLevel));
 		}
 
 		/** Return the time left as a String. */
