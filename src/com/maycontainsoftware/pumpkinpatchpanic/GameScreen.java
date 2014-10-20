@@ -91,65 +91,6 @@ public class GameScreen extends PumpkinScreen {
 		// Let PumpkinScreen do its thing
 		super.show();
 
-		/**
-		 * Actor that represents a haunted pumpkin.
-		 * 
-		 * @author Charlie
-		 */
-		class PumpkinActor extends Actor {
-
-			/** The pumpkin texture. */
-			final TextureRegion pumpkin;
-
-			/** The foliage texture. */
-			final TextureRegion plant;
-
-			/** The normal face texture. */
-			final TextureRegion face;
-
-			/** The evil face texture. */
-			final TextureRegion evilFace;
-
-			float faceAlpha = 0.0f;
-			final float speed;
-
-			public PumpkinActor() {
-
-				plant = atlas.findRegion("plant");
-				pumpkin = atlas.findRegion("pumpkin");
-				face = atlas.findRegion("face_normal");
-				evilFace = atlas.findRegion("face_evil");
-
-				// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
-				setWidth(pumpkin.getRegionWidth());
-				setHeight(pumpkin.getRegionHeight());
-
-				speed = MathUtils.random(5.0f, 10.0f);
-			}
-
-			@Override
-			public void act(float delta) {
-				// Run any Actions added to this Actor
-				super.act(delta);
-
-				// Update face alpha value
-				faceAlpha += delta / speed;
-				faceAlpha %= 1.0f;
-			}
-
-			@Override
-			public void draw(SpriteBatch batch, float parentAlpha) {
-				// Draw plant
-				batch.draw(plant, getX() - 33, getY() - 43);
-				// Draw the pumpkin
-				batch.draw(pumpkin, getX(), getY());
-				// Draw the face
-				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-				batch.draw(evilFace, getX(), getY());
-				batch.setColor(Color.WHITE);
-			}
-		}
-
 		final PumpkinActor backLeft = new PumpkinActor();
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
 		stage.addActor(backLeft);
@@ -474,6 +415,65 @@ public class GameScreen extends PumpkinScreen {
 					lifeContainer.addActor(lifeTokens[i]);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Actor that represents a haunted pumpkin.
+	 * 
+	 * @author Charlie
+	 */
+	private class PumpkinActor extends Actor {
+
+		/** The pumpkin texture. */
+		final TextureRegion pumpkin;
+
+		/** The foliage texture. */
+		final TextureRegion plant;
+
+		/** The normal face texture. */
+		final TextureRegion face;
+
+		/** The evil face texture. */
+		final TextureRegion evilFace;
+
+		float faceAlpha = 0.0f;
+		final float speed;
+
+		public PumpkinActor() {
+
+			plant = atlas.findRegion("plant");
+			pumpkin = atlas.findRegion("pumpkin");
+			face = atlas.findRegion("face_normal");
+			evilFace = atlas.findRegion("face_evil");
+
+			// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
+			setWidth(pumpkin.getRegionWidth());
+			setHeight(pumpkin.getRegionHeight());
+
+			speed = MathUtils.random(5.0f, 10.0f);
+		}
+
+		@Override
+		public void act(float delta) {
+			// Run any Actions added to this Actor
+			super.act(delta);
+
+			// Update face alpha value
+			faceAlpha += delta / speed;
+			faceAlpha %= 1.0f;
+		}
+
+		@Override
+		public void draw(SpriteBatch batch, float parentAlpha) {
+			// Draw plant
+			batch.draw(plant, getX() - 33, getY() - 43);
+			// Draw the pumpkin
+			batch.draw(pumpkin, getX(), getY());
+			// Draw the face
+			batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
+			batch.draw(evilFace, getX(), getY());
+			batch.setColor(Color.WHITE);
 		}
 	}
 }
