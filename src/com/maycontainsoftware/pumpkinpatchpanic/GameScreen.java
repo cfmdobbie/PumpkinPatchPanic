@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -104,10 +103,12 @@ public class GameScreen extends PumpkinScreen {
 				plant = atlas.findRegion("plant");
 				face = atlas.findRegion("face_normal");
 
+				final float speed = MathUtils.random(5.0f, 10.0f);
+
 				addAction(new Action() {
 					@Override
 					public boolean act(float delta) {
-						faceAlpha += delta / 10.0f;
+						faceAlpha += delta / speed;
 						faceAlpha %= 1.0f;
 						return false;
 					}
@@ -123,6 +124,7 @@ public class GameScreen extends PumpkinScreen {
 				// Draw the face
 				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
 				batch.draw(face, getX(), getY());
+				batch.setColor(Color.WHITE);
 			}
 		}
 
@@ -130,29 +132,21 @@ public class GameScreen extends PumpkinScreen {
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
 		stage.addActor(backLeft);
 
-		final Image backRight = new Image(atlas.findRegion("pumpkin"));
+		final PumpkinActor backRight = new PumpkinActor();
 		backRight.setPosition(800 - 230 / 2, 720 - 510);
-		stage.addActor(getPlantForPumpkinButton(backRight));
 		stage.addActor(backRight);
-		stage.addActor(getFaceForPumpkinButton(backRight));
 
-		final Image frontLeft = new Image(atlas.findRegion("pumpkin"));
+		final PumpkinActor frontLeft = new PumpkinActor();
 		frontLeft.setPosition(320 - 230 / 2, 720 - 670);
-		stage.addActor(getPlantForPumpkinButton(frontLeft));
 		stage.addActor(frontLeft);
-		stage.addActor(getFaceForPumpkinButton(frontLeft));
 
-		final Image frontMiddle = new Image(atlas.findRegion("pumpkin"));
+		final PumpkinActor frontMiddle = new PumpkinActor();
 		frontMiddle.setPosition(640 - 230 / 2, 720 - 670);
-		stage.addActor(getPlantForPumpkinButton(frontMiddle));
 		stage.addActor(frontMiddle);
-		stage.addActor(getFaceForPumpkinButton(frontMiddle));
 
-		final Image frontRight = new Image(atlas.findRegion("pumpkin"));
+		final PumpkinActor frontRight = new PumpkinActor();
 		frontRight.setPosition(960 - 230 / 2, 720 - 670);
-		stage.addActor(getPlantForPumpkinButton(frontRight));
 		stage.addActor(frontRight);
-		stage.addActor(getFaceForPumpkinButton(frontRight));
 
 		// Head Up Display
 		hud = new Hud();
