@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
@@ -35,6 +36,8 @@ public class GameScreen extends PumpkinScreen {
 
 	private int currentLevel;
 
+	private boolean gameRunning;
+
 	/**
 	 * Construct a new GameScreen.
 	 * 
@@ -55,6 +58,7 @@ public class GameScreen extends PumpkinScreen {
 
 		currentLevel = 1;
 
+		gameRunning = true;
 	}
 
 	@Override
@@ -100,7 +104,31 @@ public class GameScreen extends PumpkinScreen {
 		stage.addActor(getFaceForPumpkinButton(frontRight));
 
 		// Head Up Display
-		stage.addActor(new Hud());
+		final Hud hud = new Hud();
+		stage.addActor(hud);
+
+		// Stage action
+		stage.addAction(new Action() {
+			@Override
+			public boolean act(float delta) {
+
+				if (gameRunning) {
+					// Decrement time left
+					timeLeft -= delta;
+
+					if (timeLeft <= 0.0f) {
+						timeLeft = 0.0f;
+						gameRunning = false;
+						hud.timeLeftLabel.setColor(Color.RED);
+					}
+
+					// Update label
+					hud.updateTimeLeft();
+				}
+
+				return false;
+			}
+		});
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
 	}
@@ -207,9 +235,15 @@ public class GameScreen extends PumpkinScreen {
 			});
 		}
 
+		/** Update the time left label using the value held at Screen level. */
+		private void updateTimeLeft() {
+			timeLeftLabel.setText(getTimeLeftAsString());
+		}
+
 		/** Return the time left as a String. */
 		private String getTimeLeftAsString() {
-			int time = (int) timeLeft;
+			// Using ceil instead of integer-cast because we want time to terminate as soon as it reaches 0:00
+			int time = MathUtils.ceil(timeLeft);
 			int mins = time / 60;
 			int secs = time % 60;
 			return mins + ":" + (secs < 10 ? "0" + secs : secs);
