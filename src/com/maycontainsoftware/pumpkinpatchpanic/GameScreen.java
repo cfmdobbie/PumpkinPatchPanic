@@ -54,15 +54,20 @@ public class GameScreen extends PumpkinScreen {
 
 		// Set up game data
 
+		// Start with three lives
 		livesLeft = 3;
 
+		// One minute on the clock
 		timeLeft = 60.0f;
 
+		// Highest level reached
 		// TODO: Load highLevel from prefs
 		highLevel = 10;
 
+		// Start on level one
 		currentLevel = 1;
 
+		// Game starts running
 		gameRunning = true;
 	}
 
