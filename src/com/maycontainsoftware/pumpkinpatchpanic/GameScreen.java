@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -47,8 +48,10 @@ public class GameScreen extends PumpkinScreen {
 	/** Whether or not the game is running. */
 	private boolean gameRunning;
 
+	/** The current dialog being displayed. */
 	private Table dialog;
 
+	/** The interface showing level, lives and time remaining. */
 	private Hud hud;
 
 	/**
@@ -85,34 +88,53 @@ public class GameScreen extends PumpkinScreen {
 			Gdx.app.log(TAG, "show()");
 		}
 
+		// Let PumpkinScreen do its thing
 		super.show();
 
-		// TODO: Create game elements
+		/**
+		 * Actor that represents a haunted pumpkin.
+		 * 
+		 * @author Charlie
+		 */
+		class PumpkinActor extends Actor {
 
-		// Pumpkins are 230x150
+			/** The pumpkin texture. */
+			final TextureRegion pumpkin;
 
-		class PumpkinActor extends Image {
-
+			/** The foliage texture. */
 			final TextureRegion plant;
+
+			/** The normal face texture. */
 			final TextureRegion face;
+
+			/** The evil face texture. */
+			final TextureRegion evilFace;
+
 			float faceAlpha = 0.0f;
+			final float speed;
 
 			public PumpkinActor() {
-				super(atlas.findRegion("pumpkin"));
 
 				plant = atlas.findRegion("plant");
+				pumpkin = atlas.findRegion("pumpkin");
 				face = atlas.findRegion("face_normal");
+				evilFace = atlas.findRegion("face_evil");
 
-				final float speed = MathUtils.random(5.0f, 10.0f);
+				// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
+				setWidth(pumpkin.getRegionWidth());
+				setHeight(pumpkin.getRegionHeight());
 
-				addAction(new Action() {
-					@Override
-					public boolean act(float delta) {
-						faceAlpha += delta / speed;
-						faceAlpha %= 1.0f;
-						return false;
-					}
-				});
+				speed = MathUtils.random(5.0f, 10.0f);
+			}
+
+			@Override
+			public void act(float delta) {
+				// Run any Actions added to this Actor
+				super.act(delta);
+
+				// Update face alpha value
+				faceAlpha += delta / speed;
+				faceAlpha %= 1.0f;
 			}
 
 			@Override
@@ -120,10 +142,10 @@ public class GameScreen extends PumpkinScreen {
 				// Draw plant
 				batch.draw(plant, getX() - 33, getY() - 43);
 				// Draw the pumpkin
-				super.draw(batch, parentAlpha);
+				batch.draw(pumpkin, getX(), getY());
 				// Draw the face
 				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-				batch.draw(face, getX(), getY());
+				batch.draw(evilFace, getX(), getY());
 				batch.setColor(Color.WHITE);
 			}
 		}
