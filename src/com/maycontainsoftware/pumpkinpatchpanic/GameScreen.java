@@ -5,13 +5,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Game screen.
@@ -140,6 +145,50 @@ public class GameScreen extends PumpkinScreen {
 				return false;
 			}
 		});
+
+		// Set up flash message
+		final Table flash = new Table();
+		flash.setBackground(new NinePatchDrawable(atlas.createPatch("horizontal_flash_bg")));
+		flash.setVisible(true);
+		final int flashHeight = 340;
+		flash.setBounds(0, 720 / 2 - flashHeight / 2, 1280, flashHeight);
+		stage.addActor(flash);
+		final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
+		final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
+		Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
+		Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+		flash.row();
+
+		flash.debug();
+
+		flash.row();
+		final Label gameOverLabel = new Label("Game Over!", style64);
+		gameOverLabel.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+		flash.add(gameOverLabel);
+
+		flash.row();
+		flash.add(new Label("Round reached: " + currentLevel, style32));
+
+		flash.row();
+		flash.add(new Label("New high score!", style32));
+
+		flash.row();
+		final Label roundCompleteLabel = new Label("Round Complete!", style64);
+		roundCompleteLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
+		flash.add(roundCompleteLabel);
+
+		// Menu button
+		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
+		menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
+		menuBtn.setPosition(10.0f, 10.0f);
+		menuBtn.addListener(new ChangeListener() {
+			@Override
+			public void changed(final ChangeEvent event, final Actor actor) {
+				// TODO
+			}
+		});
+		flash.addActor(getPlantForPumpkinButton(menuBtn));
+		flash.addActor(menuBtn);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
 	}
