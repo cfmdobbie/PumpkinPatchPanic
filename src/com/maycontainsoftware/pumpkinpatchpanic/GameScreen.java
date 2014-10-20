@@ -28,14 +28,19 @@ public class GameScreen extends PumpkinScreen {
 
 	// Game data
 
+	/** Number of lives left. Game is over when all lives lost. */
 	private int livesLeft;
 
+	/** Time left in the current round. */
 	private float timeLeft;
 
+	/** Highest level reached - either this game, or from previous game and loaded from prefs. */
 	private int highLevel;
 
+	/** Current level. */
 	private int currentLevel;
 
+	/** Whether or not the game is running. */
 	private boolean gameRunning;
 
 	/**
@@ -116,6 +121,7 @@ public class GameScreen extends PumpkinScreen {
 					// Decrement time left
 					timeLeft -= delta;
 
+					// Check for end of round
 					if (timeLeft <= 0.0f) {
 						timeLeft = 0.0f;
 						gameRunning = false;
@@ -140,6 +146,14 @@ public class GameScreen extends PumpkinScreen {
 		// Table.drawDebug(stage);
 	}
 
+	/**
+	 * Get an image that directly overlays the pumpkin button which displays the "normal" pumpkin face. Note that the
+	 * actor's alpha is set to 0.0f on creation.
+	 * 
+	 * @param pumpkin
+	 *            The Widget that reprensents the pumpkin button.
+	 * @return The pumpkin's face image
+	 */
 	protected final Image getFaceForPumpkinButton(final Widget pumpkin) {
 		final Image face = new Image(atlas.findRegion("face_normal"));
 		face.setPosition(pumpkin.getX(), pumpkin.getY());
