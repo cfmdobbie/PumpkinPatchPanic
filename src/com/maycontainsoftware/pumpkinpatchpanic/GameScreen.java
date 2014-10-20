@@ -65,7 +65,8 @@ public class GameScreen extends PumpkinScreen {
 		livesLeft = 3;
 
 		// One minute on the clock
-		timeLeft = 60.0f;
+		// TODO: Set to 6 seconds for testing purposes
+		timeLeft = 6.0f;
 
 		// Highest level reached
 		// TODO: Load highLevel from prefs
