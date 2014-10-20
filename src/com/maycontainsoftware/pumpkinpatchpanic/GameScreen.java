@@ -200,41 +200,77 @@ public class GameScreen extends PumpkinScreen {
 		return face;
 	}
 
-	private final Table createDialog() {
-
-		final Table dialog = new Table();
-		dialog.setBackground(new NinePatchDrawable(atlas.createPatch("horizontal_flash_bg")));
-		final int height = 340;
-		dialog.setBounds(0, 720 / 2 - height / 2, 1280, height);
-
-		// dialog.debug();
-
-		return dialog;
-	}
-
 	private final Table createRoundOverDialog() {
 
-		Table dialog = createDialog();
+		class RoundOverDialog extends Table {
+			private float countdown = 5.0f;
+			private int countdownInt = MathUtils.ceil(countdown);
+			private final Label countdownLabel;
 
-		final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
-		final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
-		Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
-		Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+			public RoundOverDialog() {
+				setBackground(new NinePatchDrawable(atlas.createPatch("horizontal_flash_bg")));
+				final int height = 340;
+				setBounds(0, 720 / 2 - height / 2, 1280, height);
 
-		dialog.row();
-		final Label roundCompleteLabel = new Label("Round Complete!", style64);
-		roundCompleteLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
-		dialog.add(roundCompleteLabel);
+				final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
+				final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
+				final Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
+				final Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
 
-		dialog.row();
-		dialog.add(new Label("Next round starts in:", style32));
+				row();
+				final Label roundCompleteLabel = new Label("Round Complete!", style64);
+				roundCompleteLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
+				add(roundCompleteLabel);
 
-		dialog.row();
-		Label countdown = new Label("0:05", style64);
-		countdown.setColor(Color.RED);
-		dialog.add(countdown);
+				row();
+				add(new Label("Next round starts in:", style32));
 
-		return dialog;
+				row();
+				countdownLabel = new Label("", style64);
+				updateTime();
+				// countdownLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
+				add(countdownLabel);
+
+				addAction(new Action() {
+					@Override
+					public boolean act(float delta) {
+
+						// Update the countdown value
+						countdown -= delta;
+
+						// Determine the preferred display value
+						final int newCountdownInt = MathUtils.ceil(countdown);
+
+						// If full second has passed (i.e. the display value has changed), update it
+						if (countdownInt != newCountdownInt) {
+
+							// Update the local value
+							countdownInt = newCountdownInt;
+
+							// Update the Label
+							updateTime();
+
+							// Highlight the change with a simple animation
+							countdownLabel.setColor(Color.RED);
+							countdownLabel.addAction(Actions.color(Color.WHITE, 0.75f));
+						}
+
+						return countdown <= 0.0f;
+					}
+				});
+			}
+
+			/**
+			 * Update the coundown time shown on the round-complete dialog. Note that this is hard-coded to work for
+			 * times from five seconds to zero only.
+			 */
+			private void updateTime() {
+				// Note that this will NOT WORK for values >= 10 seconds
+				countdownLabel.setText("0:0" + countdownInt);
+			}
+		}
+
+		return new RoundOverDialog();
 	}
 
 	/**
