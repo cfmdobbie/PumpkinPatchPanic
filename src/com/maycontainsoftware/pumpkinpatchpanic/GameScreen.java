@@ -3,8 +3,11 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -89,11 +92,43 @@ public class GameScreen extends PumpkinScreen {
 
 		// Pumpkins are 230x150
 
-		final Image backLeft = new Image(atlas.findRegion("pumpkin"));
+		class PumpkinActor extends Image {
+
+			final TextureRegion plant;
+			final TextureRegion face;
+			float faceAlpha = 0.0f;
+
+			public PumpkinActor() {
+				super(atlas.findRegion("pumpkin"));
+
+				plant = atlas.findRegion("plant");
+				face = atlas.findRegion("face_normal");
+
+				addAction(new Action() {
+					@Override
+					public boolean act(float delta) {
+						faceAlpha += delta / 10.0f;
+						faceAlpha %= 1.0f;
+						return false;
+					}
+				});
+			}
+
+			@Override
+			public void draw(SpriteBatch batch, float parentAlpha) {
+				// Draw plant
+				batch.draw(plant, getX() - 33, getY() - 43);
+				// Draw the pumpkin
+				super.draw(batch, parentAlpha);
+				// Draw the face
+				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
+				batch.draw(face, getX(), getY());
+			}
+		}
+
+		final PumpkinActor backLeft = new PumpkinActor();
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
-		stage.addActor(getPlantForPumpkinButton(backLeft));
 		stage.addActor(backLeft);
-		stage.addActor(getFaceForPumpkinButton(backLeft));
 
 		final Image backRight = new Image(atlas.findRegion("pumpkin"));
 		backRight.setPosition(800 - 230 / 2, 720 - 510);
