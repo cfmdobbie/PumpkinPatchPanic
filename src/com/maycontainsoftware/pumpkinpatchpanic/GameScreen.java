@@ -513,9 +513,12 @@ public class GameScreen extends PumpkinScreen {
 						case Possession_Delay:
 						case Recovery:
 							// Too early
-							Gdx.app.log(TAG, "Hit too early");
+							if (DEBUG) {
+								Gdx.app.log(TAG, "Hit too early");
+							}
 
-							// TODO: Play sound
+							// TODO: Play sound: error, life lost
+
 							// TODO: Decrement lives
 
 							// Move to dormant state
@@ -525,9 +528,11 @@ public class GameScreen extends PumpkinScreen {
 							break;
 						case Possessed:
 							// Correct timing
-							Gdx.app.log(TAG, "Correct hit");
+							if (DEBUG) {
+								Gdx.app.log(TAG, "Correct hit");
+							}
 
-							// TODO: Play sound
+							// TODO: Play sound: good hit, exorcised
 
 							// Move to dormant state
 							state = PumpkinState.Dormant;
@@ -536,16 +541,22 @@ public class GameScreen extends PumpkinScreen {
 							break;
 						case Spirit_Release:
 							// Too late
-							Gdx.app.log(TAG, "Hit too late");
+							if (DEBUG) {
+								Gdx.app.log(TAG, "Hit too late");
+							}
 
-							// TODO: Play sound
+							// TODO: Play sound: error
 
-							// TODO: Penalise or just ignore this input?
+							// Ignore this input.
+
+							// Player has already been penalised for letting the spirit escape, so no further penalty
+							// required.
+
+							// No state change required - pumpkin will automatically recover
 
 							break;
 						default:
-							// TODO
-							break;
+							throw new IllegalStateException();
 						}
 						return true;
 					}
@@ -617,18 +628,31 @@ public class GameScreen extends PumpkinScreen {
 					// No special additional calculations
 
 					if (timer <= 0.0f) {
-						// Temporarily ignore the timer expiring - pumpkins will stay possessed indefinitely
-						// TODO: Correct Spirit_Release code
-						// state = PumpkinState.Spirit_Release;
-						// TODO: Sound?
+						// TODO: Decrement lives
+
+						// TODO: Play sound: spirit escape, life lost
+
+						// Move to spirit-released state
+						state = PumpkinState.Spirit_Release;
+						timer = MathUtils.random(2.0f);
+
+						// Release spirit
+						final float x = getX() + getWidth() / 2;
+						final float y = getY() + getHeight() / 2;
+						final Spirit spirit = new Spirit(screen.atlas.findRegion("ghost"), x, y);
+						screen.stage.addActor(spirit);
 					}
 					break;
 				case Spirit_Release:
 					// TODO
+					if (timer <= 0.0f) {
+						// Move to dormant state
+						state = PumpkinState.Dormant;
+						timer = MathUtils.random(1.0f, 3.0f);
+					}
 					break;
 				default:
-					// TODO
-					break;
+					throw new IllegalStateException();
 				}
 			}
 		}
@@ -660,12 +684,46 @@ public class GameScreen extends PumpkinScreen {
 				batch.draw(evilFace, getX(), getY());
 				break;
 			case Spirit_Release:
-				// TODO
+				// TODO: some kind of "broken" pumpkin addition
 				break;
 			default:
-				// TODO
-				break;
+				throw new IllegalStateException();
 			}
+		}
+	}
+
+	/**
+	 * Actor that represents a spirit escaping from a pumpkin.
+	 * 
+	 * @author Charlie
+	 */
+	static class Spirit extends Image {
+
+		/** Constructor. */
+		public Spirit(final TextureRegion spiritRegion, final float x, final float y) {
+			super(spiritRegion);
+
+			// Set origin so rotations work correctly
+			setOrigin(getWidth() / 2, getHeight() / 2);
+
+			// Start out at 1/8th scale
+			setScale(0.125f);
+
+			// Start out transparent
+			setColor(1.0f, 1.0f, 1.0f, 0.0f);
+
+			// Start out centred on the specified coordinates
+			setPosition(x - getWidth() / 2, y - getHeight() / 2);
+
+			// Over the next few seconds: Scale up to 4x, spin, fade in then rapidly fade out
+			addAction(Actions.parallel(Actions.scaleTo(4.0f, 4.0f, 2.0f), Actions.rotateBy(360.0f * 4, 2.0f),
+					Actions.fadeIn(1.0f), Actions.sequence(Actions.delay(1.0f), Actions.fadeOut(0.25f))));
+		}
+
+		@Override
+		public Actor hit(final float x, final float y, final boolean touchable) {
+			// Want to be able to click behind/through this Actor, so hit() should always return null
+			return null;
 		}
 	}
 }
