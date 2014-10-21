@@ -509,7 +509,11 @@ public class GameScreen extends PumpkinScreen {
 
 							// TODO: Play sound: error, life lost
 
-							// TODO: Decrement lives
+							// Decrement lives
+							screen.livesLeft--;
+							screen.hud.updateLives();
+
+							// TODO: Check for game over condition
 
 							// Move to dormant state
 							state = PumpkinState.Dormant;
@@ -618,7 +622,11 @@ public class GameScreen extends PumpkinScreen {
 					// No special additional calculations
 
 					if (timer <= 0.0f) {
-						// TODO: Decrement lives
+						// Decrement lives
+						screen.livesLeft--;
+						screen.hud.updateLives();
+
+						// TODO: Check for game over condition
 
 						// TODO: Play sound: spirit escape, life lost
 
