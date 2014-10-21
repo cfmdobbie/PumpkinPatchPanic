@@ -368,20 +368,6 @@ public class GameScreen extends PumpkinScreen {
 			add();
 			add(timeLeftLabel = new Label(getTimeLeftAsString(), style64)).expandY().top();
 			add();
-
-			// XXX: Temporary listener to test HUD display
-			timeLeftLabel.addListener(new InputListener() {
-				@Override
-				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					highLevelLabel.setText("" + MathUtils.random(0, 20));
-					currentLevelLabel.setText("" + MathUtils.random(0, 20));
-					timeLeftLabel.setText("" + MathUtils.random(0, 1) + ":" + MathUtils.random(0, 5)
-							+ MathUtils.random(0, 9));
-					livesLeft = MathUtils.random(0, 6);
-					updateLives();
-					return super.touchDown(event, x, y, pointer, button);
-				}
-			});
 		}
 
 		/** Update the time left label using the value held at Screen level. */
