@@ -469,14 +469,22 @@ public class GameScreen extends PumpkinScreen {
 		/** Pumpkin state. */
 		private PumpkinState state;
 
-		float timer;
-		float faceAlpha;
-		float alphaChangePerSecond;
+		/** Temporary variable used for meausing time left in current state. */
+		private float timer;
 
+		/** Current alpha value of face graphic. */
+		private float faceAlpha;
+
+		/** Change in face alpha value, per second. Note this can be (and frequently is) negative. */
+		private float alphaChangePerSecond;
+
+		/** Construct a PumpkinActor. */
 		public PumpkinActor(final GameScreen screen) {
 
+			// Store reference to the screen
 			this.screen = screen;
 
+			// Load textures required for rendering
 			plant = screen.atlas.findRegion("plant");
 			pumpkin = screen.atlas.findRegion("pumpkin");
 			face = screen.atlas.findRegion("face_normal");
@@ -503,6 +511,9 @@ public class GameScreen extends PumpkinScreen {
 
 				switch (state) {
 				case Dormant:
+					// No special additional calculations
+
+					// If timer expired, move to Possession state
 					if (timer <= 0.0f) {
 						state = PumpkinState.Possession;
 						timer = MathUtils.random(1.0f, 5.0f);
@@ -510,7 +521,10 @@ public class GameScreen extends PumpkinScreen {
 					}
 					break;
 				case Possession:
+					// Update face alpha value (alphaChangePerSecond will be positive)
 					faceAlpha += alphaChangePerSecond * delta;
+
+					// If timer expired, move to Possession_Delay state
 					if (timer <= 0.0f) {
 						state = PumpkinState.Possession_Delay;
 						timer = MathUtils.random(0.1f, 3.0f);
@@ -518,6 +532,9 @@ public class GameScreen extends PumpkinScreen {
 					}
 					break;
 				case Possession_Delay:
+					// No special additional calculations
+
+					// If timer expired, either become Possessed or move to Recovery
 					if (timer <= 0.0f) {
 						float possessionChance = 0.5f;
 						if (MathUtils.random() <= possessionChance) {
@@ -532,7 +549,10 @@ public class GameScreen extends PumpkinScreen {
 					}
 					break;
 				case Recovery:
+					// Update face alpha value (alphaChangePerSecond will be negative)
 					faceAlpha += alphaChangePerSecond * delta;
+
+					// If timer expired, move to Possession state
 					if (timer <= 0.0f) {
 						state = PumpkinState.Possession;
 						timer = MathUtils.random(1.0f, 5.0f);
@@ -540,6 +560,8 @@ public class GameScreen extends PumpkinScreen {
 					}
 					break;
 				case Possessed:
+					// No special additional calculations
+
 					if (timer <= 0.0f) {
 						state = PumpkinState.Spirit_Release;
 						// TODO
@@ -561,10 +583,13 @@ public class GameScreen extends PumpkinScreen {
 
 		@Override
 		public void draw(SpriteBatch batch, float parentAlpha) {
+
 			// Draw plant
 			batch.draw(plant, getX() - 33, getY() - 43);
+
 			// Draw the pumpkin
 			batch.draw(pumpkin, getX(), getY());
+
 			// Draw the face
 			switch (state) {
 			case Dormant:
@@ -573,12 +598,13 @@ public class GameScreen extends PumpkinScreen {
 			case Possession:
 			case Possession_Delay:
 			case Recovery:
-				// Normal face
+				// Normal face visible, potentially with alpha
 				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
 				batch.draw(face, getX(), getY());
 				batch.setColor(Color.WHITE);
 				break;
 			case Possessed:
+				// Evil face visible
 				batch.draw(evilFace, getX(), getY());
 				break;
 			case Spirit_Release:
