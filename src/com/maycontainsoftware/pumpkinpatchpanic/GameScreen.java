@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -92,23 +91,23 @@ public class GameScreen extends PumpkinScreen {
 		// Let PumpkinScreen do its thing
 		super.show();
 
-		final PumpkinActor backLeft = new PumpkinActor(atlas);
+		final PumpkinActor backLeft = new PumpkinActor(this);
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
 		stage.addActor(backLeft);
 
-		final PumpkinActor backRight = new PumpkinActor(atlas);
+		final PumpkinActor backRight = new PumpkinActor(this);
 		backRight.setPosition(800 - 230 / 2, 720 - 510);
 		stage.addActor(backRight);
 
-		final PumpkinActor frontLeft = new PumpkinActor(atlas);
+		final PumpkinActor frontLeft = new PumpkinActor(this);
 		frontLeft.setPosition(320 - 230 / 2, 720 - 670);
 		stage.addActor(frontLeft);
 
-		final PumpkinActor frontMiddle = new PumpkinActor(atlas);
+		final PumpkinActor frontMiddle = new PumpkinActor(this);
 		frontMiddle.setPosition(640 - 230 / 2, 720 - 670);
 		stage.addActor(frontMiddle);
 
-		final PumpkinActor frontRight = new PumpkinActor(atlas);
+		final PumpkinActor frontRight = new PumpkinActor(this);
 		frontRight.setPosition(960 - 230 / 2, 720 - 670);
 		stage.addActor(frontRight);
 
@@ -454,21 +453,43 @@ public class GameScreen extends PumpkinScreen {
 		/** The evil face texture. */
 		final TextureRegion evilFace;
 
-		float faceAlpha = 0.0f;
-		final float speed;
+		/** Reference to the game screen, used for accessing resources and global game state. */
+		private final GameScreen screen;
 
-		public PumpkinActor(final TextureAtlas atlas) {
+		/** Enumeration representing pumpkin state. */
+		private static enum PumpkinState {
+			Dormant,
+			Possession,
+			Possession_Delay,
+			Recovery,
+			Possessed,
+			Spirit_Release,
+		}
 
-			plant = atlas.findRegion("plant");
-			pumpkin = atlas.findRegion("pumpkin");
-			face = atlas.findRegion("face_normal");
-			evilFace = atlas.findRegion("face_evil");
+		/** Pumpkin state. */
+		private PumpkinState state;
+
+		float timer;
+		float faceAlpha;
+		float alphaChangePerSecond;
+
+		public PumpkinActor(final GameScreen screen) {
+
+			this.screen = screen;
+
+			plant = screen.atlas.findRegion("plant");
+			pumpkin = screen.atlas.findRegion("pumpkin");
+			face = screen.atlas.findRegion("face_normal");
+			evilFace = screen.atlas.findRegion("face_evil");
 
 			// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
 			setWidth(pumpkin.getRegionWidth());
 			setHeight(pumpkin.getRegionHeight());
 
-			speed = MathUtils.random(5.0f, 10.0f);
+			// Initial state
+			state = PumpkinState.Dormant;
+			timer = MathUtils.random(1.0f, 3.0f);
+			faceAlpha = 0.0f;
 		}
 
 		@Override
@@ -476,9 +497,66 @@ public class GameScreen extends PumpkinScreen {
 			// Run any Actions added to this Actor
 			super.act(delta);
 
-			// Update face alpha value
-			faceAlpha += delta / speed;
-			faceAlpha %= 1.0f;
+			if (screen.gameRunning) {
+				// Whatever we're doing, decrement the timer
+				timer -= delta;
+
+				switch (state) {
+				case Dormant:
+					if (timer <= 0.0f) {
+						state = PumpkinState.Possession;
+						timer = MathUtils.random(1.0f, 5.0f);
+						alphaChangePerSecond = (1.0f - 0.0f) / timer;
+					}
+					break;
+				case Possession:
+					faceAlpha += alphaChangePerSecond * delta;
+					if (timer <= 0.0f) {
+						state = PumpkinState.Possession_Delay;
+						timer = MathUtils.random(0.1f, 3.0f);
+						faceAlpha = 1.0f;
+					}
+					break;
+				case Possession_Delay:
+					if (timer <= 0.0f) {
+						float possessionChance = 0.5f;
+						if (MathUtils.random() <= possessionChance) {
+							state = PumpkinState.Possessed;
+							timer = 1.0f;
+						} else {
+							state = PumpkinState.Recovery;
+							timer = MathUtils.random(1.0f, 5.0f);
+							final float alphaTo = MathUtils.random(0.0f, 0.5f);
+							alphaChangePerSecond = (alphaTo - 1.0f) / timer;
+						}
+					}
+					break;
+				case Recovery:
+					faceAlpha += alphaChangePerSecond * delta;
+					if (timer <= 0.0f) {
+						state = PumpkinState.Possession;
+						timer = MathUtils.random(1.0f, 5.0f);
+						alphaChangePerSecond = (1.0f - faceAlpha) / timer;
+					}
+					break;
+				case Possessed:
+					if (timer <= 0.0f) {
+						state = PumpkinState.Spirit_Release;
+						// TODO
+						// TODO: Temporarily pretend to "exorcise" pumpkin after timer expires
+						state = PumpkinState.Dormant;
+						timer = MathUtils.random(1.0f, 3.0f);
+						faceAlpha = 0.0f;
+					}
+					break;
+				case Spirit_Release:
+					// TODO
+					break;
+				default:
+					// TODO
+					break;
+				}
+			}
 		}
 
 		@Override
@@ -488,9 +566,28 @@ public class GameScreen extends PumpkinScreen {
 			// Draw the pumpkin
 			batch.draw(pumpkin, getX(), getY());
 			// Draw the face
-			batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-			batch.draw(evilFace, getX(), getY());
-			batch.setColor(Color.WHITE);
+			switch (state) {
+			case Dormant:
+				// No face visible
+				break;
+			case Possession:
+			case Possession_Delay:
+			case Recovery:
+				// Normal face
+				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
+				batch.draw(face, getX(), getY());
+				batch.setColor(Color.WHITE);
+				break;
+			case Possessed:
+				batch.draw(evilFace, getX(), getY());
+				break;
+			case Spirit_Release:
+				// TODO
+				break;
+			default:
+				// TODO
+				break;
+			}
 		}
 	}
 }
