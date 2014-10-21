@@ -419,7 +419,23 @@ public class GameScreen extends PumpkinScreen {
 	}
 
 	/**
-	 * Actor that represents a haunted pumpkin.
+	 * Actor that represents a haunted pumpkin. During the game, a pumpkin goes through a number of stages:
+	 * 
+	 * 1) Initial delay. Initially, the pumpkin is dormant - a random delay exists before any other action takes place.
+	 * 
+	 * 2) Possession. Spirit begins to enter the pumpkin. Carved face fades in (fully) over random period of time.
+	 * 
+	 * 3) Possession Delay. Once face is completely visible, a random delay exists before either the pumpkin recovers,
+	 * or it becomes possessed.
+	 * 
+	 * 4a) Recovery. Carved face fades away to a partially-visible state over a random period of time, then continues
+	 * Possession.
+	 * 
+	 * 4b) Possessed. Evil face appears. In this state, player can tap pumpkin to exorcise it, returning it to the
+	 * initial state. If left in Possessed state for a fixed period of time, the spirit escapes.
+	 * 
+	 * 5) Spirit Release. The spirit escapes from the pumpkin. The carved face disappears altogether, the pumpkin
+	 * reverts to the initial state and the player loses a life.
 	 * 
 	 * @author Charlie
 	 */
