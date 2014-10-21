@@ -498,6 +498,59 @@ public class GameScreen extends PumpkinScreen {
 			state = PumpkinState.Dormant;
 			timer = MathUtils.random(1.0f, 3.0f);
 			faceAlpha = 0.0f;
+
+			addListener(new InputListener() {
+				@Override
+				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+					if (!screen.gameRunning) {
+						// If game isn't running, return false (ignore input, leave for other Actors to intercept)
+						return false;
+					} else {
+						switch (state) {
+						case Dormant:
+						case Possession:
+						case Possession_Delay:
+						case Recovery:
+							// Too early
+							Gdx.app.log(TAG, "Hit too early");
+
+							// TODO: Play sound
+							// TODO: Decrement lives
+
+							// Move to dormant state
+							state = PumpkinState.Dormant;
+							timer = MathUtils.random(1.0f, 3.0f);
+
+							break;
+						case Possessed:
+							// Correct timing
+							Gdx.app.log(TAG, "Correct hit");
+
+							// TODO: Play sound
+
+							// Move to dormant state
+							state = PumpkinState.Dormant;
+							timer = MathUtils.random(1.0f, 3.0f);
+
+							break;
+						case Spirit_Release:
+							// Too late
+							Gdx.app.log(TAG, "Hit too late");
+
+							// TODO: Play sound
+
+							// TODO: Penalise or just ignore this input?
+
+							break;
+						default:
+							// TODO
+							break;
+						}
+						return true;
+					}
+				}
+			});
 		}
 
 		@Override
@@ -518,6 +571,7 @@ public class GameScreen extends PumpkinScreen {
 						state = PumpkinState.Possession;
 						timer = MathUtils.random(1.0f, 5.0f);
 						alphaChangePerSecond = (1.0f - 0.0f) / timer;
+						faceAlpha = 0.0f;
 					}
 					break;
 				case Possession:
@@ -563,12 +617,10 @@ public class GameScreen extends PumpkinScreen {
 					// No special additional calculations
 
 					if (timer <= 0.0f) {
-						state = PumpkinState.Spirit_Release;
-						// TODO
-						// TODO: Temporarily pretend to "exorcise" pumpkin after timer expires
-						state = PumpkinState.Dormant;
-						timer = MathUtils.random(1.0f, 3.0f);
-						faceAlpha = 0.0f;
+						// Temporarily ignore the timer expiring - pumpkins will stay possessed indefinitely
+						// TODO: Correct Spirit_Release code
+						// state = PumpkinState.Spirit_Release;
+						// TODO: Sound?
 					}
 					break;
 				case Spirit_Release:
