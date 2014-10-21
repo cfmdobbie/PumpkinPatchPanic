@@ -453,6 +453,9 @@ public class GameScreen extends PumpkinScreen {
 		/** The evil face texture. */
 		final TextureRegion evilFace;
 
+		/** The hole texture. */
+		final TextureRegion hole;
+
 		/** Reference to the game screen, used for accessing resources and global game state. */
 		private final GameScreen screen;
 
@@ -489,6 +492,7 @@ public class GameScreen extends PumpkinScreen {
 			pumpkin = screen.atlas.findRegion("pumpkin");
 			face = screen.atlas.findRegion("face_normal");
 			evilFace = screen.atlas.findRegion("face_evil");
+			hole = screen.atlas.findRegion("hole");
 
 			// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
 			setWidth(pumpkin.getRegionWidth());
@@ -634,7 +638,7 @@ public class GameScreen extends PumpkinScreen {
 
 						// Move to spirit-released state
 						state = PumpkinState.Spirit_Release;
-						timer = MathUtils.random(2.0f);
+						timer = 2.0f;
 
 						// Release spirit
 						final float x = getX() + getWidth() / 2;
@@ -684,7 +688,12 @@ public class GameScreen extends PumpkinScreen {
 				batch.draw(evilFace, getX(), getY());
 				break;
 			case Spirit_Release:
-				// TODO: some kind of "broken" pumpkin addition
+				// Hole visible
+				// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
+				// Calculate hole alpha from timer value
+				batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
+				batch.draw(hole, getX(), getY());
+				batch.setColor(Color.WHITE);
 				break;
 			default:
 				throw new IllegalStateException();
