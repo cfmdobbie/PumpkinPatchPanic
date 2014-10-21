@@ -3,13 +3,8 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -26,15 +21,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class GameScreen extends PumpkinScreen {
 
 	/** Whether debug output should be logged. */
-	private static final boolean DEBUG = false;
+	static final boolean DEBUG = false;
 
 	/** Tag, for logging purposes. */
-	private static final String TAG = GameScreen.class.getSimpleName();
+	static final String TAG = GameScreen.class.getSimpleName();
 
 	// Game data
 
 	/** Number of lives left. Game is over when all lives lost. */
-	private int livesLeft;
+	int livesLeft;
 
 	/** Time left in the current round. */
 	private float timeLeft;
@@ -46,13 +41,13 @@ public class GameScreen extends PumpkinScreen {
 	private int currentLevel;
 
 	/** Whether or not the game is running. */
-	private boolean gameRunning;
+	boolean gameRunning;
 
 	/** The current dialog being displayed. */
 	private Table dialog;
 
 	/** The interface showing level, lives and time remaining. */
-	private Hud hud;
+	Hud hud;
 
 	/**
 	 * Construct a new GameScreen.
@@ -301,7 +296,7 @@ public class GameScreen extends PumpkinScreen {
 	 * 
 	 * @author Charlie
 	 */
-	private class Hud extends Table {
+	class Hud extends Table {
 
 		/** Label containing the current highest level reached. */
 		private final Label highLevelLabel;
@@ -390,7 +385,7 @@ public class GameScreen extends PumpkinScreen {
 		}
 
 		/** Update the lives display. */
-		private final void updateLives() {
+		final void updateLives() {
 			// Remove all life tokens
 			for (final Image token : lifeTokens) {
 				lifeContainer.removeActor(token);
@@ -401,332 +396,6 @@ public class GameScreen extends PumpkinScreen {
 					lifeContainer.addActor(lifeTokens[i]);
 				}
 			}
-		}
-	}
-
-	/**
-	 * Actor that represents a haunted pumpkin. During the game, a pumpkin goes through a number of stages:
-	 * 
-	 * 1) Initial delay. Initially, the pumpkin is dormant - a random delay exists before any other action takes place.
-	 * 
-	 * 2) Possession. Spirit begins to enter the pumpkin. Carved face fades in (fully) over random period of time.
-	 * 
-	 * 3) Possession Delay. Once face is completely visible, a random delay exists before either the pumpkin recovers,
-	 * or it becomes possessed.
-	 * 
-	 * 4a) Recovery. Carved face fades away to a partially-visible state over a random period of time, then continues
-	 * Possession.
-	 * 
-	 * 4b) Possessed. Evil face appears. In this state, player can tap pumpkin to exorcise it, returning it to the
-	 * initial state. If left in Possessed state for a fixed period of time, the spirit escapes.
-	 * 
-	 * 5) Spirit Release. The spirit escapes from the pumpkin. The carved face disappears altogether, the pumpkin
-	 * reverts to the initial state and the player loses a life.
-	 * 
-	 * @author Charlie
-	 */
-	private static class PumpkinActor extends Actor {
-
-		/** The pumpkin texture. */
-		final TextureRegion pumpkin;
-
-		/** The foliage texture. */
-		final TextureRegion plant;
-
-		/** The normal face texture. */
-		final TextureRegion face;
-
-		/** The evil face texture. */
-		final TextureRegion evilFace;
-
-		/** The hole texture. */
-		final TextureRegion hole;
-
-		/** Reference to the game screen, used for accessing resources and global game state. */
-		private final GameScreen screen;
-
-		/** Enumeration representing pumpkin state. */
-		private static enum PumpkinState {
-			Dormant,
-			Possession,
-			Possession_Delay,
-			Recovery,
-			Possessed,
-			Spirit_Release,
-		}
-
-		/** Pumpkin state. */
-		private PumpkinState state;
-
-		/** Temporary variable used for meausing time left in current state. */
-		private float timer;
-
-		/** Current alpha value of face graphic. */
-		private float faceAlpha;
-
-		/** Change in face alpha value, per second. Note this can be (and frequently is) negative. */
-		private float alphaChangePerSecond;
-
-		/** Construct a PumpkinActor. */
-		public PumpkinActor(final GameScreen screen) {
-
-			// Store reference to the screen
-			this.screen = screen;
-
-			// Load textures required for rendering
-			plant = screen.atlas.findRegion("plant");
-			pumpkin = screen.atlas.findRegion("pumpkin");
-			face = screen.atlas.findRegion("face_normal");
-			evilFace = screen.atlas.findRegion("face_evil");
-			hole = screen.atlas.findRegion("hole");
-
-			// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
-			setWidth(pumpkin.getRegionWidth());
-			setHeight(pumpkin.getRegionHeight());
-
-			// Initial state
-			state = PumpkinState.Dormant;
-			timer = MathUtils.random(1.0f, 3.0f);
-			faceAlpha = 0.0f;
-
-			addListener(new InputListener() {
-				@Override
-				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-					if (!screen.gameRunning) {
-						// If game isn't running, return false (ignore input, leave for other Actors to intercept)
-						return false;
-					} else {
-						switch (state) {
-						case Dormant:
-						case Possession:
-						case Possession_Delay:
-						case Recovery:
-							// Too early
-							if (DEBUG) {
-								Gdx.app.log(TAG, "Hit too early");
-							}
-
-							// TODO: Play sound: error, life lost
-
-							// Decrement lives
-							screen.livesLeft--;
-							screen.hud.updateLives();
-
-							// TODO: Check for game over condition
-
-							// Move to dormant state
-							state = PumpkinState.Dormant;
-							timer = MathUtils.random(1.0f, 3.0f);
-
-							break;
-						case Possessed:
-							// Correct timing
-							if (DEBUG) {
-								Gdx.app.log(TAG, "Correct hit");
-							}
-
-							// TODO: Play sound: good hit, exorcised
-
-							// Move to dormant state
-							state = PumpkinState.Dormant;
-							timer = MathUtils.random(1.0f, 3.0f);
-
-							break;
-						case Spirit_Release:
-							// Too late
-							if (DEBUG) {
-								Gdx.app.log(TAG, "Hit too late");
-							}
-
-							// TODO: Play sound: error
-
-							// Ignore this input.
-
-							// Player has already been penalised for letting the spirit escape, so no further penalty
-							// required.
-
-							// No state change required - pumpkin will automatically recover
-
-							break;
-						default:
-							throw new IllegalStateException();
-						}
-						return true;
-					}
-				}
-			});
-		}
-
-		@Override
-		public void act(float delta) {
-			// Run any Actions added to this Actor
-			super.act(delta);
-
-			if (screen.gameRunning) {
-				// Whatever we're doing, decrement the timer
-				timer -= delta;
-
-				switch (state) {
-				case Dormant:
-					// No special additional calculations
-
-					// If timer expired, move to Possession state
-					if (timer <= 0.0f) {
-						state = PumpkinState.Possession;
-						timer = MathUtils.random(1.0f, 5.0f);
-						alphaChangePerSecond = (1.0f - 0.0f) / timer;
-						faceAlpha = 0.0f;
-					}
-					break;
-				case Possession:
-					// Update face alpha value (alphaChangePerSecond will be positive)
-					faceAlpha += alphaChangePerSecond * delta;
-
-					// If timer expired, move to Possession_Delay state
-					if (timer <= 0.0f) {
-						state = PumpkinState.Possession_Delay;
-						timer = MathUtils.random(0.1f, 3.0f);
-						faceAlpha = 1.0f;
-					}
-					break;
-				case Possession_Delay:
-					// No special additional calculations
-
-					// If timer expired, either become Possessed or move to Recovery
-					if (timer <= 0.0f) {
-						float possessionChance = 0.5f;
-						if (MathUtils.random() <= possessionChance) {
-							state = PumpkinState.Possessed;
-							timer = 1.0f;
-						} else {
-							state = PumpkinState.Recovery;
-							timer = MathUtils.random(1.0f, 5.0f);
-							final float alphaTo = MathUtils.random(0.0f, 0.5f);
-							alphaChangePerSecond = (alphaTo - 1.0f) / timer;
-						}
-					}
-					break;
-				case Recovery:
-					// Update face alpha value (alphaChangePerSecond will be negative)
-					faceAlpha += alphaChangePerSecond * delta;
-
-					// If timer expired, move to Possession state
-					if (timer <= 0.0f) {
-						state = PumpkinState.Possession;
-						timer = MathUtils.random(1.0f, 5.0f);
-						alphaChangePerSecond = (1.0f - faceAlpha) / timer;
-					}
-					break;
-				case Possessed:
-					// No special additional calculations
-
-					if (timer <= 0.0f) {
-						// Decrement lives
-						screen.livesLeft--;
-						screen.hud.updateLives();
-
-						// TODO: Check for game over condition
-
-						// TODO: Play sound: spirit escape, life lost
-
-						// Move to spirit-released state
-						state = PumpkinState.Spirit_Release;
-						timer = 2.0f;
-
-						// Release spirit
-						final float x = getX() + getWidth() / 2;
-						final float y = getY() + getHeight() / 2;
-						final Spirit spirit = new Spirit(screen.atlas.findRegion("ghost"), x, y);
-						screen.stage.addActor(spirit);
-					}
-					break;
-				case Spirit_Release:
-					// TODO
-					if (timer <= 0.0f) {
-						// Move to dormant state
-						state = PumpkinState.Dormant;
-						timer = MathUtils.random(1.0f, 3.0f);
-					}
-					break;
-				default:
-					throw new IllegalStateException();
-				}
-			}
-		}
-
-		@Override
-		public void draw(SpriteBatch batch, float parentAlpha) {
-
-			// Draw plant
-			batch.draw(plant, getX() - 33, getY() - 43);
-
-			// Draw the pumpkin
-			batch.draw(pumpkin, getX(), getY());
-
-			// Draw the face
-			switch (state) {
-			case Dormant:
-				// No face visible
-				break;
-			case Possession:
-			case Possession_Delay:
-			case Recovery:
-				// Normal face visible, potentially with alpha
-				batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-				batch.draw(face, getX(), getY());
-				batch.setColor(Color.WHITE);
-				break;
-			case Possessed:
-				// Evil face visible
-				batch.draw(evilFace, getX(), getY());
-				break;
-			case Spirit_Release:
-				// Hole visible
-				// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
-				// Calculate hole alpha from timer value
-				batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
-				batch.draw(hole, getX(), getY());
-				batch.setColor(Color.WHITE);
-				break;
-			default:
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/**
-	 * Actor that represents a spirit escaping from a pumpkin.
-	 * 
-	 * @author Charlie
-	 */
-	static class Spirit extends Image {
-
-		/** Constructor. */
-		public Spirit(final TextureRegion spiritRegion, final float x, final float y) {
-			super(spiritRegion);
-
-			// Set origin so rotations work correctly
-			setOrigin(getWidth() / 2, getHeight() / 2);
-
-			// Start out at 1/8th scale
-			setScale(0.125f);
-
-			// Start out transparent
-			setColor(1.0f, 1.0f, 1.0f, 0.0f);
-
-			// Start out centred on the specified coordinates
-			setPosition(x - getWidth() / 2, y - getHeight() / 2);
-
-			// Over the next few seconds: Scale up to 4x, spin, fade in then rapidly fade out
-			addAction(Actions.parallel(Actions.scaleTo(4.0f, 4.0f, 2.0f), Actions.rotateBy(360.0f * 4, 2.0f),
-					Actions.fadeIn(1.0f), Actions.sequence(Actions.delay(1.0f), Actions.fadeOut(0.25f))));
-		}
-
-		@Override
-		public Actor hit(final float x, final float y, final boolean touchable) {
-			// Want to be able to click behind/through this Actor, so hit() should always return null
-			return null;
 		}
 	}
 }
