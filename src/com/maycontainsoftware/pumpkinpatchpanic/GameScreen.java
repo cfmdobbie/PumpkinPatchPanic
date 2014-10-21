@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -91,23 +92,23 @@ public class GameScreen extends PumpkinScreen {
 		// Let PumpkinScreen do its thing
 		super.show();
 
-		final PumpkinActor backLeft = new PumpkinActor();
+		final PumpkinActor backLeft = new PumpkinActor(atlas);
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
 		stage.addActor(backLeft);
 
-		final PumpkinActor backRight = new PumpkinActor();
+		final PumpkinActor backRight = new PumpkinActor(atlas);
 		backRight.setPosition(800 - 230 / 2, 720 - 510);
 		stage.addActor(backRight);
 
-		final PumpkinActor frontLeft = new PumpkinActor();
+		final PumpkinActor frontLeft = new PumpkinActor(atlas);
 		frontLeft.setPosition(320 - 230 / 2, 720 - 670);
 		stage.addActor(frontLeft);
 
-		final PumpkinActor frontMiddle = new PumpkinActor();
+		final PumpkinActor frontMiddle = new PumpkinActor(atlas);
 		frontMiddle.setPosition(640 - 230 / 2, 720 - 670);
 		stage.addActor(frontMiddle);
 
-		final PumpkinActor frontRight = new PumpkinActor();
+		final PumpkinActor frontRight = new PumpkinActor(atlas);
 		frontRight.setPosition(960 - 230 / 2, 720 - 670);
 		stage.addActor(frontRight);
 
@@ -439,7 +440,7 @@ public class GameScreen extends PumpkinScreen {
 	 * 
 	 * @author Charlie
 	 */
-	private class PumpkinActor extends Actor {
+	private static class PumpkinActor extends Actor {
 
 		/** The pumpkin texture. */
 		final TextureRegion pumpkin;
@@ -456,7 +457,7 @@ public class GameScreen extends PumpkinScreen {
 		float faceAlpha = 0.0f;
 		final float speed;
 
-		public PumpkinActor() {
+		public PumpkinActor(final TextureAtlas atlas) {
 
 			plant = atlas.findRegion("plant");
 			pumpkin = atlas.findRegion("pumpkin");
