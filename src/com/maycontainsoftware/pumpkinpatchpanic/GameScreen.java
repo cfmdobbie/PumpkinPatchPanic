@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 /**
@@ -40,10 +39,16 @@ public class GameScreen extends PumpkinScreen {
 	/** Current level. */
 	private int currentLevel;
 
-	/** Whether or not the game is running. */
+	/**
+	 * Whether or not the game is running. When set to false, game logic should not run (although it may be appropriate
+	 * to run certain animations.)
+	 */
 	boolean gameRunning;
 
-	/** The current dialog being displayed. */
+	/**
+	 * The current dialog being displayed. A "dialog" in this app is a message flashed up on top of everything else.
+	 * Only one dialog is supported at a time.
+	 */
 	private Table dialog;
 
 	/** The interface showing level, lives and time remaining. */
@@ -110,36 +115,42 @@ public class GameScreen extends PumpkinScreen {
 		hud = new Hud();
 		stage.addActor(hud);
 
-		// Stage action
+		// Stage action - this handles the timer countdown and round-over detection
 		stage.addAction(new Action() {
 			@Override
 			public boolean act(float delta) {
 
+				// Only act if the game is currently running
 				if (gameRunning) {
+
 					// Decrement time left
 					timeLeft -= delta;
 
 					// Check for end of round
 					if (timeLeft <= 0.0f) {
 
-						// Set left left in round to exactly zero
+						// Set time left in round to exactly zero
 						timeLeft = 0.0f;
 
-						// Note that game is not currently running
+						// Mark the game as not currently running
 						gameRunning = false;
 
 						// Update the highest level beaten, if required
 						if (currentLevel > highLevel) {
+
 							// Update local value
 							highLevel = currentLevel;
+
 							// Save to preferences
 							game.setHighLevel(highLevel);
+
 							// Update HUD, apply an interesting value-change effect
 							hud.highLevelLabel.setText(String.valueOf(highLevel));
 							hud.highLevelLabel.setColor(Color.RED);
 							hud.highLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
 						}
 
+						// Show round-over dialog
 						dialog = createRoundOverDialog();
 						stage.addActor(dialog);
 					}
@@ -156,11 +167,6 @@ public class GameScreen extends PumpkinScreen {
 		// final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
 		// menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
 		// menuBtn.setPosition(10.0f, 10.0f);
-		// menuBtn.addListener(new ChangeListener() {
-		// @Override
-		// public void changed(final ChangeEvent event, final Actor actor) {
-		// }
-		// });
 		// flash.addActor(getPlantForPumpkinButton(menuBtn));
 		// flash.addActor(menuBtn);
 
@@ -174,33 +180,31 @@ public class GameScreen extends PumpkinScreen {
 		// Table.drawDebug(stage);
 	}
 
-	/**
-	 * Get an image that directly overlays the pumpkin button which displays the "normal" pumpkin face. Note that the
-	 * actor's alpha is set to 0.0f on creation.
-	 * 
-	 * @param pumpkin
-	 *            The Widget that reprensents the pumpkin button.
-	 * @return The pumpkin's face image
-	 */
-	protected final Image getFaceForPumpkinButton(final Widget pumpkin) {
-		final Image face = new Image(atlas.findRegion("face_normal"));
-		face.setPosition(pumpkin.getX(), pumpkin.getY());
-		face.setColor(1.0f, 1.0f, 1.0f, 0.0f);
-		return face;
-	}
-
+	/** Create a dialog to notify of "round over" condition. */
 	private final Table createRoundOverDialog() {
-
+		/**
+		 * Inner class to represent the dialog.
+		 * 
+		 * @author Charlie
+		 */
 		class RoundOverDialog extends Table {
+
+			/** Countdown time before next round starts. */
 			private float countdown = 5.0f;
+
+			/** Integer version of countdown time. */
 			private int countdownInt = MathUtils.ceil(countdown);
-			private final Label countdownLabel;
 
 			public RoundOverDialog() {
+
+				// White background, black border top and bottom
 				setBackground(new NinePatchDrawable(atlas.createPatch("horizontal_flash_bg")));
+
+				// Bounds of dialog
 				final int height = 340;
 				setBounds(0, 720 / 2 - height / 2, 1280, height);
 
+				// Get references to required widget styles
 				final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
 				final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
 				final Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
@@ -215,9 +219,7 @@ public class GameScreen extends PumpkinScreen {
 				add(new Label("Next round starts in:", style32));
 
 				row();
-				countdownLabel = new Label("", style64);
-				updateTime();
-				// countdownLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
+				final Label countdownLabel = new Label("0:0" + countdownInt, style64);
 				add(countdownLabel);
 
 				addAction(new Action() {
@@ -237,7 +239,8 @@ public class GameScreen extends PumpkinScreen {
 							countdownInt = newCountdownInt;
 
 							// Update the Label
-							updateTime();
+							// Note that this will NOT WORK for values >= 10 seconds
+							countdownLabel.setText("0:0" + countdownInt);
 
 							// Highlight the change with a simple animation
 							countdownLabel.setColor(Color.RED);
@@ -245,7 +248,7 @@ public class GameScreen extends PumpkinScreen {
 						}
 
 						if (countdown <= 0.0f) {
-							// Coundown is complete!
+							// Countdown is complete!
 
 							// Dispose of this dialog
 							dialog.remove();
@@ -263,27 +266,19 @@ public class GameScreen extends PumpkinScreen {
 					}
 				});
 			}
-
-			/**
-			 * Update the coundown time shown on the round-complete dialog. Note that this is hard-coded to work for
-			 * times from five seconds to zero only.
-			 */
-			private void updateTime() {
-				// Note that this will NOT WORK for values >= 10 seconds
-				countdownLabel.setText("0:0" + countdownInt);
-			}
 		}
 
 		return new RoundOverDialog();
 	}
 
+	/** Update game state for next round. */
 	private void nextRound() {
 
 		// One minute on the clock
 		// TODO: Set to 30 seconds for testing purposes
 		timeLeft = 30.0f;
 
-		// Start on level one
+		// Increment level
 		currentLevel++;
 		hud.updateCurrentLevel();
 
