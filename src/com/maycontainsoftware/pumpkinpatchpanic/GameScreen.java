@@ -285,8 +285,8 @@ public class GameScreen extends PumpkinScreen {
 	private void nextRound() {
 
 		// One minute on the clock
-		// TODO: Set to 6 seconds for testing purposes
-		timeLeft = 6.0f;
+		// TODO: Set to 30 seconds for testing purposes
+		timeLeft = 30.0f;
 
 		// Start on level one
 		currentLevel++;
