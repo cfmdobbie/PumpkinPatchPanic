@@ -173,34 +173,44 @@ class PumpkinActor extends Actor {
 			// Whatever we're doing, decrement the timer
 			timer -= delta;
 
+			// Additional processing
 			switch (state) {
 			case Dormant:
-				// No special additional calculations
-
-				// If timer expired, move to Possession state
-				if (timer <= 0.0f) {
-					state = PumpkinState.Possession;
-					timer = MathUtils.random(1.0f, 5.0f);
-					alphaChangePerSecond = (1.0f - 0.0f) / timer;
-					faceAlpha = 0.0f;
-				}
+			case Possession_Delay:
+			case Possessed:
+			case Spirit_Release:
+				// No additional processing
 				break;
 			case Possession:
 				// Update face alpha value (alphaChangePerSecond will be positive)
 				faceAlpha += alphaChangePerSecond * delta;
+				break;
+			case Recovery:
+				// Update face alpha value (alphaChangePerSecond will be negative)
+				faceAlpha += alphaChangePerSecond * delta;
+				break;
+			default:
+				throw new IllegalStateException();
+			}
 
-				// If timer expired, move to Possession_Delay state
-				if (timer <= 0.0f) {
+			// Timer expiration
+			if (timer <= 0.0f) {
+				switch (state) {
+				case Dormant:
+					// If timer expired, move to Possession state
+					state = PumpkinState.Possession;
+					timer = MathUtils.random(1.0f, 5.0f);
+					alphaChangePerSecond = (1.0f - 0.0f) / timer;
+					faceAlpha = 0.0f;
+					break;
+				case Possession:
+					// If timer expired, move to Possession_Delay state
 					state = PumpkinState.Possession_Delay;
 					timer = MathUtils.random(0.1f, 3.0f);
 					faceAlpha = 1.0f;
-				}
-				break;
-			case Possession_Delay:
-				// No special additional calculations
-
-				// If timer expired, either become Possessed or move to Recovery
-				if (timer <= 0.0f) {
+					break;
+				case Possession_Delay:
+					// If timer expired, either become Possessed or move to Recovery
 					float possessionChance = 0.5f;
 					if (MathUtils.random() <= possessionChance) {
 						state = PumpkinState.Possessed;
@@ -211,23 +221,14 @@ class PumpkinActor extends Actor {
 						final float alphaTo = MathUtils.random(0.0f, 0.5f);
 						alphaChangePerSecond = (alphaTo - 1.0f) / timer;
 					}
-				}
-				break;
-			case Recovery:
-				// Update face alpha value (alphaChangePerSecond will be negative)
-				faceAlpha += alphaChangePerSecond * delta;
-
-				// If timer expired, move to Possession state
-				if (timer <= 0.0f) {
+					break;
+				case Recovery:
+					// If timer expired, move to Possession state
 					state = PumpkinState.Possession;
 					timer = MathUtils.random(1.0f, 5.0f);
 					alphaChangePerSecond = (1.0f - faceAlpha) / timer;
-				}
-				break;
-			case Possessed:
-				// No special additional calculations
-
-				if (timer <= 0.0f) {
+					break;
+				case Possessed:
 					// Decrement lives
 					screen.livesLeft--;
 					screen.hud.updateLives();
@@ -245,18 +246,15 @@ class PumpkinActor extends Actor {
 					final float y = getY() + getHeight() / 2;
 					final Spirit spirit = new Spirit(screen.atlas.findRegion("ghost"), x, y);
 					screen.stage.addActor(spirit);
-				}
-				break;
-			case Spirit_Release:
-				// TODO
-				if (timer <= 0.0f) {
+					break;
+				case Spirit_Release:
 					// Move to dormant state
 					state = PumpkinState.Dormant;
 					timer = MathUtils.random(1.0f, 3.0f);
+					break;
+				default:
+					throw new IllegalStateException();
 				}
-				break;
-			default:
-				throw new IllegalStateException();
 			}
 		}
 	}
