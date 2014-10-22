@@ -3,6 +3,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -94,7 +95,7 @@ public class LoadingScreen implements Screen {
 		// game.manager.load("lose.mp3", Sound.class);
 
 		// Music
-		// TODO: Music
+		game.manager.load("comeplaywithme.mp3", Music.class);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.LOADING);
 	}
@@ -116,6 +117,12 @@ public class LoadingScreen implements Screen {
 			// Open main menu
 			game.setScreen(new MainMenuScreen(game));
 			this.dispose();
+
+			// Start music
+			// TODO: Need control over music, this needs to be somewhere else
+			final Music music = game.manager.get("comeplaywithme.mp3", Music.class);
+			music.setLooping(true);
+			music.play();
 		}
 	}
 
