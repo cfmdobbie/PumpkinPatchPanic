@@ -17,17 +17,17 @@ import com.badlogic.gdx.utils.TimeUtils;
  * 
  * 2) Possession. Spirit begins to enter the pumpkin. Carved face fades in (fully) over random period of time.
  * 
- * 3) Possession Delay. Once face is completely visible, a random delay exists before either the pumpkin recovers,
- * or it becomes possessed.
+ * 3) Possession Delay. Once face is completely visible, a random delay exists before either the pumpkin recovers, or it
+ * becomes possessed.
  * 
  * 4a) Recovery. Carved face fades away to a partially-visible state over a random period of time, then continues
  * Possession.
  * 
- * 4b) Possessed. Evil face appears. In this state, player can tap pumpkin to exorcise it, returning it to the
- * initial state. If left in Possessed state for a fixed period of time, the spirit escapes.
+ * 4b) Possessed. Evil face appears. In this state, player can tap pumpkin to exorcise it, returning it to the initial
+ * state. If left in Possessed state for a fixed period of time, the spirit escapes.
  * 
- * 5) Spirit Release. The spirit escapes from the pumpkin. The carved face disappears altogether, the pumpkin
- * reverts to the initial state and the player loses a life.
+ * 5) Spirit Release. The spirit escapes from the pumpkin. The carved face disappears altogether, the pumpkin reverts to
+ * the initial state and the player loses a life.
  * 
  * @author Charlie
  */
@@ -267,7 +267,7 @@ class PumpkinActor extends Actor {
 		// Draw plant
 		batch.draw(plant, getX() - 33, getY() - 43);
 
-		// Pumpkin shakes slightly as it becomes possessed.  Shaking increases in strength as the carved face fades in,
+		// Pumpkin shakes slightly as it becomes possessed. Shaking increases in strength as the carved face fades in,
 		// and increases in strength and speed when it becomes possessed.
 
 		final float amplitude;
@@ -308,19 +308,22 @@ class PumpkinActor extends Actor {
 		case Recovery:
 			// Normal face visible, potentially with alpha
 			batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-			batch.draw(face, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
+			batch.draw(face, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
+					angle);
 			batch.setColor(Color.WHITE);
 			break;
 		case Possessed:
 			// Evil face visible
-			batch.draw(evilFace, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
+			batch.draw(evilFace, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
+					angle);
 			break;
 		case Spirit_Release:
 			// Hole visible
 			// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
 			// Calculate hole alpha from timer value
 			batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
-			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
+			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
+					angle);
 			batch.setColor(Color.WHITE);
 			break;
 		default:
