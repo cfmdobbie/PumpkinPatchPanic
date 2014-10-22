@@ -19,6 +19,9 @@ public class SettingsScreen extends PumpkinScreen {
 	/** Tag, for logging purposes. */
 	private static final String TAG = SettingsScreen.class.getSimpleName();
 
+	/** Reference to HUD, needed for resetting high score. */
+	private MenuHud menuHud;
+
 	/**
 	 * Construct a new SettingsScreen.
 	 * 
@@ -56,6 +59,8 @@ public class SettingsScreen extends PumpkinScreen {
 		resetScoreBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
+				game.setHighLevel(0);
+				menuHud.updateHighLevel();
 			}
 		});
 		stage.addActor(getPlantForPumpkinButton(resetScoreBtn));
@@ -86,7 +91,7 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(musicBtn);
 
 		// HUD to display highest round beaten
-		stage.addActor(new MenuHud(game));
+		stage.addActor(menuHud = new MenuHud(game));
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.SETTINGS);
 	}
