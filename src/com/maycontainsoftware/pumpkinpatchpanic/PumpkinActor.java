@@ -117,7 +117,12 @@ class PumpkinActor extends Actor {
 						screen.livesLeft--;
 						screen.hud.updateLives();
 
-						// TODO: Check for game over condition
+						// Check for game over condition
+						if(screen.livesLeft <= 0) {
+							// Open game-over dialog
+							screen.dialog = screen.createGameOverDialog();
+							screen.stage.addActor(screen.dialog);
+						}
 
 						// Move to dormant state
 						state = PumpkinState.Dormant;
@@ -231,9 +236,14 @@ class PumpkinActor extends Actor {
 					screen.livesLeft--;
 					screen.hud.updateLives();
 
-					// TODO: Check for game over condition
-
 					// TODO: Play sound: spirit escape, life lost
+
+					// Check for game over condition
+					if(screen.livesLeft <= 0) {
+						// Open game-over dialog
+						screen.dialog = screen.createGameOverDialog();
+						screen.stage.addActor(screen.dialog);
+					}
 
 					// Move to spirit-released state
 					state = PumpkinState.Spirit_Release;

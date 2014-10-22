@@ -49,7 +49,7 @@ public class GameScreen extends PumpkinScreen {
 	 * The current dialog being displayed. A "dialog" in this app is a message flashed up on top of everything else.
 	 * Only one dialog is supported at a time.
 	 */
-	private Table dialog;
+	Table dialog;
 
 	/** The interface showing level, lives and time remaining. */
 	Hud hud;
@@ -274,6 +274,48 @@ public class GameScreen extends PumpkinScreen {
 		}
 
 		return new RoundOverDialog();
+	}
+
+	/** Create a dialog to notify of "game over" condition. */
+	final Table createGameOverDialog() {
+		/**
+		 * Inner class to represent the dialog.
+		 * 
+		 * @author Charlie
+		 */
+		class GameOverDialog extends Table {
+
+			public GameOverDialog() {
+
+				// White background, black border top and bottom
+				setBackground(new NinePatchDrawable(atlas.createPatch("horizontal_flash_bg")));
+
+				// Bounds of dialog
+				final int height = 340;
+				setBounds(0, 720 / 2 - height / 2, 1280, height);
+
+				// Get references to required widget styles
+				final BitmapFont font32 = game.manager.get("arialb_32.fnt", BitmapFont.class);
+				final BitmapFont font64 = game.manager.get("arialb_64.fnt", BitmapFont.class);
+				final Label.LabelStyle style32 = new Label.LabelStyle(font32, Color.WHITE);
+				final Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
+
+				row();
+				final Label roundCompleteLabel = new Label("Game Over!", style64);
+				roundCompleteLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
+				add(roundCompleteLabel);
+
+				row();
+				add(new Label("Beaten on round " + currentLevel + "!", style32));
+
+				row();
+				add(new Label("[ Menu? ]", style32));
+
+				gameRunning = false;
+			}
+		}
+
+		return new GameOverDialog();
 	}
 
 	/** Update game state for next round. */
