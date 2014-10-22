@@ -83,26 +83,6 @@ public class MainMenuScreen extends PumpkinScreen {
 		// HUD to display highest round beaten
 		stage.addActor(new MenuHud(game));
 
-		// XXX: Test pumpkin code
-		// final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
-		// Base pumpkin
-		// final Image pumpkin = new Image(pumpkins.findRegion("pumpkin"));
-		// stage.addActor(pumpkin);
-		// Pumpkin face
-		// final Image lou = new Image(pumpkins.findRegion("lou"));
-		// Some effects can be gained by changing batch color
-		// However, better effects by changing levels on each graphic in The Gimp
-		// How many frames would be required is to be decided, might influence decision
-		// lou.setColor(1.0f, 0.5f, 0.5f, 0.5f);
-		// stage.addActor(lou);
-
-		// These pumpkin graphics are "workable", but don't fit with a pumpkin on the vine nor are easily sized to show
-		// growth. So, either need lots more graphical work, or change idea behind game slightly to accommodate.
-
-		// Face graphics can all be dropped to 168x124 or so, which is a significant saving on texture memory at the
-		// cost of some more involved positioning. Ultimately want to animate pumpkin and face together (shake, rotate),
-		// which may influence decision.
-
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.MAIN_MENU);
 	}
 }

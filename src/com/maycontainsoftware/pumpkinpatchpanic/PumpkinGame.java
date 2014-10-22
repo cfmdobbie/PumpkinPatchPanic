@@ -96,13 +96,6 @@ public class PumpkinGame extends Game {
 	@Override
 	public void render() {
 
-		// XXX: Temp test code for ad visibility control on Android platform
-		// if (Gdx.input.isTouched()) {
-		// adVisible = !adVisible;
-		// Gdx.app.log(TAG, "adVisible: " + adVisible);
-		// adVisibilityCallback.setAdVisible(adVisible);
-		// }
-
 		// Don't scissor this clear operation
 		Gdx.gl.glDisable(GL10.GL_SCISSOR_TEST);
 		// Clear colour buffer to black

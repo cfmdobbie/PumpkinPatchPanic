@@ -39,7 +39,9 @@ public class PumpkinScreen implements Screen {
 	/** The TextureAtlas containing all the graphics. */
 	protected TextureAtlas atlas;
 
-	// TODO: Subclasses may need access to Moon position
+	// FUTURE: Plan was for moon to traverse sky entirely each round, this would require access to the moon position
+	// from some PumpkinScreen subclasses, while others need to have default behaviour. Whether or not this is worth the
+	// sheer amount of code it requires is debatable!
 
 	/**
 	 * Construct a new PumpkinScreen object.
@@ -140,7 +142,7 @@ public class PumpkinScreen implements Screen {
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(640 * 2, 201 * 2);
 		sky.setY(720 - 201 * 2);
-		// TODO: Sky rotation - would be nice if the sky rotated very, very slowly. Would need much larger asset.
+		// FUTURE: Sky rotation - would be nice if the sky rotated very, very slowly. Would need much larger asset.
 		// sky.addAction(Actions.forever(Actions.rotateBy(-360.0f, 10000.0f)));
 		stage.addActor(sky);
 
@@ -167,6 +169,8 @@ public class PumpkinScreen implements Screen {
 		moon.setOrigin(110 / 2, 110 / 2 - 720 - 132);
 
 		/*
+		 * Old calculations to determine visible arc of moon movement:
+		 * 
 		 * Want the moon to start its journey just off the left edge of the screen, so need to know initial rotation
 		 * required. Calculate by trig based on starting location and centre of circle, given previously-calculated
 		 * distance between them.
@@ -174,9 +178,11 @@ public class PumpkinScreen implements Screen {
 		 * sin A = o / h = (640 + 55) / (720 + 131.83) = 695 / 851.83 = 0.816
 		 * 
 		 * A = sin-1 0.816 = 54.68 degrees
+		 * 
+		 * (Note that we currently don't use this value!)
 		 */
 
-		// XXX: Correction - currently starting moon due West. Preferred behaviour to be decided.
+		// Want moon to start at far left horizon (not visible) so a delay exists before it appears
 		moon.rotate(90.0f);
 
 		/*
@@ -191,8 +197,6 @@ public class PumpkinScreen implements Screen {
 		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 197.53f)));
 
 		stage.addActor(moon);
-		// TODO: Better moon animation
-		// TODO: Need to be able to disable automatic moon animation for control by GameScreen
 
 		// Clouds
 		stage.addActor(new Cloud(atlas.findRegion("cloud_a"), 560));
@@ -260,7 +264,7 @@ public class PumpkinScreen implements Screen {
 
 			// Want owl to respond to touch - owl should blink when poked
 			// However, as we have two stages and a single InputProcessor, this does not work
-			// TODO: Fix owl's touch input
+			// FUTURE: Fix owl's touch input
 			addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
