@@ -69,9 +69,10 @@ public class PumpkinScreen implements Screen {
 		}
 
 		stage = game.createStage();
+
 		// Redirect events to the stage
+		// FUTURE: Once Screen transitions are implemented, InputProcessor must be set in a different way
 		Gdx.input.setInputProcessor(stage);
-		// TODO: Once Screen transitions are implemented, InputProcessor must be set in a different way
 	}
 
 	@Override
