@@ -80,6 +80,9 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(getPlantForPumpkinButton(btnSettings));
 		stage.addActor(btnSettings);
 
+		// HUD to display highest round beaten
+		stage.addActor(new MenuHud(game));
+
 		// XXX: Test pumpkin code
 		// final TextureAtlas pumpkins = game.manager.get("pumpkins.atlas", TextureAtlas.class);
 		// Base pumpkin

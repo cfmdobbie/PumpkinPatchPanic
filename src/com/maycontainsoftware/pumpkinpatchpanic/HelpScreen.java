@@ -115,6 +115,9 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(getPlantForPumpkinButton(nextBtn));
 		stage.addActor(nextBtn);
 
+		// HUD to display highest round beaten
+		stage.addActor(new MenuHud(game));
+
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.HELP);
 	}
 

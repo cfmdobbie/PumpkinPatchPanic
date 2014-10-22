@@ -85,6 +85,9 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(getPlantForPumpkinButton(musicBtn));
 		stage.addActor(musicBtn);
 
+		// HUD to display highest round beaten
+		stage.addActor(new MenuHud(game));
+
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.SETTINGS);
 	}
 }
