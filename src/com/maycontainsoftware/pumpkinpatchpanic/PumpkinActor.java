@@ -280,11 +280,11 @@ class PumpkinActor extends Actor {
 		case Possession:
 		case Possession_Delay:
 		case Recovery:
-			amplitude = 2.0f * faceAlpha;
+			amplitude = 1.0f * faceAlpha;
 			normalizedAngle = MathUtils.sinDeg(2 * TimeUtils.millis() % 360);
 			break;
 		case Possessed:
-			amplitude = 5.0f;
+			amplitude = 3.0f;
 			normalizedAngle = MathUtils.sinDeg(4 * TimeUtils.millis() % 360);
 			break;
 		default:
