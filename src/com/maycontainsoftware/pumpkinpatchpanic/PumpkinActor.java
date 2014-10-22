@@ -91,9 +91,7 @@ class PumpkinActor extends Actor {
 		setHeight(pumpkin.getRegionHeight());
 
 		// Initial state
-		state = PumpkinState.Dormant;
-		timer = MathUtils.random(1.0f, 3.0f);
-		faceAlpha = 0.0f;
+		reset();
 
 		addListener(new InputListener() {
 			@Override
@@ -327,5 +325,12 @@ class PumpkinActor extends Actor {
 		default:
 			throw new IllegalStateException();
 		}
+	}
+
+	/** Reset the pumpkin to initial state. Used primarily at the start of each round. */
+	public void reset() {
+		state = PumpkinState.Dormant;
+		timer = MathUtils.random(1.0f, 3.0f);
+		faceAlpha = 0.0f;
 	}
 }

@@ -287,6 +287,11 @@ public class GameScreen extends PumpkinScreen {
 		currentLevel++;
 		hud.updateCurrentLevel();
 
+		// Reset pumpkins
+		for (final PumpkinActor pumpkin : pumpkins) {
+			pumpkin.reset();
+		}
+
 		// Game is running again
 		gameRunning = true;
 	}
