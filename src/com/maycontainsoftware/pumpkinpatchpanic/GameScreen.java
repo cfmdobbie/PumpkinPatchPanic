@@ -329,9 +329,9 @@ public class GameScreen extends PumpkinScreen {
 			// Create widgets
 
 			row();
-			add(new Label("High Level", style32));
+			add(new Label("High Level", style32)).left();
 			add(new Label("Lives Left", style32)).expandX();
-			add(new Label("Current Level", style32));
+			add(new Label("Current Level", style32)).right();
 
 			row();
 			add(highLevelLabel = new Label(String.valueOf(highLevel), style64)).left();
@@ -350,9 +350,9 @@ public class GameScreen extends PumpkinScreen {
 			add(currentLevelLabel = new Label(String.valueOf(currentLevel), style64)).right();
 
 			row();
-			add();
+			add().width(400.0f);
 			add(new Label("Time Remaining", style32));
-			add();
+			add().width(400.0f);
 
 			row();
 			add();
