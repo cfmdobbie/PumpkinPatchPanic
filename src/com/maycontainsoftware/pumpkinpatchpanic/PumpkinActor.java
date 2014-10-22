@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * Actor that represents a haunted pumpkin. During the game, a pumpkin goes through a number of stages:
@@ -266,10 +267,38 @@ class PumpkinActor extends Actor {
 		// Draw plant
 		batch.draw(plant, getX() - 33, getY() - 43);
 
-		// Draw the pumpkin
-		batch.draw(pumpkin, getX(), getY());
+		// Pumpkin shakes slightly as it becomes possessed.  Shaking increases in strength as the carved face fades in,
+		// and increases in strength and speed when it becomes possessed.
 
-		// Draw the face
+		final float amplitude;
+		final float normalizedAngle;
+
+		switch (state) {
+		case Dormant:
+		case Spirit_Release:
+			amplitude = 0.0f;
+			normalizedAngle = 0.0f;
+			break;
+		case Possession:
+		case Possession_Delay:
+		case Recovery:
+			amplitude = 2.0f * faceAlpha;
+			normalizedAngle = MathUtils.sinDeg(2 * TimeUtils.millis() % 360);
+			break;
+		case Possessed:
+			amplitude = 5.0f;
+			normalizedAngle = MathUtils.sinDeg(4 * TimeUtils.millis() % 360);
+			break;
+		default:
+			throw new IllegalStateException();
+		}
+
+		final float angle = normalizedAngle * amplitude;
+
+		// Draw the pumpkin
+		batch.draw(pumpkin, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
+
+		// Draw the detail texture
 		switch (state) {
 		case Dormant:
 			// No face visible
@@ -279,19 +308,19 @@ class PumpkinActor extends Actor {
 		case Recovery:
 			// Normal face visible, potentially with alpha
 			batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-			batch.draw(face, getX(), getY());
+			batch.draw(face, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
 			batch.setColor(Color.WHITE);
 			break;
 		case Possessed:
 			// Evil face visible
-			batch.draw(evilFace, getX(), getY());
+			batch.draw(evilFace, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
 			break;
 		case Spirit_Release:
 			// Hole visible
 			// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
 			// Calculate hole alpha from timer value
 			batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
-			batch.draw(hole, getX(), getY());
+			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
 			batch.setColor(Color.WHITE);
 			break;
 		default:
