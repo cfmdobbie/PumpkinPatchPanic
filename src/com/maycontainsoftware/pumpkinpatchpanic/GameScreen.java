@@ -54,6 +54,9 @@ public class GameScreen extends PumpkinScreen {
 	/** The interface showing level, lives and time remaining. */
 	Hud hud;
 
+	/** Array of the pumpkins. */
+	private PumpkinActor[] pumpkins;
+
 	/**
 	 * Construct a new GameScreen.
 	 * 
@@ -110,6 +113,8 @@ public class GameScreen extends PumpkinScreen {
 		final PumpkinActor frontRight = new PumpkinActor(this);
 		frontRight.setPosition(960 - 230 / 2, 720 - 670);
 		stage.addActor(frontRight);
+
+		pumpkins = new PumpkinActor[] { backLeft, backRight, frontLeft, frontMiddle, frontRight };
 
 		// Head Up Display
 		hud = new Hud();
