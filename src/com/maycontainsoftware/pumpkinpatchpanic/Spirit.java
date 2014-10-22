@@ -1,6 +1,7 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,7 +31,14 @@ class Spirit extends Image {
 
 		// Over the next few seconds: Scale up to 4x, spin, fade in then rapidly fade out
 		addAction(Actions.parallel(Actions.scaleTo(4.0f, 4.0f, 2.0f), Actions.rotateBy(360.0f * 4, 2.0f),
-				Actions.fadeIn(1.0f), Actions.sequence(Actions.delay(1.0f), Actions.fadeOut(0.25f))));
+				Actions.fadeIn(1.0f), Actions.sequence(Actions.delay(1.0f), Actions.fadeOut(0.25f), new Action() {
+					@Override
+					public boolean act(float delta) {
+						// Remove Actor from stage
+						Spirit.this.remove();
+						return true;
+					}
+				})));
 	}
 
 	@Override
