@@ -222,8 +222,25 @@ public class PumpkinGame extends Game {
 	}
 
 	/** Prepare the background music for use. */
-	void prepareMusic() {
+	private void prepareMusic() {
 		music = manager.get("comeplaywithme.mp3", Music.class);
 		music.setLooping(true);
+	}
+
+	void updateMusic() {
+		if(music == null) {
+			prepareMusic();
+		}
+
+		if (isMusicEnabled()) {
+			if (!music.isPlaying()) {
+				music.play();
+			}
+		} else {
+			// Shouldn't be necessary to check this, but safe to do so
+			if (music.isPlaying()) {
+				music.stop();
+			}
+		}
 	}
 }
