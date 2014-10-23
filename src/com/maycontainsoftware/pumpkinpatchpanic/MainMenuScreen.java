@@ -83,6 +83,23 @@ public class MainMenuScreen extends PumpkinScreen {
 		// HUD to display highest round beaten
 		stage.addActor(new MenuHud(game));
 
+		// Prepare music if we have not already done so
+		if (game.music == null) {
+			game.prepareMusic();
+		}
+
+		// Start music if required
+		if (game.isMusicEnabled()) {
+			if (!game.music.isPlaying()) {
+				game.music.play();
+			}
+		} else {
+			// Shouldn't be necessary to check this, but safe to do so
+			if (game.music.isPlaying()) {
+				game.music.stop();
+			}
+		}
+
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.MAIN_MENU);
 	}
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -62,6 +63,9 @@ public class PumpkinGame extends Game {
 
 	/** Preferences file. */
 	Preferences mPrefs;
+
+	/** Background music. */
+	Music music;
 
 	/**
 	 * Construct a new PPPGame.
@@ -198,5 +202,28 @@ public class PumpkinGame extends Game {
 	public void setHighLevel(int level) {
 		mPrefs.putInteger("high_level", level);
 		mPrefs.flush();
+	}
+
+	/** Get whether or not music is enabled.  (Setting comes from preferences.)
+	 * 
+	 * @return False if music is explicitly disabled, true otherwise.
+	 */
+	public boolean isMusicEnabled() {
+		return mPrefs.getBoolean("music", true);
+	}
+
+	/** Set whether or not music is enabled.
+	 * 
+	 * @param enabled True if music is enabled, false otherwise.
+	 */
+	public void setMusicEnabled(boolean enabled) {
+		mPrefs.putBoolean("music", enabled);
+		mPrefs.flush();
+	}
+
+	/** Prepare the background music for use. */
+	void prepareMusic() {
+		music = manager.get("comeplaywithme.mp3", Music.class);
+		music.setLooping(true);
 	}
 }

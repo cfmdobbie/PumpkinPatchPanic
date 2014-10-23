@@ -95,6 +95,7 @@ public class LoadingScreen implements Screen {
 		// game.manager.load("lose.mp3", Sound.class);
 
 		// Music
+		// Note that the MusicParameter class cannot be used to set looping to true, so this will need to be set later
 		game.manager.load("comeplaywithme.mp3", Music.class);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.LOADING);
@@ -117,12 +118,6 @@ public class LoadingScreen implements Screen {
 			// Open main menu
 			game.setScreen(new MainMenuScreen(game));
 			this.dispose();
-
-			// Start music
-			// TODO: Need control over music, this needs to be somewhere else
-			final Music music = game.manager.get("comeplaywithme.mp3", Music.class);
-			music.setLooping(true);
-			music.play();
 		}
 	}
 
