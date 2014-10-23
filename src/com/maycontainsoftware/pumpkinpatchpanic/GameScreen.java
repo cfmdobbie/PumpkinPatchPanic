@@ -420,6 +420,8 @@ public class GameScreen extends PumpkinScreen {
 		/** Update the current level label using the value held at Screen level. */
 		private void updateCurrentLevel() {
 			currentLevelLabel.setText(String.valueOf(currentLevel));
+			currentLevelLabel.setColor(Color.RED);
+			currentLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
 		}
 
 		/** Return the time left as a String. */
