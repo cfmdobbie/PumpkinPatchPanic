@@ -140,21 +140,6 @@ public class GameScreen extends PumpkinScreen {
 						// Mark the game as not currently running
 						gameRunning = false;
 
-						// Update the highest level beaten, if required
-						if (currentLevel > highLevel) {
-
-							// Update local value
-							highLevel = currentLevel;
-
-							// Save to preferences
-							game.setHighLevel(highLevel);
-
-							// Update HUD, apply an interesting value-change effect
-							hud.highLevelLabel.setText(String.valueOf(highLevel));
-							hud.highLevelLabel.setColor(Color.RED);
-							hud.highLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
-						}
-
 						// Show round-over dialog
 						dialog = createRoundOverDialog();
 						stage.addActor(dialog);
@@ -306,12 +291,27 @@ public class GameScreen extends PumpkinScreen {
 				add(roundCompleteLabel);
 
 				row();
-				add(new Label("Beaten on round " + currentLevel + "!", style32));
+				add(new Label("You reached round " + currentLevel, style32));
 
-				row();
-				add(new Label("[ Menu? ]", style32));
+				if (currentLevel > highLevel) {
+					row();
+					add(new Label("New high score!", style32));
+
+					// Update local value
+					highLevel = currentLevel;
+
+					// Save to preferences
+					game.setHighLevel(highLevel);
+
+					// Update HUD, apply an interesting value-change effect
+					hud.highLevelLabel.setText(String.valueOf(highLevel));
+					hud.highLevelLabel.setColor(Color.RED);
+					hud.highLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
+				}
 
 				gameRunning = false;
+
+				// debug();
 			}
 		}
 
