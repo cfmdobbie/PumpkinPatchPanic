@@ -204,7 +204,8 @@ public class PumpkinGame extends Game {
 		mPrefs.flush();
 	}
 
-	/** Get whether or not music is enabled.  (Setting comes from preferences.)
+	/**
+	 * Get whether or not music is enabled. (Setting comes from preferences.)
 	 * 
 	 * @return False if music is explicitly disabled, true otherwise.
 	 */
@@ -212,9 +213,11 @@ public class PumpkinGame extends Game {
 		return mPrefs.getBoolean("music", true);
 	}
 
-	/** Set whether or not music is enabled.
+	/**
+	 * Set whether or not music is enabled.
 	 * 
-	 * @param enabled True if music is enabled, false otherwise.
+	 * @param enabled
+	 *            True if music is enabled, false otherwise.
 	 */
 	public void setMusicEnabled(boolean enabled) {
 		mPrefs.putBoolean("music", enabled);
@@ -228,7 +231,7 @@ public class PumpkinGame extends Game {
 	}
 
 	void updateMusic() {
-		if(music == null) {
+		if (music == null) {
 			prepareMusic();
 		}
 
