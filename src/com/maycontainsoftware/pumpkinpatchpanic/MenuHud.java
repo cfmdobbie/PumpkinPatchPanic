@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
  */
 public class MenuHud extends Table {
 
-	/** Label containing the current highest level reached. */
-	private final Label highLevelLabel;
+	/** Label containing the current highest round reached. */
+	private final Label highestRoundLabel;
 	
 	/** The game instance. */
 	private final PumpkinGame game;
@@ -39,15 +39,15 @@ public class MenuHud extends Table {
 		Label.LabelStyle style64 = new Label.LabelStyle(font64, Color.WHITE);
 
 		row();
-		add(new Label("High Level", style32)).left();
+		add(new Label("Highest Round", style32)).left();
 
 		row();
-		add(highLevelLabel = new Label("", style64)).expandX().expandY().top().left();
-		updateHighLevel();
+		add(highestRoundLabel = new Label("", style64)).expandX().expandY().top().left();
+		updateHighestRound();
 	}
 
-	/** Update the high level display from the game (via prefs). */
-	public void updateHighLevel() {
-		highLevelLabel.setText(String.valueOf(game.getHighLevel()));
+	/** Update the highest round display from the game (via prefs). */
+	public void updateHighestRound() {
+		highestRoundLabel.setText(String.valueOf(game.getHighestRound()));
 	}
 }

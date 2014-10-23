@@ -185,22 +185,22 @@ public class PumpkinGame extends Game {
 	}
 
 	/**
-	 * Get the current highest level beaten from preferences.
+	 * Get the current highest round reached from preferences.
 	 * 
-	 * @return The current highest level that has been beaten.
+	 * @return The current highest round that has been reached.
 	 */
-	public int getHighLevel() {
-		return mPrefs.getInteger("high_level", 0);
+	public int getHighestRound() {
+		return mPrefs.getInteger("highest_round", 0);
 	}
 
 	/**
-	 * Set the highest level beaten.
+	 * Set the highest round reached.
 	 * 
-	 * @param level
-	 *            The new highest level.
+	 * @param round
+	 *            The new highest round.
 	 */
-	public void setHighLevel(int level) {
-		mPrefs.putInteger("high_level", level);
+	public void setHighestRound(int round) {
+		mPrefs.putInteger("highest_round", round);
 		mPrefs.flush();
 	}
 

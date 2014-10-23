@@ -33,11 +33,11 @@ public class GameScreen extends PumpkinScreen {
 	/** Time left in the current round. */
 	private float timeLeft;
 
-	/** Highest level reached - either this game, or from previous game and loaded from prefs. */
-	private int highLevel;
+	/** Highest round reached - either this game, or from previous game and loaded from prefs. */
+	private int highestRound;
 
-	/** Current level. */
-	private int currentLevel;
+	/** Current round. */
+	private int currentRound;
 
 	/**
 	 * Whether or not the game is running. When set to false, game logic should not run (although it may be appropriate
@@ -51,7 +51,7 @@ public class GameScreen extends PumpkinScreen {
 	 */
 	Table dialog;
 
-	/** The interface showing level, lives and time remaining. */
+	/** The interface showing round, lives and time remaining. */
 	Hud hud;
 
 	/** Array of the pumpkins. */
@@ -75,11 +75,11 @@ public class GameScreen extends PumpkinScreen {
 		// TODO: Set to 30 seconds for testing purposes
 		timeLeft = 30.0f;
 
-		// Highest level reached
-		highLevel = game.getHighLevel();
+		// Highest round reached
+		highestRound = game.getHighestRound();
 
-		// Start on level one
-		currentLevel = 1;
+		// Start on round one
+		currentRound = 1;
 
 		// Game starts running
 		gameRunning = true;
@@ -291,22 +291,22 @@ public class GameScreen extends PumpkinScreen {
 				add(roundCompleteLabel);
 
 				row();
-				add(new Label("You reached round " + currentLevel, style32));
+				add(new Label("You reached round " + currentRound, style32));
 
-				if (currentLevel > highLevel) {
+				if (currentRound > highestRound) {
 					row();
 					add(new Label("New high score!", style32));
 
 					// Update local value
-					highLevel = currentLevel;
+					highestRound = currentRound;
 
 					// Save to preferences
-					game.setHighLevel(highLevel);
+					game.setHighestRound(highestRound);
 
 					// Update HUD, apply an interesting value-change effect
-					hud.highLevelLabel.setText(String.valueOf(highLevel));
-					hud.highLevelLabel.setColor(Color.RED);
-					hud.highLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
+					hud.highestRoundLabel.setText(String.valueOf(highestRound));
+					hud.highestRoundLabel.setColor(Color.RED);
+					hud.highestRoundLabel.addAction(Actions.color(Color.WHITE, 1.0f));
 				}
 
 				gameRunning = false;
@@ -325,9 +325,9 @@ public class GameScreen extends PumpkinScreen {
 		// TODO: Set to 30 seconds for testing purposes
 		timeLeft = 30.0f;
 
-		// Increment level
-		currentLevel++;
-		hud.updateCurrentLevel();
+		// Increment round
+		currentRound++;
+		hud.updateCurrentRound();
 
 		// Reset pumpkins
 		for (final PumpkinActor pumpkin : pumpkins) {
@@ -345,11 +345,11 @@ public class GameScreen extends PumpkinScreen {
 	 */
 	class Hud extends Table {
 
-		/** Label containing the current highest level reached. */
-		private final Label highLevelLabel;
+		/** Label containing the current highest round reached. */
+		private final Label highestRoundLabel;
 
-		/** Label containing the current level reached. */
-		private final Label currentLevelLabel;
+		/** Label containing the current round reached. */
+		private final Label currentRoundLabel;
 
 		/** Label containing the current time left. */
 		private final Label timeLeftLabel;
@@ -381,12 +381,12 @@ public class GameScreen extends PumpkinScreen {
 			// Create widgets
 
 			row();
-			add(new Label("High Level", style32)).left();
+			add(new Label("Highest Round", style32)).left();
 			add(new Label("Lives Left", style32)).expandX();
-			add(new Label("Current Level", style32)).right();
+			add(new Label("Current Round", style32)).right();
 
 			row();
-			add(highLevelLabel = new Label(String.valueOf(highLevel), style64)).left();
+			add(highestRoundLabel = new Label(String.valueOf(highestRound), style64)).left();
 
 			// Life tokens are five lives and one "overflow" indication
 			lifeTokens = new Image[] { new Image(atlas.findRegion("life")), new Image(atlas.findRegion("life")),
@@ -399,7 +399,7 @@ public class GameScreen extends PumpkinScreen {
 			// Update initial life token state
 			updateLives();
 
-			add(currentLevelLabel = new Label(String.valueOf(currentLevel), style64)).right();
+			add(currentRoundLabel = new Label(String.valueOf(currentRound), style64)).right();
 
 			row();
 			add().width(400.0f);
@@ -417,11 +417,11 @@ public class GameScreen extends PumpkinScreen {
 			timeLeftLabel.setText(getTimeLeftAsString());
 		}
 
-		/** Update the current level label using the value held at Screen level. */
-		private void updateCurrentLevel() {
-			currentLevelLabel.setText(String.valueOf(currentLevel));
-			currentLevelLabel.setColor(Color.RED);
-			currentLevelLabel.addAction(Actions.color(Color.WHITE, 1.0f));
+		/** Update the current round label using the value held at Screen level. */
+		private void updateCurrentRound() {
+			currentRoundLabel.setText(String.valueOf(currentRound));
+			currentRoundLabel.setColor(Color.RED);
+			currentRoundLabel.addAction(Actions.color(Color.WHITE, 1.0f));
 		}
 
 		/** Return the time left as a String. */

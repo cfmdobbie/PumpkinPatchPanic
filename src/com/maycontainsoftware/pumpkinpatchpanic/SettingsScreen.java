@@ -59,8 +59,8 @@ public class SettingsScreen extends PumpkinScreen {
 		resetScoreBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
-				game.setHighLevel(0);
-				menuHud.updateHighLevel();
+				game.setHighestRound(0);
+				menuHud.updateHighestRound();
 			}
 		});
 		stage.addActor(getPlantForPumpkinButton(resetScoreBtn));
