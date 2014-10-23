@@ -118,7 +118,7 @@ class PumpkinActor extends Actor {
 						screen.hud.updateLives();
 
 						// Check for game over condition
-						if(screen.livesLeft <= 0) {
+						if (screen.livesLeft <= 0) {
 							// Open game-over dialog
 							screen.dialog = screen.createGameOverDialog();
 							screen.stage.addActor(screen.dialog);
@@ -239,7 +239,7 @@ class PumpkinActor extends Actor {
 					// TODO: Play sound: spirit escape, life lost
 
 					// Check for game over condition
-					if(screen.livesLeft <= 0) {
+					if (screen.livesLeft <= 0) {
 						// Open game-over dialog
 						screen.dialog = screen.createGameOverDialog();
 						screen.stage.addActor(screen.dialog);
