@@ -2,6 +2,11 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.math.MathUtils;
 
+/**
+ * OwlModel represents an Owl's logical data model.
+ * 
+ * @author Charlie
+ */
 class OwlModel {
 
 	/** Enumeration of eye direction. */

@@ -24,9 +24,11 @@ class Cloud extends Image {
 		/** Reference to the Cloud's model. */
 		final CloudModel model;
 
-		/** Construct a new Cloud action.
+		/**
+		 * Construct a new Cloud action.
 		 * 
-		 * @param model The Cloud's model.
+		 * @param model
+		 *            The Cloud's model.
 		 */
 		public CloudAction(final CloudModel model) {
 			this.model = model;

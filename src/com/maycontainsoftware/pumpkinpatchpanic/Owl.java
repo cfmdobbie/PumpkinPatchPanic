@@ -14,6 +14,14 @@ class Owl extends Image {
 	private final TextureRegionDrawable eyesRight;
 	private final TextureRegionDrawable blink;
 
+	/**
+	 * Construct a new Owl actor.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param atlas
+	 * @param model
+	 */
 	public Owl(final float x, final float y, final TextureAtlas atlas, final OwlModel model) {
 
 		// Call super with a graphic - mainly just to set up size for us
