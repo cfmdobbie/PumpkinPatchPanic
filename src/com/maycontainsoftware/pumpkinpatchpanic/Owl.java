@@ -60,6 +60,8 @@ class Owl extends Image {
 
 		public OwlAction(final OwlModel model) {
 			this.model = model;
+
+			updateGraphic();
 		}
 
 		@Override
