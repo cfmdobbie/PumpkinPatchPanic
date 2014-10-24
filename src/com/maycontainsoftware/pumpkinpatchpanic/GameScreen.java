@@ -5,12 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Game screen.
@@ -312,6 +316,53 @@ public class GameScreen extends PumpkinScreen {
 				gameRunning = false;
 
 				// debug();
+
+				// The "Menu" pumpkin-button
+				final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
+				menuBtn.setPosition(100, 170 - 150 / 2);
+				menuBtn.addListener(new ChangeListener() {
+					@Override
+					public void changed(final ChangeEvent event, final Actor actor) {
+						game.setScreen(new MainMenuScreen(game));
+						GameScreen.this.dispose();
+					}
+				});
+				addActor(getPlantForPumpkinButton(menuBtn));
+				addActor(menuBtn);
+
+				// The "Play" pumpkin-button
+				final Button btnPlay = new Button(new TextureRegionDrawable(atlas.findRegion("btn_play")));
+				btnPlay.setPosition(1280 - 100 - 230, 170 - 150 / 2);
+				btnPlay.addListener(new ChangeListener() {
+					@Override
+					public void changed(final ChangeEvent event, final Actor actor) {
+
+						// FUTURE: Better-encapsulated way to reset game
+
+						// Start with three lines
+						livesLeft = 3;
+
+						// One minute on the clock
+						timeLeft = 60.0f;
+
+						// Start on round one
+						currentRound = 1;
+						hud.updateCurrentRound();
+
+						// Reset pumpkins
+						for (final PumpkinActor pumpkin : pumpkins) {
+							pumpkin.reset();
+						}
+
+						dialog.remove();
+						dialog = null;
+
+						// Game starts running
+						gameRunning = true;
+					}
+				});
+				addActor(getPlantForPumpkinButton(btnPlay));
+				addActor(btnPlay);
 			}
 		}
 
