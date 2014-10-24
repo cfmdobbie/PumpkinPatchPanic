@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
@@ -142,59 +141,10 @@ public class PumpkinScreen implements Screen {
 		// sky.addAction(Actions.forever(Actions.rotateBy(-360.0f, 10000.0f)));
 		stage.addActor(sky);
 
-		/*
-		 * Theory of moon movement calculations:-
-		 * 
-		 * Want moon to rise to exactly half off the top of the screen. Want origin and destination points to be just
-		 * off the sides of the screen, at 50% of the height of the screen. Can calculate coordinates of starting and
-		 * highest positions. Can calculate slope of line between these. Can calculate midpoint of that line, and
-		 * negative reciprocal of the slope. This gives a line with known slope and one known coordinate passing through
-		 * the centre of the circle that joins the three moon positions.
-		 * 
-		 * Zenith: (640, 720) ~ Left position: (-55, 360) ~ Midpoint: (292, 540)
-		 * 
-		 * Slope: y2-y1/x2-x1 = 0.518 ~ Perpendicular slope: -1.9305
-		 * 
-		 * Line: y = m * x + c, 540 = -1.9305 * 292 + c, c = 1103.72
-		 * 
-		 * Centre of circle: y = m * x + c, y = -1.9305 * 640 + 1103.72, y = -131.83
-		 */
+		// Moon
 
-		final Image moon = new Image(atlas.findRegion("moon"));
-		moon.setPosition(640 - 110 / 2, 720 - 110 / 2);
-		moon.setOrigin(110 / 2, 110 / 2 - 720 - 132);
-
-		/*
-		 * Old calculations to determine visible arc of moon movement:
-		 * 
-		 * Want the moon to start its journey just off the left edge of the screen, so need to know initial rotation
-		 * required. Calculate by trig based on starting location and centre of circle, given previously-calculated
-		 * distance between them.
-		 * 
-		 * sin A = o / h = (640 + 55) / (720 + 131.83) = 695 / 851.83 = 0.816
-		 * 
-		 * A = sin-1 0.816 = 54.68 degrees
-		 * 
-		 * (Note that we currently don't use this value!)
-		 */
-
-		// Want moon to start at far left horizon (not visible) so a delay exists before it appears
-		moon.rotate(90.0f);
-
-		/*
-		 * Old calculations to determine moon traversal speed:
-		 * 
-		 * Rotation speed. Want the moon to traverse from left to right over 60 seconds. Now know the total angle
-		 * covered, so need to calculate rotation time for a full 360-degree rotation.
-		 * 
-		 * 60-second arc: 54.68 * 2 = 109.35 degrees
-		 * 
-		 * 109.35 / 60 = 360 / t, t = 360 * 60 / 109.35 = 197.53 seconds
-		 */
-
-		// Actually rotating three times slower than calculated above
-		moon.addAction(Actions.forever(Actions.rotateBy(-360.0f, 197.53f * 3)));
-
+		final MoonModel moonModel = new MoonModel();
+		Moon moon = new Moon(moonModel, atlas.findRegion("moon"));
 		stage.addActor(moon);
 
 		// Clouds
