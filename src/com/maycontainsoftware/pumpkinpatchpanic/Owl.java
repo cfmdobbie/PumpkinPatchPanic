@@ -2,6 +2,8 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -13,6 +15,7 @@ class Owl extends Image {
 	private final TextureRegionDrawable eyesLeft;
 	private final TextureRegionDrawable eyesRight;
 	private final TextureRegionDrawable blink;
+	private final TextureRegionDrawable poke;
 
 	/**
 	 * Construct a new Owl actor.
@@ -32,27 +35,26 @@ class Owl extends Image {
 		eyesLeft = new TextureRegionDrawable(atlas.findRegion("owl_left"));
 		eyesRight = new TextureRegionDrawable(atlas.findRegion("owl_right"));
 		blink = new TextureRegionDrawable(atlas.findRegion("owl_blink"));
+		poke = new TextureRegionDrawable(atlas.findRegion("owl_poke"));
 
 		// Position the Owl on the stage
 		setPosition(model.x, model.y);
 
-		OwlAction action = new OwlAction(model);
+		final OwlAction action = new OwlAction(model);
 		addAction(action);
 		action.updateGraphic();
 
-		// Want owl to respond to touch - owl should blink when poked
-		// However, as we have two stages and a single InputProcessor, this does not work
-		// FUTURE: Fix owl's touch input
-		// addListener(new InputListener() {
-		// @Override
-		// public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		// // Owls blink when touched
-		// setDrawable(blink);
-		// timeToBlinkChange = MathUtils.random(0.5f, 0.75f);
-		// timeSinceBlinkChange = 0.0f;
-		// return true;
-		// }
-		// });
+		// Owl responds to touch - by looking a bit crazy for a moment
+		addListener(new InputListener() {
+			@Override
+			public boolean touchDown(final InputEvent event, final float x, final float y, final int pointer,
+					final int button) {
+				// Owls
+				model.poke();
+				action.updateGraphic();
+				return true;
+			}
+		});
 	}
 
 	/** Action to animate an owl. */
@@ -97,7 +99,9 @@ class Owl extends Image {
 			// Reference to the Owl actor
 			final Owl owl = (Owl) actor;
 
-			if (!model.eyesOpen) {
+			if (model.poked) {
+				owl.setDrawable(owl.poke);
+			} else if (!model.eyesOpen) {
 				owl.setDrawable(owl.blink);
 			} else {
 				switch (model.eyeDirection) {
