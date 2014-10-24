@@ -1,5 +1,7 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -66,6 +68,12 @@ public class PumpkinGame extends Game {
 
 	/** Background music. */
 	Music music;
+
+	// Scenery models
+
+	List<OwlModel> owls;
+	List<CloudModel> clouds;
+	MoonModel moon;
 
 	/**
 	 * Construct a new PPPGame.

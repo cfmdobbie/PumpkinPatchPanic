@@ -1,5 +1,7 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -143,19 +145,23 @@ public class PumpkinScreen implements Screen {
 
 		// Moon
 
-		final MoonModel moonModel = new MoonModel();
-		Moon moon = new Moon(moonModel, atlas.findRegion("moon"));
+		game.moon = new MoonModel();
+		Moon moon = new Moon(game.moon, atlas.findRegion("moon"));
 		stage.addActor(moon);
 
 		// Clouds
 
+		game.clouds = new ArrayList<CloudModel>(2);
+
 		final TextureRegion regionA = atlas.findRegion("cloud_a");
 		final CloudModel modelA = new CloudModel(560, regionA.getRegionWidth());
 		stage.addActor(new Cloud(regionA, modelA));
+		game.clouds.add(modelA);
 
 		final TextureRegion regionB = atlas.findRegion("cloud_b");
 		final CloudModel modelB = new CloudModel(500, regionB.getRegionWidth());
 		stage.addActor(new Cloud(regionB, modelB));
+		game.clouds.add(modelB);
 
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
@@ -174,10 +180,17 @@ public class PumpkinScreen implements Screen {
 		treeRight.setPosition(1280 - 203 * 2, 0);
 		stage.addActor(treeRight);
 
+		// Owls
 		// owl is 60x100
+
+		game.owls = new ArrayList<OwlModel>();
+
 		final OwlModel owl1 = new OwlModel();
 		stage.addActor(new Owl(944, 504, atlas, owl1));
+		game.owls.add(owl1);
+
 		final OwlModel owl2 = new OwlModel();
 		stage.addActor(new Owl(285, 528, atlas, owl2));
+		game.owls.add(owl2);
 	}
 }
