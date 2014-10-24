@@ -19,7 +19,14 @@ class Owl extends Image {
 
 	private float timeSinceEyeChange = 0.0f;
 	private float timeToEyeChange;
-	private TextureRegionDrawable currentEyes;
+
+	private static enum EyeDirection {
+		DOWN,
+		LEFT,
+		RIGHT,
+	}
+
+	private EyeDirection eyeDirection;
 
 	private float timeSinceBlinkChange = 0.0f;
 	private float timeToBlinkChange;
@@ -36,7 +43,7 @@ class Owl extends Image {
 		blink = new TextureRegionDrawable(atlas.findRegion("owl_blink"));
 
 		// Start off looking down
-		currentEyes = eyesDown;
+		eyeDirection = EyeDirection.DOWN;
 		timeToEyeChange = MathUtils.random(0.5f, 4.0f);
 
 		// And not blinking
@@ -72,19 +79,33 @@ class Owl extends Image {
 
 			if (timeSinceEyeChange > timeToEyeChange) {
 				// Need to change eyes
-				if (currentEyes == eyesDown) {
-					currentEyes = MathUtils.randomBoolean() ? eyesLeft : eyesRight;
-				} else if (currentEyes == eyesLeft) {
-					currentEyes = MathUtils.randomBoolean() ? eyesDown : eyesRight;
-				} else {
-					currentEyes = MathUtils.randomBoolean() ? eyesLeft : eyesDown;
+				switch (eyeDirection) {
+				case DOWN:
+					eyeDirection = MathUtils.randomBoolean() ? EyeDirection.LEFT : EyeDirection.RIGHT;
+					break;
+				case LEFT:
+					eyeDirection = MathUtils.randomBoolean() ? EyeDirection.DOWN : EyeDirection.RIGHT;
+					break;
+				case RIGHT:
+					eyeDirection = MathUtils.randomBoolean() ? EyeDirection.DOWN : EyeDirection.LEFT;
+					break;
 				}
 
 				timeSinceEyeChange = 0.0f;
 				timeToEyeChange = MathUtils.random(0.5f, 4.0f);
 
 				if (eyesOpen) {
-					setDrawable(currentEyes);
+					switch (eyeDirection) {
+					case DOWN:
+						setDrawable(eyesDown);
+						break;
+					case LEFT:
+						setDrawable(eyesLeft);
+						break;
+					case RIGHT:
+						setDrawable(eyesRight);
+						break;
+					}
 				}
 			}
 
@@ -100,7 +121,17 @@ class Owl extends Image {
 					timeSinceBlinkChange = 0.0f;
 				} else {
 					// Need to stop blinking
-					setDrawable(currentEyes);
+					switch (eyeDirection) {
+					case DOWN:
+						setDrawable(eyesDown);
+						break;
+					case LEFT:
+						setDrawable(eyesLeft);
+						break;
+					case RIGHT:
+						setDrawable(eyesRight);
+						break;
+					}
 					timeToBlinkChange = MathUtils.random(3.0f, 6.0f);
 					timeSinceBlinkChange = 0.0f;
 				}
