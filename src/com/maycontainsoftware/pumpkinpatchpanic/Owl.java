@@ -36,7 +36,9 @@ class Owl extends Image {
 		// Position the Owl on the stage
 		setPosition(x, y);
 
-		addAction(new OwlAction(model));
+		OwlAction action = new OwlAction(model);
+		addAction(action);
+		action.updateGraphic();
 
 		// Want owl to respond to touch - owl should blink when poked
 		// However, as we have two stages and a single InputProcessor, this does not work
@@ -60,8 +62,6 @@ class Owl extends Image {
 
 		public OwlAction(final OwlModel model) {
 			this.model = model;
-
-			updateGraphic();
 		}
 
 		@Override
