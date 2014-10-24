@@ -68,9 +68,6 @@ class Owl extends Image {
 			// Update timers
 			model.update(delta);
 
-			// Reference to the Owl actor
-			final Owl owl = (Owl) actor;
-
 			// Eye change code
 			if (model.isTimeToChangeEyes()) {
 
@@ -78,20 +75,7 @@ class Owl extends Image {
 				model.pickNewEyeDirection();
 				model.resetEyeChangeTimer();
 
-				if (model.eyesOpen) {
-
-					switch (model.eyeDirection) {
-					case DOWN:
-						owl.setDrawable(owl.eyesDown);
-						break;
-					case LEFT:
-						owl.setDrawable(owl.eyesLeft);
-						break;
-					case RIGHT:
-						owl.setDrawable(owl.eyesRight);
-						break;
-					}
-				}
+				updateGraphic();
 			}
 
 			// Blink code
@@ -100,26 +84,32 @@ class Owl extends Image {
 				model.eyesOpen = !model.eyesOpen;
 				model.resetEyeBlinkTimer();
 
-				if (!model.eyesOpen) {
-					// Need to blink
-					owl.setDrawable(owl.blink);
-				} else {
-					// Need to stop blinking
-					switch (model.eyeDirection) {
-					case DOWN:
-						owl.setDrawable(owl.eyesDown);
-						break;
-					case LEFT:
-						owl.setDrawable(owl.eyesLeft);
-						break;
-					case RIGHT:
-						owl.setDrawable(owl.eyesRight);
-						break;
-					}
-				}
+				updateGraphic();
 			}
 
 			return false;
+		}
+
+		public void updateGraphic() {
+
+			// Reference to the Owl actor
+			final Owl owl = (Owl) actor;
+
+			if (!model.eyesOpen) {
+				owl.setDrawable(owl.blink);
+			} else {
+				switch (model.eyeDirection) {
+				case DOWN:
+					owl.setDrawable(owl.eyesDown);
+					break;
+				case LEFT:
+					owl.setDrawable(owl.eyesLeft);
+					break;
+				case RIGHT:
+					owl.setDrawable(owl.eyesRight);
+					break;
+				}
+			}
 		}
 	}
 }
