@@ -9,6 +9,12 @@ import com.badlogic.gdx.math.MathUtils;
  */
 class OwlModel {
 
+	/** Actor's x-coordinate. */
+	final float x;
+
+	/** Actor's y-coordinate. */
+	final float y;
+
 	/** Enumeration of eye direction. */
 	static enum EyeDirection {
 		DOWN,
@@ -35,7 +41,11 @@ class OwlModel {
 	float timeToBlinkChange;
 
 	/** Construct a new model. */
-	public OwlModel() {
+	public OwlModel(final float x, final float y) {
+
+		// Remember coordinates
+		this.x = x;
+		this.y = y;
 
 		// Start off looking down
 		eyeDirection = EyeDirection.DOWN;

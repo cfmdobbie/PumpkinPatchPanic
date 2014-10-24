@@ -172,11 +172,12 @@ public class PumpkinScreen implements Screen {
 
 		if (game.owls == null) {
 			game.owls = new ArrayList<OwlModel>();
-			game.owls.add(new OwlModel());
-			game.owls.add(new OwlModel());
+			game.owls.add(new OwlModel(944, 504));
+			game.owls.add(new OwlModel(285, 528));
 		}
 
-		stage.addActor(new Owl(944, 504, atlas, game.owls.get(0)));
-		stage.addActor(new Owl(285, 528, atlas, game.owls.get(1)));
+		for (final OwlModel model : game.owls) {
+			stage.addActor(new Owl(model, atlas));
+		}
 	}
 }

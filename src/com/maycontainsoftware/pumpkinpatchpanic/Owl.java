@@ -22,7 +22,7 @@ class Owl extends Image {
 	 * @param atlas
 	 * @param model
 	 */
-	public Owl(final float x, final float y, final TextureAtlas atlas, final OwlModel model) {
+	public Owl(final OwlModel model, final TextureAtlas atlas) {
 
 		// Call super with a graphic - mainly just to set up size for us
 		super(atlas.findRegion("owl_down"));
@@ -34,7 +34,7 @@ class Owl extends Image {
 		blink = new TextureRegionDrawable(atlas.findRegion("owl_blink"));
 
 		// Position the Owl on the stage
-		setPosition(x, y);
+		setPosition(model.x, model.y);
 
 		OwlAction action = new OwlAction(model);
 		addAction(action);
