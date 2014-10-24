@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -138,17 +137,15 @@ public class PumpkinScreen implements Screen {
 
 		// Clouds
 
-		final TextureRegion regionA = atlas.findRegion("cloud_a");
-		final TextureRegion regionB = atlas.findRegion("cloud_b");
-
 		if (game.clouds == null) {
 			game.clouds = new ArrayList<CloudModel>(2);
-			game.clouds.add(new CloudModel(560, regionA.getRegionWidth()));
-			game.clouds.add(new CloudModel(500, regionB.getRegionWidth()));
+			game.clouds.add(new CloudModel(560, atlas.findRegion("cloud_a").getRegionWidth(), "cloud_a"));
+			game.clouds.add(new CloudModel(500, atlas.findRegion("cloud_b").getRegionWidth(), "cloud_b"));
 		}
 
-		stage.addActor(new Cloud(regionA, game.clouds.get(0)));
-		stage.addActor(new Cloud(regionB, game.clouds.get(1)));
+		for (final CloudModel model : game.clouds) {
+			stage.addActor(new Cloud(model, atlas));
+		}
 
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));

@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class CloudModel {
 
+	/** The name of the TextureRegion in the default atlas. */
+	final String regionName;
+
 	/** The width of the TextureRegion. */
 	private final int width;
 
@@ -34,10 +37,13 @@ public class CloudModel {
 	 *            The fixed y-coordinate.
 	 * @param width
 	 *            The width of the actor.
+	 * @param regionName
+	 *            The name of the cloud's TextureRegion in the default TextureAtlas
 	 */
-	public CloudModel(final float y, final int width) {
+	public CloudModel(final float y, final int width, final String regionName) {
 		this.y = y;
 		this.width = width;
+		this.regionName = regionName;
 
 		// Set initial position and speed
 		this.x = MathUtils.random(-width, 1280.0f);

@@ -1,6 +1,6 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 class Cloud extends Image {
 
 	/** Constructor. */
-	public Cloud(final TextureRegion region, final CloudModel model) {
-		super(region);
+	public Cloud(final CloudModel model, final TextureAtlas atlas) {
+		super(atlas.findRegion(model.regionName));
 
 		// Clouds are semi-transparent
 		setColor(1.0f, 1.0f, 1.0f, 0.9f);
