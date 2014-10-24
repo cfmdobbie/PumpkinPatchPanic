@@ -225,7 +225,9 @@ public class PumpkinScreen implements Screen {
 		stage.addActor(treeRight);
 
 		// owl is 60x100
-		stage.addActor(new Owl(944, 504, atlas));
-		stage.addActor(new Owl(285, 528, atlas));
+		final OwlModel owl1 = new OwlModel();
+		stage.addActor(new Owl(944, 504, atlas, owl1));
+		final OwlModel owl2 = new OwlModel();
+		stage.addActor(new Owl(285, 528, atlas, owl2));
 	}
 }
