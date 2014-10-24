@@ -3,6 +3,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -197,8 +198,14 @@ public class PumpkinScreen implements Screen {
 		stage.addActor(moon);
 
 		// Clouds
-		stage.addActor(new Cloud(atlas.findRegion("cloud_a"), 560));
-		stage.addActor(new Cloud(atlas.findRegion("cloud_b"), 500));
+
+		final TextureRegion regionA = atlas.findRegion("cloud_a");
+		final CloudModel modelA = new CloudModel(560, regionA.getRegionWidth());
+		stage.addActor(new Cloud(regionA, modelA));
+
+		final TextureRegion regionB = atlas.findRegion("cloud_b");
+		final CloudModel modelB = new CloudModel(500, regionB.getRegionWidth());
+		stage.addActor(new Cloud(regionB, modelB));
 
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
