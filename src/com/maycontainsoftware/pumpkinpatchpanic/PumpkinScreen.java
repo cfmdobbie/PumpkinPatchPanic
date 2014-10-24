@@ -27,9 +27,6 @@ public class PumpkinScreen implements Screen {
 	/** Reference to the Game instance. */
 	protected final PumpkinGame game;
 
-	/** The static Stage containing the scenery. */
-	private static Stage sceneryStage;
-
 	protected Stage stage;
 
 	/** The TextureAtlas containing all the graphics. */
@@ -58,13 +55,8 @@ public class PumpkinScreen implements Screen {
 		// Load the atlas
 		atlas = game.manager.get("atlas.atlas", TextureAtlas.class);
 
-		if (sceneryStage == null) {
-			// Create the Stage
-			sceneryStage = game.createStage();
-			generateScenery(sceneryStage);
-		}
-
 		stage = game.createStage();
+		generateScenery(stage);
 
 		// Redirect events to the stage
 		// FUTURE: Once Screen transitions are implemented, InputProcessor must be set in a different way
@@ -73,12 +65,6 @@ public class PumpkinScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (sceneryStage != null) {
-			// Update and render the Stage
-			sceneryStage.act();
-			sceneryStage.draw();
-		}
-
 		stage.act();
 		stage.draw();
 	}
@@ -89,10 +75,8 @@ public class PumpkinScreen implements Screen {
 			Gdx.app.log(TAG, "resize(" + width + ", " + height + ")");
 		}
 
-		if (sceneryStage != null) {
-			// Update Stage's viewport calculations
-			game.updateViewport(sceneryStage);
-		}
+		// Update Stage's viewport calculations
+		game.updateViewport(stage);
 	}
 
 	@Override
@@ -135,6 +119,7 @@ public class PumpkinScreen implements Screen {
 	}
 
 	private final void generateScenery(final Stage stage) {
+
 		// Sky is 640x201
 		final Image sky = new Image(atlas.findRegion("sky"));
 		sky.setSize(640 * 2, 201 * 2);
@@ -145,23 +130,25 @@ public class PumpkinScreen implements Screen {
 
 		// Moon
 
-		game.moon = new MoonModel();
+		if (game.moon == null) {
+			game.moon = new MoonModel();
+		}
 		Moon moon = new Moon(game.moon, atlas.findRegion("moon"));
 		stage.addActor(moon);
 
 		// Clouds
 
-		game.clouds = new ArrayList<CloudModel>(2);
-
 		final TextureRegion regionA = atlas.findRegion("cloud_a");
-		final CloudModel modelA = new CloudModel(560, regionA.getRegionWidth());
-		stage.addActor(new Cloud(regionA, modelA));
-		game.clouds.add(modelA);
-
 		final TextureRegion regionB = atlas.findRegion("cloud_b");
-		final CloudModel modelB = new CloudModel(500, regionB.getRegionWidth());
-		stage.addActor(new Cloud(regionB, modelB));
-		game.clouds.add(modelB);
+
+		if (game.clouds == null) {
+			game.clouds = new ArrayList<CloudModel>(2);
+			game.clouds.add(new CloudModel(560, regionA.getRegionWidth()));
+			game.clouds.add(new CloudModel(500, regionB.getRegionWidth()));
+		}
+
+		stage.addActor(new Cloud(regionA, game.clouds.get(0)));
+		stage.addActor(new Cloud(regionB, game.clouds.get(1)));
 
 		// Hillside is 640x225
 		final Image hillside = new Image(atlas.findRegion("hillside"));
@@ -183,14 +170,13 @@ public class PumpkinScreen implements Screen {
 		// Owls
 		// owl is 60x100
 
-		game.owls = new ArrayList<OwlModel>();
+		if (game.owls == null) {
+			game.owls = new ArrayList<OwlModel>();
+			game.owls.add(new OwlModel());
+			game.owls.add(new OwlModel());
+		}
 
-		final OwlModel owl1 = new OwlModel();
-		stage.addActor(new Owl(944, 504, atlas, owl1));
-		game.owls.add(owl1);
-
-		final OwlModel owl2 = new OwlModel();
-		stage.addActor(new Owl(285, 528, atlas, owl2));
-		game.owls.add(owl2);
+		stage.addActor(new Owl(944, 504, atlas, game.owls.get(0)));
+		stage.addActor(new Owl(285, 528, atlas, game.owls.get(1)));
 	}
 }
