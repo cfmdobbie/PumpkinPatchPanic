@@ -41,7 +41,7 @@ public class GameScreen extends PumpkinScreen {
 	private int highestRound;
 
 	/** Current round. */
-	private int currentRound;
+	int currentRound;
 
 	/**
 	 * Whether or not the game is running. When set to false, game logic should not run (although it may be appropriate
