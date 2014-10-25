@@ -126,7 +126,7 @@ class PumpkinActor extends Actor {
 
 						// Move to dormant state
 						state = PumpkinState.Dormant;
-						timer = MathUtils.random(1.0f, 3.0f);
+						timer = Difficulty.getDormantTime(screen.currentRound);
 
 						break;
 					case Possessed:
@@ -139,7 +139,7 @@ class PumpkinActor extends Actor {
 
 						// Move to dormant state
 						state = PumpkinState.Dormant;
-						timer = MathUtils.random(1.0f, 3.0f);
+						timer = Difficulty.getDormantTime(screen.currentRound);
 
 						break;
 					case Spirit_Release:
@@ -202,33 +202,33 @@ class PumpkinActor extends Actor {
 				case Dormant:
 					// If timer expired, move to Possession state
 					state = PumpkinState.Possession;
-					timer = MathUtils.random(1.0f, 5.0f);
+					timer = Difficulty.getPossessionTime(screen.currentRound);
 					alphaChangePerSecond = (1.0f - 0.0f) / timer;
 					faceAlpha = 0.0f;
 					break;
 				case Possession:
 					// If timer expired, move to Possession_Delay state
 					state = PumpkinState.Possession_Delay;
-					timer = MathUtils.random(0.1f, 3.0f);
+					timer = Difficulty.getPossessionDelay(screen.currentRound);
 					faceAlpha = 1.0f;
 					break;
 				case Possession_Delay:
 					// If timer expired, either become Possessed or move to Recovery
-					float possessionChance = 0.5f;
-					if (MathUtils.random() <= possessionChance) {
-						state = PumpkinState.Possessed;
-						timer = 1.0f;
-					} else {
+					if (Difficulty.getRecoveryChance(screen.currentRound)) {
 						state = PumpkinState.Recovery;
-						timer = MathUtils.random(1.0f, 5.0f);
+						timer = Difficulty.getRecoveryTime(screen.currentRound);
 						final float alphaTo = MathUtils.random(0.0f, 0.5f);
 						alphaChangePerSecond = (alphaTo - 1.0f) / timer;
+					} else {
+						state = PumpkinState.Possessed;
+						timer = Difficulty.getPossessedTime(screen.currentRound);
 					}
 					break;
 				case Recovery:
 					// If timer expired, move to Possession state
 					state = PumpkinState.Possession;
-					timer = MathUtils.random(1.0f, 5.0f);
+					timer = Difficulty.getPossessionTime(screen.currentRound);
+
 					alphaChangePerSecond = (1.0f - faceAlpha) / timer;
 					break;
 				case Possessed:
@@ -258,7 +258,7 @@ class PumpkinActor extends Actor {
 				case Spirit_Release:
 					// Move to dormant state
 					state = PumpkinState.Dormant;
-					timer = MathUtils.random(1.0f, 3.0f);
+					timer = Difficulty.getDormantTime(screen.currentRound);
 					break;
 				default:
 					throw new IllegalStateException();
@@ -340,7 +340,57 @@ class PumpkinActor extends Actor {
 	/** Reset the pumpkin to initial state. Used primarily at the start of each round. */
 	public void reset() {
 		state = PumpkinState.Dormant;
-		timer = MathUtils.random(1.0f, 3.0f);
+		timer = Difficulty.getDormantTime(screen.currentRound);
 		faceAlpha = 0.0f;
+	}
+
+	/**
+	 * Class to calculate game constants in such a way that difficulty increases with each new round.
+	 * 
+	 * Basic of calculations is an exponential decay, which is of the form:
+	 * 
+	 * y = initial * e^(-lambda * x)
+	 * 
+	 * Which we can simplify as follows:
+	 * 
+	 * a) Set initial = 1, so values are all clamped in range (0, 1]
+	 * 
+	 * c) Set lambda s.t. the output values decay to ~10% of 0 after a suitable expected round cap. A lambda of 0.1
+	 * makes the output value 10% at 23 rounds, 5% at 30 rounds.
+	 * 
+	 * @author Charlie
+	 */
+	static class Difficulty {
+
+		private static final float decay(int round) {
+			return (float) Math.pow(Math.E, -0.1 * round);
+		}
+
+		static float getDormantTime(int round) {
+			return MathUtils.random(1.0f, 1.5f + decay(round) * 2.5f);
+		}
+
+		static float getPossessionTime(int round) {
+			return MathUtils.random(1.0f, 1.0f + decay(round) * 4.0f);
+		}
+
+		static float getPossessionDelay(int round) {
+			return MathUtils.random(0.1f, 0.5f + decay(round) * 2.5f);
+		}
+
+		static boolean getRecoveryChance(int round) {
+			System.out.println(round);
+			float chance = decay(round);
+			System.out.println(chance);
+			return MathUtils.randomBoolean(chance);
+		}
+
+		static float getRecoveryTime(int round) {
+			return MathUtils.random(1.0f, 1.0f + decay(round) * 4.0f);
+		}
+
+		static float getPossessedTime(int round) {
+			return 0.5f + decay(round) * 1.0f;
+		}
 	}
 }
