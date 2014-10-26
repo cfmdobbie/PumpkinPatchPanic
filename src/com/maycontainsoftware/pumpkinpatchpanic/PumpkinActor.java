@@ -3,6 +3,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -73,17 +74,28 @@ class PumpkinActor extends Actor {
 	/** Change in face alpha value, per second. Note this can be (and frequently is) negative. */
 	private float alphaChangePerSecond;
 
+	/** TextureAtlas containing the PumpkinActor-related graphics. */
+	private final TextureAtlas pumpkinAtlas;
+
 	/** Construct a PumpkinActor. */
 	public PumpkinActor(final GameScreen screen) {
 
 		// Store reference to the screen
 		this.screen = screen;
 
+		// Get a reference to the texture atlas containing the pumpkin graphics
+		pumpkinAtlas = screen.game.manager.get("pumpkins.atlas", TextureAtlas.class);
+
+		// Pick a random face
+		// TODO: Random face per spirit-release - pick a new one after either spirit escapes or player incorrectly hits
+		// and resets the pumpkin
+		int faceNumber = MathUtils.random(1, 9);
+
 		// Load textures required for rendering
 		plant = screen.atlas.findRegion("plant");
-		pumpkin = screen.atlas.findRegion("pumpkin");
-		face = screen.atlas.findRegion("face_normal");
-		evilFace = screen.atlas.findRegion("face_evil");
+		pumpkin = pumpkinAtlas.findRegion("pumpkin");
+		face = pumpkinAtlas.findRegion("face" + faceNumber);
+		evilFace = pumpkinAtlas.findRegion("face" + faceNumber + "_evil");
 		hole = screen.atlas.findRegion("hole");
 
 		// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
@@ -302,7 +314,8 @@ class PumpkinActor extends Actor {
 		final float angle = normalizedAngle * amplitude;
 
 		// Draw the pumpkin
-		batch.draw(pumpkin, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f, angle);
+		batch.draw(pumpkin, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(),
+				getScaleY(), angle);
 
 		// Draw the detail texture
 		switch (state) {
@@ -313,23 +326,23 @@ class PumpkinActor extends Actor {
 		case Possession_Delay:
 		case Recovery:
 			// Normal face visible, potentially with alpha
+			// Face is always 170x130
 			batch.setColor(1.0f, 1.0f, 1.0f, faceAlpha);
-			batch.draw(face, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
-					angle);
+			batch.draw(face, getX() + 15, getY() + 10, 170 / 2, 130 / 2, 170, 130, getScaleX(), getScaleY(), angle);
 			batch.setColor(Color.WHITE);
 			break;
 		case Possessed:
 			// Evil face visible
-			batch.draw(evilFace, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
-					angle);
+			// Face is always 170x130
+			batch.draw(evilFace, getX() + 15, getY() + 10, 170 / 2, 130 / 2, 170, 130, getScaleX(), getScaleY(), angle);
 			break;
 		case Spirit_Release:
 			// Hole visible
 			// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
 			// Calculate hole alpha from timer value
 			batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
-			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), 1.0f, 1.0f,
-					angle);
+			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(),
+					getScaleY(), angle);
 			batch.setColor(Color.WHITE);
 			break;
 		default:
