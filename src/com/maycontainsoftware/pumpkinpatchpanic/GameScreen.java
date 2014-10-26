@@ -341,6 +341,7 @@ public class GameScreen extends PumpkinScreen {
 
 						// Start with three lines
 						livesLeft = 3;
+						hud.updateLives();
 
 						// One minute on the clock
 						timeLeft = 60.0f;
