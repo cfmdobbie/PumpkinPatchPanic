@@ -17,9 +17,9 @@ class Moon extends Image {
 
 		// Moon's position and origin are known and fixed
 		// Position is middle of top edge of screen
-		setPosition(640 - 110 / 2, 720 - 110 / 2);
+		setPosition(640 - 150 / 2, 720 - 150 / 2);
 		// Origin is some distance below screen
-		setOrigin(110 / 2, 110 / 2 - 720 - 132);
+		setOrigin(150 / 2, 150 / 2 - 720 - 132);
 
 		addAction(new MoonAction(model));
 	}
