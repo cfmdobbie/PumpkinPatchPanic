@@ -100,10 +100,12 @@ public class GameScreen extends PumpkinScreen {
 
 		final PumpkinActor backLeft = new PumpkinActor(this);
 		backLeft.setPosition(480 - 230 / 2, 720 - 510);
+		backLeft.setScale(0.875f);
 		stage.addActor(backLeft);
 
 		final PumpkinActor backRight = new PumpkinActor(this);
 		backRight.setPosition(800 - 230 / 2, 720 - 510);
+		backRight.setScale(0.875f);
 		stage.addActor(backRight);
 
 		final PumpkinActor frontLeft = new PumpkinActor(this);
