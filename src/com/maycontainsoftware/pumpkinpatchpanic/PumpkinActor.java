@@ -392,9 +392,7 @@ class PumpkinActor extends Actor {
 		}
 
 		static boolean getRecoveryChance(int round) {
-			System.out.println(round);
 			float chance = decay(round);
-			System.out.println(chance);
 			return MathUtils.randomBoolean(chance);
 		}
 
