@@ -119,10 +119,10 @@ public class PumpkinScreen implements Screen {
 
 	private final void generateScenery(final Stage stage) {
 
-		// Sky is 640x201
+		// Sky is 640x192
 		final Image sky = new Image(atlas.findRegion("sky"));
-		sky.setSize(640 * 2, 201 * 2);
-		sky.setY(720 - 201 * 2);
+		sky.setSize(640 * 2, 192 * 2);
+		sky.setY(720 - 192 * 2);
 		// FUTURE: Sky rotation - would be nice if the sky rotated very, very slowly. Would need much larger asset.
 		// sky.addAction(Actions.forever(Actions.rotateBy(-360.0f, 10000.0f)));
 		stage.addActor(sky);
