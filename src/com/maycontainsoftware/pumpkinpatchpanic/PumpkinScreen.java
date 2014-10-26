@@ -147,9 +147,9 @@ public class PumpkinScreen implements Screen {
 			stage.addActor(new Cloud(model, atlas));
 		}
 
-		// Hillside is 640x225
+		// Hillside is 640x207
 		final Image hillside = new Image(atlas.findRegion("hillside"));
-		hillside.setSize(640 * 2, 225 * 2);
+		hillside.setSize(640 * 2, 207 * 2);
 		stage.addActor(hillside);
 
 		// tree_left is 238x360
