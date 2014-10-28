@@ -18,7 +18,7 @@ class PumpkinButton extends Button {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		// TODO: Support scale changes
 		// Plant
-		batch.draw(atlas.findRegion("plant"), getX() - 15 - 33, getY() - 10 - 43);
+		batch.draw(atlas.findRegion("plant"), getX() - 15 - 35, getY() - 10 - 25);
 		// Pumpkin base
 		batch.draw(atlas.findRegion("pumpkin"), getX() - 15, getY() - 10);
 		// Decal

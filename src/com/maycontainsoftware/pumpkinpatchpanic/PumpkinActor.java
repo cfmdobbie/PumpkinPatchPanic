@@ -276,7 +276,7 @@ class PumpkinActor extends Actor {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 
 		// Draw plant
-		batch.draw(plant, getX() - 33, getY() - 43);
+		batch.draw(plant, getX() - 35, getY() - 25);
 
 		// Pumpkin shakes slightly as it becomes possessed. Shaking increases in strength as the carved face fades in,
 		// and increases in strength and speed when it becomes possessed.
