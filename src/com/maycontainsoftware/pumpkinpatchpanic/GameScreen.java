@@ -321,7 +321,6 @@ public class GameScreen extends PumpkinScreen {
 						GameScreen.this.dispose();
 					}
 				});
-				addActor(getPlantForPumpkinButton(menuBtn));
 				addActor(menuBtn);
 
 				// The "Play" pumpkin-button
@@ -356,7 +355,6 @@ public class GameScreen extends PumpkinScreen {
 						gameRunning = true;
 					}
 				});
-				addActor(getPlantForPumpkinButton(btnPlay));
 				addActor(btnPlay);
 			}
 		}

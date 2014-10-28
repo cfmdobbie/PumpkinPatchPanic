@@ -49,7 +49,6 @@ public class SettingsScreen extends PumpkinScreen {
 				SettingsScreen.this.dispose();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
 
 		// The "Reset High Score" pumpkin-button
@@ -62,7 +61,6 @@ public class SettingsScreen extends PumpkinScreen {
 				menuHud.updateHighestRound();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(resetScoreBtn));
 		stage.addActor(resetScoreBtn);
 
 		// The "Sound On/Off" pumpkin-button
