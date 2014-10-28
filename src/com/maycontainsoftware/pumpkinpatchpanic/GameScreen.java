@@ -320,8 +320,8 @@ public class GameScreen extends PumpkinScreen {
 				// debug();
 
 				// The "Menu" pumpkin-button
-				final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
-				menuBtn.setPosition(100, 170 - 150 / 2);
+				final Button menuBtn = new PumpkinButton(atlas, "menu");
+				menuBtn.setPosition(100, 170 - 130 / 2);
 				menuBtn.addListener(new ChangeListener() {
 					@Override
 					public void changed(final ChangeEvent event, final Actor actor) {
@@ -333,8 +333,8 @@ public class GameScreen extends PumpkinScreen {
 				addActor(menuBtn);
 
 				// The "Play" pumpkin-button
-				final Button btnPlay = new Button(new TextureRegionDrawable(atlas.findRegion("btn_play")));
-				btnPlay.setPosition(1280 - 100 - 230, 170 - 150 / 2);
+				final Button btnPlay = new PumpkinButton(atlas, "play");
+				btnPlay.setPosition(1280 - 100 - 170, 170 - 130 / 2);
 				btnPlay.addListener(new ChangeListener() {
 					@Override
 					public void changed(final ChangeEvent event, final Actor actor) {
