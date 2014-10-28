@@ -42,8 +42,8 @@ public class MainMenuScreen extends PumpkinScreen {
 		// Note that all pumpkin-buttons are 230x150px
 
 		// The "Help" pumpkin-button
-		final Button btnHelp = new Button(new TextureRegionDrawable(atlas.findRegion("btn_help")));
-		btnHelp.setPosition(1280 / 2 - 300 - 230 / 2, 150);
+		final Button btnHelp = new PumpkinButton(atlas, "help");
+		btnHelp.setPosition(1280 / 2 - 300 - 170 / 2, 150);
 		btnHelp.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -51,12 +51,11 @@ public class MainMenuScreen extends PumpkinScreen {
 				MainMenuScreen.this.dispose();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(btnHelp));
 		stage.addActor(btnHelp);
 
 		// The "Play" pumpkin-button
-		final Button btnPlay = new Button(new TextureRegionDrawable(atlas.findRegion("btn_play")));
-		btnPlay.setPosition(1280 / 2 - 230 / 2, 95);
+		final Button btnPlay = new PumpkinButton(atlas, "play");
+		btnPlay.setPosition(1280 / 2 - 170 / 2, 95);
 		btnPlay.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -64,12 +63,11 @@ public class MainMenuScreen extends PumpkinScreen {
 				MainMenuScreen.this.dispose();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(btnPlay));
 		stage.addActor(btnPlay);
 
 		// The "Settings" pumpkin-button
-		final Button btnSettings = new Button(new TextureRegionDrawable(atlas.findRegion("btn_settings")));
-		btnSettings.setPosition(1280 / 2 + 300 - 230 / 2, 150);
+		final Button btnSettings = new PumpkinButton(atlas, "cog");
+		btnSettings.setPosition(1280 / 2 + 300 - 170 / 2, 150);
 		btnSettings.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -77,7 +75,6 @@ public class MainMenuScreen extends PumpkinScreen {
 				MainMenuScreen.this.dispose();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(btnSettings));
 		stage.addActor(btnSettings);
 
 		// HUD to display highest round beaten
