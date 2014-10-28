@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -152,16 +153,16 @@ public class PumpkinScreen implements Screen {
 		hillside.setSize(640 * 2, 207 * 2);
 		stage.addActor(hillside);
 
-		// tree_left is 238x360
+		// tree_left is 205x360
 		final Image treeLeft = new Image(atlas.findRegion("tree_left"));
-		treeLeft.setSize(238 * 2, 360 * 2);
+		treeLeft.setSize(205 * 2, 360 * 2);
 		treeLeft.setPosition(0, 0);
 		stage.addActor(treeLeft);
 
-		// tree_right is 203x360
+		// tree_right is 270x360
 		final Image treeRight = new Image(atlas.findRegion("tree_right"));
-		treeRight.setSize(203 * 2, 360 * 2);
-		treeRight.setPosition(1280 - 203 * 2, 0);
+		treeRight.setSize(270 * 2, 360 * 2);
+		treeRight.setPosition(1280 - 270 * 2, 0);
 		stage.addActor(treeRight);
 
 		// Owls
@@ -169,8 +170,12 @@ public class PumpkinScreen implements Screen {
 
 		if (game.owls == null) {
 			game.owls = new ArrayList<OwlModel>();
-			game.owls.add(new OwlModel(944, 504));
-			game.owls.add(new OwlModel(285, 528));
+
+			final int[][] owlPositions = new int[][] { { 227, 239 }, { 192, 258 }, { 832, 138 }, { 1056, 238 }, };
+
+			int[] position = owlPositions[MathUtils.random(owlPositions.length - 1)];
+
+			game.owls.add(new OwlModel(position[0], 720 - position[1]));
 		}
 
 		for (final OwlModel model : game.owls) {
