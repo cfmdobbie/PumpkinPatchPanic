@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Settings/options screen.
@@ -67,41 +66,48 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(resetScoreBtn);
 
 		// The "Sound On/Off" pumpkin-button
-		final Button soundBtn = new PumpkinButton(atlas, "sound");
+		final PumpkinButton.TogglePumpkinButton soundBtn = new PumpkinButton.TogglePumpkinButton(atlas, "sound",
+				"no_sound");
 		soundBtn.setPosition(1280 / 2 - 95 - 170 / 2, 60);
 		soundBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
 				game.soundEnabled = !game.soundEnabled;
 				if (game.soundEnabled) {
-					final Button.ButtonStyle style = soundBtn.getStyle();
-					style.up = new TextureRegionDrawable(atlas.findRegion("sound_up"));
-					style.down = new TextureRegionDrawable(atlas.findRegion("sound_down"));
-					soundBtn.setStyle(style);
+					soundBtn.on();
 				} else {
-					final Button.ButtonStyle style = soundBtn.getStyle();
-					style.up = new TextureRegionDrawable(atlas.findRegion("no_sound_up"));
-					style.down = new TextureRegionDrawable(atlas.findRegion("no_sound_down"));
-					soundBtn.setStyle(style);
+					soundBtn.off();
 				}
 			}
 		});
 		// TODO: Prefs!
-		stage.addActor(getPlantForPumpkinButton(soundBtn));
+		// Button is on by default, but should it be off?
+		if (!game.soundEnabled) {
+			soundBtn.off();
+		}
 		stage.addActor(soundBtn);
 
 		// The "Music On/Off" pumpkin-button
-		final Button musicBtn = new PumpkinButton(atlas, "music");
+		final PumpkinButton.TogglePumpkinButton musicBtn = new PumpkinButton.TogglePumpkinButton(atlas, "music",
+				"no_music");
 		musicBtn.setPosition(1280 / 2 + 290 - 170 / 2, 60);
-		musicBtn.setChecked(game.isMusicEnabled());
 		musicBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
-				game.setMusicEnabled(musicBtn.isChecked());
+				if (game.isMusicEnabled()) {
+					game.setMusicEnabled(false);
+					musicBtn.off();
+				} else {
+					game.setMusicEnabled(true);
+					musicBtn.on();
+				}
 				game.updateMusic();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(musicBtn));
+		// Button is on by default, but should it be off?
+		if (!game.isMusicEnabled()) {
+			musicBtn.off();
+		}
 		stage.addActor(musicBtn);
 
 		// HUD to display highest round beaten
