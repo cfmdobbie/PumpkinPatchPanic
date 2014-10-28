@@ -72,7 +72,7 @@ public class SettingsScreen extends PumpkinScreen {
 		soundBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
-				game.soundEnabled = !game.soundEnabled;
+				game.setSoundEnabled(!game.soundEnabled);
 				if (game.soundEnabled) {
 					soundBtn.on();
 				} else {
@@ -80,7 +80,6 @@ public class SettingsScreen extends PumpkinScreen {
 				}
 			}
 		});
-		// TODO: Prefs!
 		// Button is on by default, but should it be off?
 		if (!game.soundEnabled) {
 			soundBtn.off();
