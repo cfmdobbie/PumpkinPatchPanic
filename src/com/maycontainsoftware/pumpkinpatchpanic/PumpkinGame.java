@@ -69,6 +69,9 @@ public class PumpkinGame extends Game {
 	/** Background music. */
 	Music music;
 
+	/** Boolean value to track whether sounds are enabled or disabled. */
+	boolean soundEnabled;
+
 	// Scenery models
 
 	List<OwlModel> owls;
