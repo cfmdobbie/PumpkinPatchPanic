@@ -158,13 +158,6 @@ public class GameScreen extends PumpkinScreen {
 			}
 		});
 
-		// Menu button
-		// final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
-		// menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
-		// menuBtn.setPosition(10.0f, 10.0f);
-		// flash.addActor(getPlantForPumpkinButton(menuBtn));
-		// flash.addActor(menuBtn);
-
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.GAME);
 	}
 
