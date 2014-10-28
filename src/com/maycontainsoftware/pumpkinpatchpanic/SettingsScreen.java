@@ -67,14 +67,26 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(resetScoreBtn);
 
 		// The "Sound On/Off" pumpkin-button
-		final Button soundBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_sound_off")), null,
-				new TextureRegionDrawable(atlas.findRegion("btn_sound_on")));
-		soundBtn.setPosition(1280 / 2 - 95 - 230 / 2, 60);
+		final Button soundBtn = new PumpkinButton(atlas, "sound");
+		soundBtn.setPosition(1280 / 2 - 95 - 170 / 2, 60);
 		soundBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
+				game.soundEnabled = !game.soundEnabled;
+				if (game.soundEnabled) {
+					final Button.ButtonStyle style = soundBtn.getStyle();
+					style.up = new TextureRegionDrawable(atlas.findRegion("sound_up"));
+					style.down = new TextureRegionDrawable(atlas.findRegion("sound_down"));
+					soundBtn.setStyle(style);
+				} else {
+					final Button.ButtonStyle style = soundBtn.getStyle();
+					style.up = new TextureRegionDrawable(atlas.findRegion("no_sound_up"));
+					style.down = new TextureRegionDrawable(atlas.findRegion("no_sound_down"));
+					soundBtn.setStyle(style);
+				}
 			}
 		});
+		// TODO: Prefs!
 		stage.addActor(getPlantForPumpkinButton(soundBtn));
 		stage.addActor(soundBtn);
 
