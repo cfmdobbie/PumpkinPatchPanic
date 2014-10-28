@@ -91,9 +91,8 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(soundBtn);
 
 		// The "Music On/Off" pumpkin-button
-		final Button musicBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_music_off")), null,
-				new TextureRegionDrawable(atlas.findRegion("btn_music_on")));
-		musicBtn.setPosition(1280 / 2 + 290 - 230 / 2, 60);
+		final Button musicBtn = new PumpkinButton(atlas, "music");
+		musicBtn.setPosition(1280 / 2 + 290 - 170 / 2, 60);
 		musicBtn.setChecked(game.isMusicEnabled());
 		musicBtn.addListener(new ChangeListener() {
 			@Override
