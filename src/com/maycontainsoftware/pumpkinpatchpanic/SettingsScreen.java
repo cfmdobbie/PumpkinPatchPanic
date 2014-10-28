@@ -41,8 +41,8 @@ public class SettingsScreen extends PumpkinScreen {
 		super.show();
 
 		// The "Menu" pumpkin-button
-		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
-		menuBtn.setPosition(1280 / 2 - 290 - 230 / 2, 190);
+		final Button menuBtn = new PumpkinButton(atlas, "menu");
+		menuBtn.setPosition(1280 / 2 - 290 - 170 / 2, 190);
 		menuBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -54,8 +54,8 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(menuBtn);
 
 		// The "Reset High Score" pumpkin-button
-		final Button resetScoreBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_reset_score")));
-		resetScoreBtn.setPosition(1280 / 2 + 95 - 230 / 2, 190);
+		final Button resetScoreBtn = new PumpkinButton(atlas, "reset_score");
+		resetScoreBtn.setPosition(1280 / 2 + 95 - 170 / 2, 190);
 		resetScoreBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
