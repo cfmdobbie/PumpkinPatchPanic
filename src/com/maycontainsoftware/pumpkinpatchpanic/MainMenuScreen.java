@@ -82,6 +82,9 @@ public class MainMenuScreen extends PumpkinScreen {
 		// Start or stop music as required
 		game.updateMusic();
 
+		// Update sound settings as required
+		game.updateSound();
+
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.MAIN_MENU);
 	}
 }

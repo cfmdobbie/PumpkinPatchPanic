@@ -257,4 +257,30 @@ public class PumpkinGame extends Game {
 			}
 		}
 	}
+
+	/**
+	 * Get whether or not sound is enabled. (Setting comes from preferences.)
+	 * 
+	 * @return False if sound is explicitly disabled, true otherwise.
+	 */
+	public boolean isSoundEnabled() {
+		return mPrefs.getBoolean("sound", true);
+	}
+
+	/**
+	 * Set whether or not sound is enabled.
+	 * 
+	 * @param enabled
+	 *            True if sound is enabled, false otherwise.
+	 */
+	public void setSoundEnabled(boolean enabled) {
+		mPrefs.putBoolean("sound", enabled);
+		mPrefs.flush();
+		soundEnabled = enabled;
+	}
+
+	/** Update the locally-stored sound setting. */
+	void updateSound() {
+		soundEnabled = isSoundEnabled();
+	}
 }
