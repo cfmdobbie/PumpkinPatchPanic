@@ -3,7 +3,6 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -74,17 +73,11 @@ class PumpkinActor extends Actor {
 	/** Change in face alpha value, per second. Note this can be (and frequently is) negative. */
 	private float alphaChangePerSecond;
 
-	/** TextureAtlas containing the PumpkinActor-related graphics. */
-	private final TextureAtlas pumpkinAtlas;
-
 	/** Construct a PumpkinActor. */
 	public PumpkinActor(final GameScreen screen) {
 
 		// Store reference to the screen
 		this.screen = screen;
-
-		// Get a reference to the texture atlas containing the pumpkin graphics
-		pumpkinAtlas = screen.game.manager.get("pumpkins.atlas", TextureAtlas.class);
 
 		// Pick a random face
 		// TODO: Random face per spirit-release - pick a new one after either spirit escapes or player incorrectly hits
@@ -93,9 +86,9 @@ class PumpkinActor extends Actor {
 
 		// Load textures required for rendering
 		plant = screen.atlas.findRegion("plant");
-		pumpkin = pumpkinAtlas.findRegion("pumpkin");
-		face = pumpkinAtlas.findRegion("face" + faceNumber);
-		evilFace = pumpkinAtlas.findRegion("face" + faceNumber + "_evil");
+		pumpkin = screen.atlas.findRegion("pumpkin");
+		face = screen.atlas.findRegion("face" + faceNumber);
+		evilFace = screen.atlas.findRegion("face" + faceNumber + "_evil");
 		hole = screen.atlas.findRegion("hole");
 
 		// For collision-detection reasons, the size of the Actor is the size of just the pumpkin

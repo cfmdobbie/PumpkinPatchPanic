@@ -78,7 +78,6 @@ public class LoadingScreen implements Screen {
 
 		// Texture atlases
 		game.manager.load("atlas.atlas", TextureAtlas.class);
-		game.manager.load("pumpkins.atlas", TextureAtlas.class);
 
 		// Textures
 		game.manager.load("help_panel_1.png", Texture.class);
