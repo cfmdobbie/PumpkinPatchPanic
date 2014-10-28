@@ -67,8 +67,8 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(helpPanel);
 
 		// The "Previous" pumpkin-button
-		final Button previousBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_prev")));
-		previousBtn.setPosition(1280 / 2 - 280 - 230 / 2, 25);
+		final Button previousBtn = new PumpkinButton(atlas, "arrow_left");
+		previousBtn.setPosition(1280 / 2 - 280 - 170 / 2, 25);
 		previousBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -78,12 +78,11 @@ public class HelpScreen extends PumpkinScreen {
 				}
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(previousBtn));
 		stage.addActor(previousBtn);
 
 		// The "Menu" pumpkin-button
-		final Button menuBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_menu")));
-		menuBtn.setPosition(1280 / 2 - 230 / 2, 25);
+		final Button menuBtn = new PumpkinButton(atlas, "menu");
+		menuBtn.setPosition(1280 / 2 - 170 / 2, 25);
 		menuBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -91,12 +90,11 @@ public class HelpScreen extends PumpkinScreen {
 				HelpScreen.this.dispose();
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(menuBtn));
 		stage.addActor(menuBtn);
 
 		// The "Next" pumpkin-button
-		final Button nextBtn = new Button(new TextureRegionDrawable(atlas.findRegion("btn_next")));
-		nextBtn.setPosition(1280 / 2 + 280 - 230 / 2, 25);
+		final Button nextBtn = new PumpkinButton(atlas, "arrow_right");
+		nextBtn.setPosition(1280 / 2 + 280 - 170 / 2, 25);
 		nextBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
@@ -106,7 +104,6 @@ public class HelpScreen extends PumpkinScreen {
 				}
 			}
 		});
-		stage.addActor(getPlantForPumpkinButton(nextBtn));
 		stage.addActor(nextBtn);
 
 		// HUD to display highest round beaten
