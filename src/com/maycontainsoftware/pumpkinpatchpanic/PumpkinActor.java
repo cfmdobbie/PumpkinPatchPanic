@@ -334,8 +334,7 @@ class PumpkinActor extends Actor {
 			// Know that timer in Spirit_Release state counts from 2.0f down to 0.0f
 			// Calculate hole alpha from timer value
 			batch.setColor(1.0f, 1.0f, 1.0f, Math.min(1.0f, timer));
-			batch.draw(hole, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(),
-					getScaleY(), angle);
+			batch.draw(hole, getX() + 15, getY() + 10, 170 / 2, 130 / 2, 170, 130, getScaleX(), getScaleY(), angle);
 			batch.setColor(Color.WHITE);
 			break;
 		default:
