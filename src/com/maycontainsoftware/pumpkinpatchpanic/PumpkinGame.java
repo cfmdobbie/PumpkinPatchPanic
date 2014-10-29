@@ -254,7 +254,7 @@ public class PumpkinGame extends Game {
 		} else {
 			// Shouldn't be necessary to check this, but safe to do so
 			if (music.isPlaying()) {
-				music.pause();
+				music.stop();
 			}
 		}
 	}
