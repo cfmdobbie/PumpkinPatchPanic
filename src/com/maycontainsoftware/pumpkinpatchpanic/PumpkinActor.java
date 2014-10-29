@@ -376,20 +376,20 @@ class PumpkinActor extends Actor {
 		}
 
 		static float getPossessionTime(int round) {
-			return MathUtils.random(1.0f, 1.0f + decay(round) * 4.0f);
+			return MathUtils.random(1.0f, 1.0f + decay(round) * 3.0f);
 		}
 
 		static float getPossessionDelay(int round) {
-			return MathUtils.random(0.1f, 0.5f + decay(round) * 2.5f);
+			return MathUtils.random(0.1f, 0.5f + decay(round) * 1.5f);
 		}
 
 		static boolean getRecoveryChance(int round) {
-			float chance = decay(round);
+			float chance = decay(round) * 0.8f;
 			return MathUtils.randomBoolean(chance);
 		}
 
 		static float getRecoveryTime(int round) {
-			return MathUtils.random(1.0f, 1.0f + decay(round) * 4.0f);
+			return MathUtils.random(0.5f, 1.0f + decay(round) * 3.0f);
 		}
 
 		static float getPossessedTime(int round) {
