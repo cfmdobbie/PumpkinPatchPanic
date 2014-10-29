@@ -130,8 +130,7 @@ class PumpkinActor extends Actor {
 						}
 
 						// Move to dormant state
-						state = PumpkinState.Dormant;
-						timer = Difficulty.getDormantTime(screen.currentRound);
+						reset();
 
 						break;
 					case Possessed:
@@ -143,8 +142,7 @@ class PumpkinActor extends Actor {
 						// TODO: Play sound: good hit, exorcised
 
 						// Move to dormant state
-						state = PumpkinState.Dormant;
-						timer = Difficulty.getDormantTime(screen.currentRound);
+						reset();
 
 						break;
 					case Spirit_Release:
@@ -262,8 +260,7 @@ class PumpkinActor extends Actor {
 					break;
 				case Spirit_Release:
 					// Move to dormant state
-					state = PumpkinState.Dormant;
-					timer = Difficulty.getDormantTime(screen.currentRound);
+					reset();
 					break;
 				default:
 					throw new IllegalStateException();
