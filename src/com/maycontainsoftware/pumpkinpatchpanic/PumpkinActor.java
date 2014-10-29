@@ -40,10 +40,10 @@ class PumpkinActor extends Actor {
 	final TextureRegion plant;
 
 	/** The normal face texture. */
-	final TextureRegion face;
+	TextureRegion face;
 
 	/** The evil face texture. */
-	final TextureRegion evilFace;
+	TextureRegion evilFace;
 
 	/** The hole texture. */
 	final TextureRegion hole;
@@ -79,17 +79,11 @@ class PumpkinActor extends Actor {
 		// Store reference to the screen
 		this.screen = screen;
 
-		// Pick a random face
-		// TODO: Random face per spirit-release - pick a new one after either spirit escapes or player incorrectly hits
-		// and resets the pumpkin
-		int faceNumber = MathUtils.random(1, 9);
-
 		// Load textures required for rendering
 		plant = screen.atlas.findRegion("plant");
 		pumpkin = screen.atlas.findRegion("pumpkin");
-		face = screen.atlas.findRegion("face" + faceNumber);
-		evilFace = screen.atlas.findRegion("face" + faceNumber + "_evil");
 		hole = screen.atlas.findRegion("hole");
+		// Note: face and evilFace are set in resetToDormant();
 
 		// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
 		setWidth(pumpkin.getRegionWidth());
@@ -344,6 +338,11 @@ class PumpkinActor extends Actor {
 		state = PumpkinState.Dormant;
 		timer = Difficulty.getDormantTime(screen.currentRound);
 		faceAlpha = 0.0f;
+
+		// Pick a random face, which might be the same one as currently displayed
+		final int faceNumber = MathUtils.random(1, 9);
+		face = screen.atlas.findRegion("face" + faceNumber);
+		evilFace = screen.atlas.findRegion("face" + faceNumber + "_evil");
 	}
 
 	/**
