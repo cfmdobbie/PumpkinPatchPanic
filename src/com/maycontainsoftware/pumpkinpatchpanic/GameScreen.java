@@ -74,8 +74,7 @@ public class GameScreen extends PumpkinScreen {
 		// Start with three lives
 		livesLeft = 3;
 
-		// One minute on the clock
-		// TODO: Set to 30 seconds for testing purposes
+		// 30 seconds on the clock
 		timeLeft = 30.0f;
 
 		// Highest round reached
@@ -365,8 +364,7 @@ public class GameScreen extends PumpkinScreen {
 	/** Update game state for next round. */
 	private void nextRound() {
 
-		// One minute on the clock
-		// TODO: Set to 30 seconds for testing purposes
+		// 30 seconds on the clock
 		timeLeft = 30.0f;
 
 		// Increment round
