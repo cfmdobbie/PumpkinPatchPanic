@@ -171,7 +171,8 @@ public class PumpkinScreen implements Screen {
 		if (game.owls == null) {
 			game.owls = new ArrayList<OwlModel>();
 
-			final int[][] owlPositions = new int[][] { { 227, 239 }, { 192, 258 }, { 832, 138 }, { 1056, 238 }, };
+			final int[][] owlPositions = new int[][] { { 227, 233 }, { 155, 229 }, { 1060, 232 }, { 866, 138 },
+					{ 1082, 310 }, };
 
 			int[] position = owlPositions[MathUtils.random(owlPositions.length - 1)];
 
