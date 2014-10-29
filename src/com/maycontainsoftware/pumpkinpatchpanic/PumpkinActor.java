@@ -120,11 +120,10 @@ class PumpkinActor extends Actor {
 							Gdx.app.log(GameScreen.TAG, "Hit too early");
 						}
 
-						// TODO: Play sound: error, life lost
-
 						// Decrement lives
 						screen.livesLeft--;
 						screen.hud.updateLives();
+						// TODO: Play sound: life lost
 
 						// Check for game over condition
 						if (screen.livesLeft <= 0) {
@@ -143,8 +142,7 @@ class PumpkinActor extends Actor {
 							Gdx.app.log(GameScreen.TAG, "Correct hit");
 						}
 
-						// TODO: Play sound: good hit, exorcised
-
+						// Stop this pumpkin's hissing sound
 						hiss.stop(hissId);
 
 						// Move to dormant state
@@ -156,8 +154,6 @@ class PumpkinActor extends Actor {
 						if (GameScreen.DEBUG) {
 							Gdx.app.log(GameScreen.TAG, "Hit too late");
 						}
-
-						// TODO: Play sound: error
 
 						// Ignore this input.
 
@@ -253,8 +249,7 @@ class PumpkinActor extends Actor {
 					// Decrement lives
 					screen.livesLeft--;
 					screen.hud.updateLives();
-
-					// TODO: Play sound: spirit escape, life lost
+					// TODO: Play sound: life lost
 
 					// Check for game over condition
 					if (screen.livesLeft <= 0) {
