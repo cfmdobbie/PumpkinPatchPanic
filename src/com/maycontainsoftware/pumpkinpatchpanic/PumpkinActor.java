@@ -170,6 +170,10 @@ class PumpkinActor extends Actor {
 					default:
 						throw new IllegalStateException();
 					}
+
+					// Play the "interaction" sound effect
+					screen.game.playThump();
+
 					return true;
 				}
 			}
