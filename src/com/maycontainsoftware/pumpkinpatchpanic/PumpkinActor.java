@@ -96,7 +96,7 @@ class PumpkinActor extends Actor {
 		setHeight(pumpkin.getRegionHeight());
 
 		// Initial state
-		reset();
+		resetToDormant();
 
 		addListener(new InputListener() {
 			@Override
@@ -130,7 +130,7 @@ class PumpkinActor extends Actor {
 						}
 
 						// Move to dormant state
-						reset();
+						resetToDormant();
 
 						break;
 					case Possessed:
@@ -142,7 +142,7 @@ class PumpkinActor extends Actor {
 						// TODO: Play sound: good hit, exorcised
 
 						// Move to dormant state
-						reset();
+						resetToDormant();
 
 						break;
 					case Spirit_Release:
@@ -260,7 +260,7 @@ class PumpkinActor extends Actor {
 					break;
 				case Spirit_Release:
 					// Move to dormant state
-					reset();
+					resetToDormant();
 					break;
 				default:
 					throw new IllegalStateException();
@@ -340,7 +340,7 @@ class PumpkinActor extends Actor {
 	}
 
 	/** Reset the pumpkin to initial state. Used primarily at the start of each round. */
-	public void reset() {
+	public void resetToDormant() {
 		state = PumpkinState.Dormant;
 		timer = Difficulty.getDormantTime(screen.currentRound);
 		faceAlpha = 0.0f;

@@ -344,7 +344,7 @@ public class GameScreen extends PumpkinScreen {
 
 						// Reset pumpkins
 						for (final PumpkinActor pumpkin : pumpkins) {
-							pumpkin.reset();
+							pumpkin.resetToDormant();
 						}
 
 						dialog.remove();
@@ -373,7 +373,7 @@ public class GameScreen extends PumpkinScreen {
 
 		// Reset pumpkins
 		for (final PumpkinActor pumpkin : pumpkins) {
-			pumpkin.reset();
+			pumpkin.resetToDormant();
 		}
 
 		// Game is running again
