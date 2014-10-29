@@ -123,7 +123,9 @@ class PumpkinActor extends Actor {
 						// Decrement lives
 						screen.livesLeft--;
 						screen.hud.updateLives();
-						// TODO: Play sound: life lost
+
+						// Life lost - play ominous sound
+						screen.game.playKnock();
 
 						// Check for game over condition
 						if (screen.livesLeft <= 0) {
@@ -249,7 +251,9 @@ class PumpkinActor extends Actor {
 					// Decrement lives
 					screen.livesLeft--;
 					screen.hud.updateLives();
-					// TODO: Play sound: life lost
+
+					// Life lost - play ominous sound
+					screen.game.playKnock();
 
 					// Check for game over condition
 					if (screen.livesLeft <= 0) {
