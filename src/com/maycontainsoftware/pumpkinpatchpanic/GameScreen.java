@@ -351,8 +351,8 @@ public class GameScreen extends PumpkinScreen {
 						livesLeft = 3;
 						hud.updateLives();
 
-						// One minute on the clock
-						timeLeft = 60.0f;
+						// 30 seconds on the clock
+						timeLeft = 30.0f;
 
 						// Start on round one
 						currentRound = 1;
@@ -368,6 +368,11 @@ public class GameScreen extends PumpkinScreen {
 
 						// Game starts running
 						gameRunning = true;
+
+						// Start atmospheric sound as required
+						if (game.soundEnabled) {
+							wind.play();
+						}
 					}
 				});
 				addActor(btnPlay);
