@@ -85,6 +85,11 @@ public class GameScreen extends PumpkinScreen {
 
 		// Game starts running
 		gameRunning = true;
+
+		// If music is playing, stop it; we don't play the background music while the game is running
+		if (game.music.isPlaying()) {
+			game.music.stop();
+		}
 	}
 
 	@Override
