@@ -251,6 +251,10 @@ class PumpkinActor extends Actor {
 					final float y = getY() + getHeight() / 2;
 					final Spirit spirit = new Spirit(screen.atlas.findRegion("ghost"), x, y);
 					screen.stage.addActor(spirit);
+
+					// Play sound effect
+					screen.game.playSpirit();
+
 					break;
 				case Spirit_Release:
 					// Move to dormant state
