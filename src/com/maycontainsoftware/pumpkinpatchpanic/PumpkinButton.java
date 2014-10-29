@@ -34,8 +34,8 @@ class PumpkinButton extends Button {
 
 	@Override
 	public void setChecked(boolean isChecked) {
-		game.playThump();
 		super.setChecked(isChecked);
+		game.playThump();
 	}
 
 	/**
