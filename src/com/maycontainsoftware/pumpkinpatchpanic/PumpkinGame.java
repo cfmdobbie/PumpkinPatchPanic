@@ -248,11 +248,12 @@ public class PumpkinGame extends Game {
 		}
 
 		if (isMusicEnabled()) {
+			// Music is enabled; if it's not playing, start it
 			if (!music.isPlaying()) {
 				music.play();
 			}
 		} else {
-			// Shouldn't be necessary to check this, but safe to do so
+			// Music is not enabled; if it's playing, stop it
 			if (music.isPlaying()) {
 				music.stop();
 			}
