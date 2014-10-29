@@ -237,7 +237,9 @@ class PumpkinActor extends Actor {
 						timer = Difficulty.getPossessedTime(screen.currentRound);
 
 						// Play hiss sound
-						hissId = hiss.play();
+						if (screen.game.soundEnabled) {
+							hissId = hiss.play();
+						}
 					}
 					break;
 				case Recovery:
