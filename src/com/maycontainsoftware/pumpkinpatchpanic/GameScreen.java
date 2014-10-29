@@ -328,7 +328,7 @@ public class GameScreen extends PumpkinScreen {
 
 				// The "Menu" pumpkin-button
 				final Button menuBtn = new PumpkinButton(atlas, "menu", game);
-				menuBtn.setPosition(100, 170 - 130 / 2);
+				menuBtn.setPosition(1280 - 100 - 170, 170 - 130 / 2);
 				menuBtn.addListener(new ChangeListener() {
 					@Override
 					public void changed(final ChangeEvent event, final Actor actor) {
@@ -337,45 +337,6 @@ public class GameScreen extends PumpkinScreen {
 					}
 				});
 				addActor(menuBtn);
-
-				// The "Play" pumpkin-button
-				final Button btnPlay = new PumpkinButton(atlas, "play", game);
-				btnPlay.setPosition(1280 - 100 - 170, 170 - 130 / 2);
-				btnPlay.addListener(new ChangeListener() {
-					@Override
-					public void changed(final ChangeEvent event, final Actor actor) {
-
-						// FUTURE: Better-encapsulated way to reset game
-
-						// Start with three lines
-						livesLeft = 3;
-						hud.updateLives();
-
-						// 30 seconds on the clock
-						timeLeft = 30.0f;
-
-						// Start on round one
-						currentRound = 1;
-						hud.updateCurrentRound();
-
-						// Reset pumpkins
-						for (final PumpkinActor pumpkin : pumpkins) {
-							pumpkin.resetToDormant();
-						}
-
-						dialog.remove();
-						dialog = null;
-
-						// Game starts running
-						gameRunning = true;
-
-						// Start atmospheric sound as required
-						if (game.soundEnabled) {
-							wind.play();
-						}
-					}
-				});
-				addActor(btnPlay);
 
 				// Stop atmospheric sound
 				if (wind.isPlaying()) {
