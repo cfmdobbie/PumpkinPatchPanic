@@ -302,6 +302,7 @@ public class GameScreen extends PumpkinScreen {
 				final Label roundCompleteLabel = new Label("Game Over!", style64);
 				roundCompleteLabel.setColor(1.0f, 0.5f, 0.0f, 1.0f);
 				add(roundCompleteLabel);
+				add().width(394.0f);
 
 				row();
 				add(new Label("You reached round " + currentRound, style32));
@@ -328,7 +329,7 @@ public class GameScreen extends PumpkinScreen {
 
 				// The "Menu" pumpkin-button
 				final Button menuBtn = new PumpkinButton(atlas, "menu", game);
-				menuBtn.setPosition(1280 - 100 - 170, 170 - 130 / 2);
+				menuBtn.setPosition(940 - 200 / 2, 340 / 2 - 190 / 2 + 30);
 				menuBtn.addListener(new ChangeListener() {
 					@Override
 					public void changed(final ChangeEvent event, final Actor actor) {
