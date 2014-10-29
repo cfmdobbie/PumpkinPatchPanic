@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -91,7 +92,7 @@ public class LoadingScreen implements Screen {
 
 		// Sound effects
 		// TODO: Sound effects
-		// game.manager.load("lose.mp3", Sound.class);
+		game.manager.load("squark.mp3", Sound.class);
 
 		// Music
 		// Note that the MusicParameter class cannot be used to set looping to true, so this will need to be set later

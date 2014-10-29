@@ -49,9 +49,12 @@ class Owl extends Image {
 			@Override
 			public boolean touchDown(final InputEvent event, final float x, final float y, final int pointer,
 					final int button) {
-				// Owls
+				// Tell the model we've been poked
 				model.poke();
+				// Ask the action to update the graphic as required
 				action.updateGraphic();
+				// Play the squark sound effect
+				game.playSquark();
 
 				return true;
 			}
