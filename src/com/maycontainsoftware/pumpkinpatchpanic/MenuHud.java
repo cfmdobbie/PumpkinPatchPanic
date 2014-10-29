@@ -13,14 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class MenuHud extends Table {
 
 	/** Label containing the current highest round reached. */
-	private final Label highestRoundLabel;
-	
+	final Label highestRoundLabel;
+
 	/** The game instance. */
 	private final PumpkinGame game;
 
 	/** Construct the HUD. */
 	public MenuHud(final PumpkinGame game) {
-		
+
 		this.game = game;
 
 		// Fill screen, 40px border

@@ -1,7 +1,9 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
@@ -57,8 +59,11 @@ public class SettingsScreen extends PumpkinScreen {
 		resetScoreBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(final ChangeEvent event, final Actor actor) {
+				// Reset highest score to zero, update HUD, apply an interesting value-change effect
 				game.setHighestRound(0);
 				menuHud.updateHighestRound();
+				menuHud.highestRoundLabel.setColor(Color.RED);
+				menuHud.highestRoundLabel.addAction(Actions.color(Color.WHITE, 1.0f));
 			}
 		});
 		stage.addActor(resetScoreBtn);
