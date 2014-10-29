@@ -1,6 +1,7 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
@@ -60,6 +61,8 @@ public class GameScreen extends PumpkinScreen {
 	/** Array of the pumpkins. */
 	private PumpkinActor[] pumpkins;
 
+	private final Music wind;
+
 	/**
 	 * Construct a new GameScreen.
 	 * 
@@ -89,6 +92,14 @@ public class GameScreen extends PumpkinScreen {
 		// If music is playing, stop it; we don't play the background music while the game is running
 		if (game.music.isPlaying()) {
 			game.music.stop();
+		}
+
+		// Load atmospheric wind track
+		wind = game.manager.get("wind.mp3", Music.class);
+		wind.setLooping(false);
+		// TODO: Should this follow music or sound setting?
+		if (game.soundEnabled) {
+			wind.play();
 		}
 	}
 
@@ -360,6 +371,11 @@ public class GameScreen extends PumpkinScreen {
 					}
 				});
 				addActor(btnPlay);
+
+				// Stop atmospheric sound
+				if (wind.isPlaying()) {
+					wind.stop();
+				}
 			}
 		}
 
@@ -383,6 +399,11 @@ public class GameScreen extends PumpkinScreen {
 
 		// Game is running again
 		gameRunning = true;
+
+		// Start atmospheric sound as required
+		if (game.soundEnabled) {
+			wind.play();
+		}
 	}
 
 	/**
