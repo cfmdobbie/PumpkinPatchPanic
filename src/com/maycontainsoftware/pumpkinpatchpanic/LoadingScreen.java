@@ -91,11 +91,11 @@ public class LoadingScreen implements Screen {
 		game.manager.load("arialb_64.fnt", BitmapFont.class);
 
 		// Sound effects
-		// TODO: Sound effects
 		game.manager.load("squark.mp3", Sound.class);
 		game.manager.load("spirit.mp3", Sound.class);
 		game.manager.load("thump.mp3", Sound.class);
 		game.manager.load("hiss.mp3", Sound.class);
+		game.manager.load("knock.mp3", Sound.class);
 
 		// Music
 		// Note that the MusicParameter class cannot be used to set looping to true, so this will need to be set later
