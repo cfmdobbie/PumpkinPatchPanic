@@ -303,4 +303,10 @@ public class PumpkinGame extends Game {
 			manager.get("thump.mp3", Sound.class).play();
 		}
 	}
+
+	void playKnock() {
+		if (soundEnabled) {
+			manager.get("knock.mp3", Sound.class).play();
+		}
+	}
 }
