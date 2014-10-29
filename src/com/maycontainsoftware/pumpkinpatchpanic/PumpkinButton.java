@@ -10,11 +10,13 @@ class PumpkinButton extends Button {
 	final TextureAtlas atlas;
 	final TextureRegion plant;
 	final TextureRegion pumpkin;
+	final PumpkinGame game;
 
 	public PumpkinButton(final TextureAtlas atlas, final String prefix, final PumpkinGame game) {
 		super(new TextureRegionDrawable(atlas.findRegion(prefix + "_up")), new TextureRegionDrawable(
 				atlas.findRegion(prefix + "_down")));
 		this.atlas = atlas;
+		this.game = game;
 
 		this.plant = atlas.findRegion("plant");
 		this.pumpkin = atlas.findRegion("pumpkin");
@@ -28,6 +30,12 @@ class PumpkinButton extends Button {
 		batch.draw(pumpkin, getX() - 15, getY() - 10);
 		// Decal
 		super.draw(batch, parentAlpha);
+	}
+
+	@Override
+	public void setChecked(boolean isChecked) {
+		game.playThump();
+		super.setChecked(isChecked);
 	}
 
 	/**
