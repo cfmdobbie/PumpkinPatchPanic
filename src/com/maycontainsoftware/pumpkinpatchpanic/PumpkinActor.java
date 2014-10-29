@@ -1,6 +1,7 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -73,6 +74,12 @@ class PumpkinActor extends Actor {
 	/** Change in face alpha value, per second. Note this can be (and frequently is) negative. */
 	private float alphaChangePerSecond;
 
+	/** Hiss sound, made by a pumpkin in the Possessed state. */
+	private final Sound hiss;
+
+	/** Id of the currently-playing hiss sound. */
+	private long hissId;
+
 	/** Construct a PumpkinActor. */
 	public PumpkinActor(final GameScreen screen) {
 
@@ -88,6 +95,9 @@ class PumpkinActor extends Actor {
 		// For collision-detection reasons, the size of the Actor is the size of just the pumpkin
 		setWidth(pumpkin.getRegionWidth());
 		setHeight(pumpkin.getRegionHeight());
+
+		// Get reference to sound file
+		hiss = screen.game.manager.get("hiss.mp3", Sound.class);
 
 		// Initial state
 		resetToDormant();
@@ -134,6 +144,8 @@ class PumpkinActor extends Actor {
 						}
 
 						// TODO: Play sound: good hit, exorcised
+
+						hiss.stop(hissId);
 
 						// Move to dormant state
 						resetToDormant();
@@ -212,13 +224,18 @@ class PumpkinActor extends Actor {
 				case Possession_Delay:
 					// If timer expired, either become Possessed or move to Recovery
 					if (Difficulty.getRecoveryChance(screen.currentRound)) {
+						// Proceed to Recovery
 						state = PumpkinState.Recovery;
 						timer = Difficulty.getRecoveryTime(screen.currentRound);
 						final float alphaTo = MathUtils.random(0.0f, 0.5f);
 						alphaChangePerSecond = (alphaTo - 1.0f) / timer;
 					} else {
+						// Proceed to Possessed
 						state = PumpkinState.Possessed;
 						timer = Difficulty.getPossessedTime(screen.currentRound);
+
+						// Play hiss sound
+						hissId = hiss.play();
 					}
 					break;
 				case Recovery:
@@ -251,6 +268,9 @@ class PumpkinActor extends Actor {
 					final float y = getY() + getHeight() / 2;
 					final Spirit spirit = new Spirit(screen.atlas.findRegion("ghost"), x, y);
 					screen.stage.addActor(spirit);
+
+					// Stop hissing
+					hiss.stop(hissId);
 
 					// Play sound effect
 					screen.game.playSpirit();
