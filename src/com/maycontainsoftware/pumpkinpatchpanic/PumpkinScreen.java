@@ -180,7 +180,7 @@ public class PumpkinScreen implements Screen {
 		}
 
 		for (final OwlModel model : game.owls) {
-			stage.addActor(new Owl(model, atlas));
+			stage.addActor(new Owl(model, game, atlas));
 		}
 	}
 }

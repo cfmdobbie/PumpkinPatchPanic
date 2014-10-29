@@ -25,7 +25,7 @@ class Owl extends Image {
 	 * @param atlas
 	 * @param model
 	 */
-	public Owl(final OwlModel model, final TextureAtlas atlas) {
+	public Owl(final OwlModel model, final PumpkinGame game, final TextureAtlas atlas) {
 
 		// Call super with a graphic - mainly just to set up size for us
 		super(atlas.findRegion("owl_down"));
@@ -52,6 +52,7 @@ class Owl extends Image {
 				// Owls
 				model.poke();
 				action.updateGraphic();
+
 				return true;
 			}
 		});
