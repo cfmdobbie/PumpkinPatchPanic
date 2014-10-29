@@ -286,19 +286,19 @@ public class PumpkinGame extends Game {
 	}
 
 	void playSquark() {
-		if(soundEnabled) {
+		if (soundEnabled) {
 			manager.get("squark.mp3", Sound.class).play();
 		}
 	}
 
 	void playSpirit() {
-		if(soundEnabled) {
+		if (soundEnabled) {
 			manager.get("spirit.mp3", Sound.class).play();
 		}
 	}
 
 	void playThump() {
-		if(soundEnabled) {
+		if (soundEnabled) {
 			manager.get("thump.mp3", Sound.class).play();
 		}
 	}

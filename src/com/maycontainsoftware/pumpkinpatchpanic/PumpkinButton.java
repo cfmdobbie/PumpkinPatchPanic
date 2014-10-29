@@ -49,7 +49,8 @@ class PumpkinButton extends Button {
 		final String offPrefix;
 
 		/** Constructor. */
-		public TogglePumpkinButton(final TextureAtlas atlas, final String onPrefix, final String offPrefix, final PumpkinGame game) {
+		public TogglePumpkinButton(final TextureAtlas atlas, final String onPrefix, final String offPrefix,
+				final PumpkinGame game) {
 			super(atlas, onPrefix, game);
 
 			this.onPrefix = onPrefix;
