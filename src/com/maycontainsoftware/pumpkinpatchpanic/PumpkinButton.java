@@ -11,7 +11,7 @@ class PumpkinButton extends Button {
 	final TextureRegion plant;
 	final TextureRegion pumpkin;
 
-	public PumpkinButton(final TextureAtlas atlas, final String prefix) {
+	public PumpkinButton(final TextureAtlas atlas, final String prefix, final PumpkinGame game) {
 		super(new TextureRegionDrawable(atlas.findRegion(prefix + "_up")), new TextureRegionDrawable(
 				atlas.findRegion(prefix + "_down")));
 		this.atlas = atlas;
@@ -41,8 +41,8 @@ class PumpkinButton extends Button {
 		final String offPrefix;
 
 		/** Constructor. */
-		public TogglePumpkinButton(final TextureAtlas atlas, final String onPrefix, final String offPrefix) {
-			super(atlas, onPrefix);
+		public TogglePumpkinButton(final TextureAtlas atlas, final String onPrefix, final String offPrefix, final PumpkinGame game) {
+			super(atlas, onPrefix, game);
 
 			this.onPrefix = onPrefix;
 			this.offPrefix = offPrefix;

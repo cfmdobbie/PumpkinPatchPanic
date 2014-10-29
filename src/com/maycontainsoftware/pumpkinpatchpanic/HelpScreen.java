@@ -67,7 +67,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(helpPanel);
 
 		// The "Previous" pumpkin-button
-		final Button previousBtn = new PumpkinButton(atlas, "arrow_left");
+		final Button previousBtn = new PumpkinButton(atlas, "arrow_left", game);
 		previousBtn.setPosition(1280 / 2 - 280 - 170 / 2, 25);
 		previousBtn.addListener(new ChangeListener() {
 			@Override
@@ -81,7 +81,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(previousBtn);
 
 		// The "Menu" pumpkin-button
-		final Button menuBtn = new PumpkinButton(atlas, "menu");
+		final Button menuBtn = new PumpkinButton(atlas, "menu", game);
 		menuBtn.setPosition(1280 / 2 - 170 / 2, 25);
 		menuBtn.addListener(new ChangeListener() {
 			@Override
@@ -93,7 +93,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.addActor(menuBtn);
 
 		// The "Next" pumpkin-button
-		final Button nextBtn = new PumpkinButton(atlas, "arrow_right");
+		final Button nextBtn = new PumpkinButton(atlas, "arrow_right", game);
 		nextBtn.setPosition(1280 / 2 + 280 - 170 / 2, 25);
 		nextBtn.addListener(new ChangeListener() {
 			@Override

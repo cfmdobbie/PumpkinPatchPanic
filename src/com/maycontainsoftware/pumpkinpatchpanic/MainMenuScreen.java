@@ -41,7 +41,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		// Note that all pumpkin-buttons are 230x150px
 
 		// The "Help" pumpkin-button
-		final Button btnHelp = new PumpkinButton(atlas, "help");
+		final Button btnHelp = new PumpkinButton(atlas, "help", game);
 		btnHelp.setPosition(1280 / 2 - 300 - 170 / 2, 150);
 		btnHelp.addListener(new ChangeListener() {
 			@Override
@@ -53,7 +53,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(btnHelp);
 
 		// The "Play" pumpkin-button
-		final Button btnPlay = new PumpkinButton(atlas, "play");
+		final Button btnPlay = new PumpkinButton(atlas, "play", game);
 		btnPlay.setPosition(1280 / 2 - 170 / 2, 95);
 		btnPlay.addListener(new ChangeListener() {
 			@Override
@@ -65,7 +65,7 @@ public class MainMenuScreen extends PumpkinScreen {
 		stage.addActor(btnPlay);
 
 		// The "Settings" pumpkin-button
-		final Button btnSettings = new PumpkinButton(atlas, "cog");
+		final Button btnSettings = new PumpkinButton(atlas, "cog", game);
 		btnSettings.setPosition(1280 / 2 + 300 - 170 / 2, 150);
 		btnSettings.addListener(new ChangeListener() {
 			@Override

@@ -311,7 +311,7 @@ public class GameScreen extends PumpkinScreen {
 				// debug();
 
 				// The "Menu" pumpkin-button
-				final Button menuBtn = new PumpkinButton(atlas, "menu");
+				final Button menuBtn = new PumpkinButton(atlas, "menu", game);
 				menuBtn.setPosition(100, 170 - 130 / 2);
 				menuBtn.addListener(new ChangeListener() {
 					@Override
@@ -323,7 +323,7 @@ public class GameScreen extends PumpkinScreen {
 				addActor(menuBtn);
 
 				// The "Play" pumpkin-button
-				final Button btnPlay = new PumpkinButton(atlas, "play");
+				final Button btnPlay = new PumpkinButton(atlas, "play", game);
 				btnPlay.setPosition(1280 - 100 - 170, 170 - 130 / 2);
 				btnPlay.addListener(new ChangeListener() {
 					@Override

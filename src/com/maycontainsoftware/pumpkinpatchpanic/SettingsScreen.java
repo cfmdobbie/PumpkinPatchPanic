@@ -42,7 +42,7 @@ public class SettingsScreen extends PumpkinScreen {
 		super.show();
 
 		// The "Menu" pumpkin-button
-		final Button menuBtn = new PumpkinButton(atlas, "menu");
+		final Button menuBtn = new PumpkinButton(atlas, "menu", game);
 		menuBtn.setPosition(1280 / 2 - 290 - 170 / 2, 190);
 		menuBtn.addListener(new ChangeListener() {
 			@Override
@@ -54,7 +54,7 @@ public class SettingsScreen extends PumpkinScreen {
 		stage.addActor(menuBtn);
 
 		// The "Reset High Score" pumpkin-button
-		final Button resetScoreBtn = new PumpkinButton(atlas, "reset_score");
+		final Button resetScoreBtn = new PumpkinButton(atlas, "reset_score", game);
 		resetScoreBtn.setPosition(1280 / 2 + 95 - 170 / 2, 190);
 		resetScoreBtn.addListener(new ChangeListener() {
 			@Override
@@ -70,7 +70,7 @@ public class SettingsScreen extends PumpkinScreen {
 
 		// The "Sound On/Off" pumpkin-button
 		final PumpkinButton.TogglePumpkinButton soundBtn = new PumpkinButton.TogglePumpkinButton(atlas, "sound",
-				"no_sound");
+				"no_sound", game);
 		soundBtn.setPosition(1280 / 2 - 95 - 170 / 2, 60);
 		soundBtn.addListener(new ChangeListener() {
 			@Override
@@ -91,7 +91,7 @@ public class SettingsScreen extends PumpkinScreen {
 
 		// The "Music On/Off" pumpkin-button
 		final PumpkinButton.TogglePumpkinButton musicBtn = new PumpkinButton.TogglePumpkinButton(atlas, "music",
-				"no_music");
+				"no_music", game);
 		musicBtn.setPosition(1280 / 2 + 290 - 170 / 2, 60);
 		musicBtn.addListener(new ChangeListener() {
 			@Override
