@@ -2,25 +2,30 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 class PumpkinButton extends Button {
 	final TextureAtlas atlas;
+	final TextureRegion plant;
+	final TextureRegion pumpkin;
 
 	public PumpkinButton(final TextureAtlas atlas, final String prefix) {
 		super(new TextureRegionDrawable(atlas.findRegion(prefix + "_up")), new TextureRegionDrawable(
 				atlas.findRegion(prefix + "_down")));
 		this.atlas = atlas;
+
+		this.plant = atlas.findRegion("plant");
+		this.pumpkin = atlas.findRegion("pumpkin");
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		// TODO: Support scale changes
 		// Plant
-		batch.draw(atlas.findRegion("plant"), getX() - 15 - 35, getY() - 10 - 25);
+		batch.draw(plant, getX() - 15 - 35, getY() - 10 - 25);
 		// Pumpkin base
-		batch.draw(atlas.findRegion("pumpkin"), getX() - 15, getY() - 10);
+		batch.draw(pumpkin, getX() - 15, getY() - 10);
 		// Decal
 		super.draw(batch, parentAlpha);
 	}
