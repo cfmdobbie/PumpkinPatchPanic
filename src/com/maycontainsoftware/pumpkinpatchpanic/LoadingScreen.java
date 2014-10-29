@@ -99,6 +99,7 @@ public class LoadingScreen implements Screen {
 		// Music
 		// Note that the MusicParameter class cannot be used to set looping to true, so this will need to be set later
 		game.manager.load("comeplaywithme.mp3", Music.class);
+		game.manager.load("wind.mp3", Music.class);
 
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.LOADING);
 	}
