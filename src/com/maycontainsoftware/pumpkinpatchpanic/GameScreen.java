@@ -185,6 +185,12 @@ public class GameScreen extends PumpkinScreen {
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run() {
+
+							// Stop atmospheric sound
+							if (wind.isPlaying()) {
+								wind.stop();
+							}
+
 							game.setScreen(new MainMenuScreen(game));
 							GameScreen.this.dispose();
 						}
