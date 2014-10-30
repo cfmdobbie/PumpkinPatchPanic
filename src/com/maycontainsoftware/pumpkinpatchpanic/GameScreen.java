@@ -1,12 +1,15 @@
 package com.maycontainsoftware.pumpkinpatchpanic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
@@ -170,6 +173,26 @@ public class GameScreen extends PumpkinScreen {
 				}
 
 				return false;
+			}
+		});
+
+		// Catch back button
+		Gdx.input.setCatchBackKey(true);
+		stage.getRoot().addListener(new InputListener() {
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+				if(keycode == Keys.BACK || keycode == Keys.ESCAPE) {
+					Gdx.app.postRunnable(new Runnable() {
+						@Override
+						public void run() {
+							game.setScreen(new MainMenuScreen(game));
+							GameScreen.this.dispose();
+						}
+					});
+					return true;
+				} else {
+					return super.keyDown(event, keycode);
+				}
 			}
 		});
 

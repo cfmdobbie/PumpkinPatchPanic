@@ -85,6 +85,9 @@ public class MainMenuScreen extends PumpkinScreen {
 		// Update sound settings as required
 		game.updateSound();
 
+		// Don't catch back button
+		Gdx.input.setCatchBackKey(false);
+
 		game.currentScreenCallback.notifyScreenVisible(ICurrentScreenCallback.Screen.MAIN_MENU);
 	}
 }
