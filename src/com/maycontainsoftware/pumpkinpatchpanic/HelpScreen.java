@@ -59,7 +59,11 @@ public class HelpScreen extends PumpkinScreen {
 				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_1.png", Texture.class))),
 				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_2.png", Texture.class))),
 				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_3.png", Texture.class))),
-				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_4.png", Texture.class))), };
+				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_4.png", Texture.class))),
+				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_5.png", Texture.class))),
+				new TextureRegionDrawable(new TextureRegion(game.manager.get("help_panel_6.png", Texture.class))),
+
+		};
 
 		// Start by showing the first panel
 		helpIndex = 0;
