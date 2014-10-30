@@ -3,6 +3,7 @@ package com.maycontainsoftware.pumpkinpatchpanic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 /**
@@ -75,6 +76,11 @@ public class MainMenuScreen extends PumpkinScreen {
 			}
 		});
 		stage.addActor(btnSettings);
+
+		// And the logo!
+		final Image logo = new Image(atlas.findRegion("logo"));
+		logo.setPosition(1280 / 2 - logo.getWidth() / 2, 720 - 422);
+		stage.addActor(logo);
 
 		// HUD to display highest round beaten
 		stage.addActor(new MenuHud(game));
