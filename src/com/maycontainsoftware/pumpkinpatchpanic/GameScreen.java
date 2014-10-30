@@ -355,6 +355,12 @@ public class GameScreen extends PumpkinScreen {
 		// 30 seconds on the clock
 		timeLeft = 30.0f;
 
+		// Extra life every five levels, so only if last level was divisible by 5
+		if (currentRound % 5 == 0) {
+			livesLeft++;
+			hud.updateLives();
+		}
+
 		// Increment round
 		currentRound++;
 		hud.updateCurrentRound();
