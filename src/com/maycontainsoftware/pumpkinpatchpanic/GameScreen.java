@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
@@ -453,7 +454,9 @@ public class GameScreen extends PumpkinScreen {
 			row();
 			add(new Label("Highest Round", style32)).left();
 			add(new Label("Lives Left", style32)).expandX();
-			add(new Label("Current Round", style32)).right();
+			final Label currentRoundTextLabel = new Label("Current Round", style32);
+			currentRoundTextLabel.setAlignment(Align.right);
+			add(currentRoundTextLabel).right();
 
 			row();
 			add(highestRoundLabel = new Label(String.valueOf(highestRound), style64)).left();
