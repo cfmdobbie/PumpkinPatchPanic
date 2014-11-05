@@ -121,7 +121,7 @@ public class HelpScreen extends PumpkinScreen {
 		stage.getRoot().addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
-				if(keycode == Keys.BACK || keycode == Keys.ESCAPE) {
+				if (keycode == Keys.BACK || keycode == Keys.ESCAPE) {
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run() {
