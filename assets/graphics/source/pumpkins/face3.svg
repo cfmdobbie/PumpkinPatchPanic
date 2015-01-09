@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3476"
+   viewBox="0 0 1000 1000"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   width="100%"
+   height="100%"
+   sodipodi:docname="jackolantern_Vladimir.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview4016"
+     showgrid="false"
+     inkscape:zoom="0.6675088"
+     inkscape:cx="626.04511"
+     inkscape:cy="553.44234"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3476" />
+  <title
+     id="title4674">Jack O' Lantern: Vladimir</title>
+  <defs
+     id="defs3478">
+    <linearGradient
+       id="linearGradient4804-2"
+       y2="273.14"
+       gradientUnits="userSpaceOnUse"
+       x2="617.36"
+       y1="820.45"
+       x1="485.93">
+      <stop
+         id="stop4800-6"
+         style="stop-color:#581100;stop-opacity:.81356"
+         offset="0" />
+      <stop
+         id="stop4802-1"
+         style="stop-color:#d92c00;stop-opacity:.33051"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4634-3"
+       y2="286.09"
+       gradientUnits="userSpaceOnUse"
+       x2="704.56"
+       y1="824.17"
+       x1="622.63">
+      <stop
+         id="stop4630-1"
+         style="stop-color:#b58b00"
+         offset="0" />
+      <stop
+         id="stop4632-5"
+         style="stop-color:#e4af00"
+         offset="1" />
+    </linearGradient>
+    <filter
+       id="filter4334-9"
+       height="1.6257"
+       width="1.0815"
+       color-interpolation-filters="sRGB"
+       y="-.31285"
+       x="-.040739">
+      <feGaussianBlur
+         id="feGaussianBlur4336-9"
+         stdDeviation="9.9696019" />
+    </filter>
+    <linearGradient
+       id="linearGradient4475-1"
+       y2="839.46"
+       gradientUnits="userSpaceOnUse"
+       x2="825.91"
+       gradientTransform="translate(0,21.107)"
+       y1="400.43"
+       x1="891.92">
+      <stop
+         id="stop4582-9"
+         style="stop-color:#ffe627"
+         offset="0" />
+      <stop
+         id="stop4584-1"
+         style="stop-color:#ffc200"
+         offset=".48058" />
+      <stop
+         id="stop4586-0"
+         style="stop-color:#f4ac00"
+         offset=".72481" />
+      <stop
+         id="stop4588-7"
+         style="stop-color:#d78b00"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4473-5"
+       y2="781.62"
+       gradientUnits="userSpaceOnUse"
+       x2="148.84"
+       gradientTransform="translate(0,73.469)"
+       y1="231.55"
+       x1="181.75">
+      <stop
+         id="stop4558-7"
+         style="stop-color:#ffdc10"
+         offset="0" />
+      <stop
+         id="stop4560-0"
+         style="stop-color:#f4b908"
+         offset=".36213" />
+      <stop
+         id="stop4562-4"
+         style="stop-color:#eea704"
+         offset=".75" />
+      <stop
+         id="stop4576-8"
+         style="stop-color:#da9302"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4450-0"
+       y2="888.02"
+       xlink:href="#linearGradient4536-4"
+       gradientUnits="userSpaceOnUse"
+       x2="670.03"
+       gradientTransform="translate(0,73.469)"
+       y1="314.6"
+       x1="756.42" />
+    <linearGradient
+       id="linearGradient4536-4">
+      <stop
+         id="stop4538-2"
+         style="stop-color:#ffe627"
+         offset="0" />
+      <stop
+         id="stop4542-9"
+         style="stop-color:#ffc200"
+         offset=".44962" />
+      <stop
+         id="stop4578-6"
+         style="stop-color:#f4ac00"
+         offset=".72481" />
+      <stop
+         id="stop4540-1"
+         style="stop-color:#d78b00"
+         offset="1" />
+    </linearGradient>
+    <filter
+       id="filter4518-0"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4520-4"
+         stdDeviation="1.1877312" />
+    </filter>
+    <linearGradient
+       id="linearGradient4463-2"
+       y2="839.03"
+       gradientUnits="userSpaceOnUse"
+       x2="288.56"
+       gradientTransform="translate(0,73.469)"
+       y1="267.55"
+       x1="301.8">
+      <stop
+         id="stop4568-2"
+         style="stop-color:#ffdc10"
+         offset="0" />
+      <stop
+         id="stop4570-0"
+         style="stop-color:#f4b908"
+         offset=".39532" />
+      <stop
+         id="stop4572-5"
+         style="stop-color:#eea704"
+         offset=".75" />
+      <stop
+         id="stop4574-5"
+         style="stop-color:#c68000"
+         offset="1" />
+    </linearGradient>
+    <filter
+       id="filter4530-2"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4532-9"
+         stdDeviation="2.4366233" />
+    </filter>
+    <linearGradient
+       id="linearGradient4534-0"
+       y2="864.08"
+       xlink:href="#linearGradient4536-4"
+       gradientUnits="userSpaceOnUse"
+       x2="463.35"
+       gradientTransform="translate(0,73.469)"
+       y1="337.86"
+       x1="595.12" />
+    <filter
+       id="filter4510-2"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur4512-8"
+         stdDeviation="5.0338148" />
+    </filter>
+    <linearGradient
+       id="linearGradient4605-3"
+       y2="135.3"
+       xlink:href="#linearGradient4310-8"
+       gradientUnits="userSpaceOnUse"
+       x2="519.98"
+       gradientTransform="translate(0,21.107)"
+       y1="150.79"
+       x1="450.79" />
+    <linearGradient
+       id="linearGradient4310-8">
+      <stop
+         id="stop4312-0"
+         style="stop-color:#398c24"
+         offset="0" />
+      <stop
+         id="stop4314-4"
+         style="stop-color:#63c44b"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4603-0"
+       y2="87.518"
+       xlink:href="#linearGradient4310-8"
+       gradientUnits="userSpaceOnUse"
+       x2="479.89"
+       y1="250.69"
+       x1="438.74" />
+    <linearGradient
+       id="linearGradient3212"
+       y2="39.797"
+       gradientUnits="userSpaceOnUse"
+       x2="540.25"
+       y1="39.797"
+       x1="490.22">
+      <stop
+         id="stop4622-9"
+         style="stop-color:#cfe96d"
+         offset="0" />
+      <stop
+         id="stop4624-6"
+         style="stop-color:#dfff57"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       id="radialGradient4774"
+       gradientUnits="userSpaceOnUse"
+       cy="695.12"
+       cx="504.54"
+       gradientTransform="matrix(1 -.0024304 .0033812 1.3912 -2.3489 -322.47)"
+       r="301.26">
+      <stop
+         id="stop4715-6-2"
+         style="stop-color:#f7ff70"
+         offset="0" />
+      <stop
+         id="stop4717-0-5"
+         style="stop-color:#ffe900"
+         offset="1" />
+    </radialGradient>
+  </defs>
+  <g
+     id="layer10">
+    <path
+       id="path4703"
+       style="fill:#ffd100"
+       d="m235.84 559.71s-16.934 126.54 83.213 177.47c100.15 50.927 288.11 24.692 388.26-12.346s50.851-165.12 50.851-165.12c-19.718 6.6402-37.459 13.764-54.554 20.733-0.89466 18.067-3.0985 44.172-8.6225 62.615-9.2443 30.865-20.043 53.999-27.747 58.629-4.8967 2.9428-22.819-53.286-35.264-94.698-38.358 11.241-81.872 17.311-143.46 11.377-24.09-2.3209-54.064-7.85-84.871-14.588-12.054 40.928-34.353 113.59-39.907 110.26-7.7036-4.6297-18.502-27.764-27.747-58.629-6.3461-21.188-8.3304-52.557-8.9541-70.145-51.09-13.37-91.2-25.56-91.2-25.56z" />
+    <path
+       id="path4711"
+       style="fill:#ffd100"
+       d="m197.49 457.46c-14.69-24.077-6.6771-84.269 61.429-98.983s84.131 0 102.83 18.726c18.696 18.726 33.385 64.205 10.683 70.893-31.642 9.3218-54.752 29.427-54.752 29.427s9.3479-45.479-5.3417-65.543-28.044-12.038-33.385 8.0256c-5.3417 20.064 1.3354 54.842 1.3354 54.842-39.438-18.898-69.022 2.5801-82.796-17.389z" />
+    <path
+       id="path4713"
+       style="fill:#ffd100"
+       d="m814.42 457.19c14.69-24.077 9.3479-70.893-58.758-85.607s-93.479 0-112.18 18.726c-18.696 18.726-26.708 50.829-4.0062 57.517 31.642 9.3218 72.113 25.414 72.113 25.414s-25.373-41.466-10.683-61.53 49.411-13.376 54.752 6.688c5.3417 20.064-6.6771 52.167-6.6771 52.167 39.438-18.898 51.661 6.5929 65.436-13.376z" />
+    <path
+       id="path4758"
+       style="fill:#ffd100"
+       d="m466.49 461.26 39.422 82.129 39.422-85.414z" />
+    <path
+       id="path4764"
+       style="fill:url(#radialGradient4774)"
+       d="m522.56 481.53-34.656 1 19.375 45.844 15.281-46.844zm-220.41-109.58c-21.447-0.10049-45.484 5.0003-59.045 12.18-20.665 10.94-32.804 37.683-35.235 51.055-2.4312 13.371 3.6304 20.651 21.864 20.651 13.072 0 36.581 5.585 48.948 8.7686-1.5674-11.84-3.2432-31.385 0.27474-44.599 3.7572-14.113 11.472-22.25 20.834-18.865h7.7383c7.2935 0 14.596 7.3044 20.674 19.46 6.0779 12.156 3.6402 37.661 3.6402 37.661s21.886-10.933 35.258-17.011c13.371-6.078 9.7367-4.8482 6.09-20.651-3.6468-15.803-18.251-34.05-41.348-43.774-7.9393-3.3429-18.46-4.8239-29.694-4.8765zm414.65 7.2872c-29.912-0.15187-60.489 9.0904-70.973 19.575-14.587 14.587-12.17 30.389-4.8765 38.898l49.841 18.224s-16.243-37.519 2.4268-47.415c7.0869-3.7563 14.068-5.8374 20.948-6.7768 16.324-6.1505 32.333 11.572 36.402 26.855 3.6504 13.711 4.3102 22.832 1.1218 33.701 6.094-2.5201 16.423-6.3647 22.986-6.3647 9.7247 0 25.516 2.4312 31.594 0s3.649-24.317-1.2134-35.258c-4.8624-10.94-18.227-24.315-54.695-36.471-10.257-3.4188-21.858-4.9087-33.563-4.9681zm36.705 189.08-50.636 24.063c-1.2029 16.482-3.4697 35.993-7.8714 50.689-9.2443 30.865-20.058 53.983-27.761 58.613-0.47216 0.28376-1.0455 0.0106-1.7433-0.73959l-31.195-17.618-12.626-14.026-23.826-46.278s-51.891 5.6048-58.904 2.7999c-7.0123-2.8049-106.61-6.9997-106.61-6.9997l-35.052 74.329-33.652 22.426-0.21131-1.7433c-7.6809-5.0627-18.3-27.985-27.418-58.428-5.8027-19.374-7.9396-47.138-8.7431-65.217l-82.835-17.671s-5.6111 26.648 15.426 72.929c29.017 63.838 93.965 110.8 265.07 98.181 141.27-10.422 155.68-26.642 204.76-61.703 49.086-35.062 23.826-113.61 23.826-113.61z" />
+  </g>
+  <metadata
+     id="metadata4014">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Jack O' Lantern: Vladimir</dc:title>
+        <dc:date>2010-10-16T19:06:14</dc:date>
+        <dc:description>A vampire jack o'lantern named Ignac.</dc:description>
+        <dc:source>https://openclipart.org/detail/91171/jack-o’-lantern:-vladimir-by-simanek</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Simanek</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>halloween</rdf:li>
+            <rdf:li>halloween2010</rdf:li>
+            <rdf:li>jack o'lantern</rdf:li>
+            <rdf:li>pumpkin</rdf:li>
+            <rdf:li>vampire</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
